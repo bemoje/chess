@@ -142,7 +142,7 @@ export class Position extends Array {
 		return (this.y + 1).toString()
 	}
 
-	clone () {
+	clone() {
 		return new Position(this.x, this.y)
 	}
 
@@ -159,7 +159,12 @@ export class Player {
 	/**
 	 * @param {string} color
 	 */
-	constructor(color, pieces) {
+	constructor(game, color, pieces) {
+		Object.defineProperty(this, 'game', {
+			enumerable: false,
+			value: game,
+		})
+
 		this.color = color
 
 		let row1, row2
@@ -176,7 +181,6 @@ export class Player {
 
 		const pos = Position.fromA1Notation
 
-		console.log(pos('E' + row1))
 		this.pieces = [
 			new King(this, pos('E' + row1)),
 			new Queen(this, pos('D' + row1)),
@@ -206,9 +210,15 @@ export class Player {
 	}
 }
 
-export class Board extends Array{
-	constructor () {
+export class Board extends Array {
+	constructor(game) {
 		super(8)
+
+		Object.defineProperty(this, 'game', {
+			enumerable: false,
+			value: game,
+		})
+
 		let i = 0
 		while (i < 8) {
 			this[i] = new Array(8)
@@ -226,11 +236,25 @@ export class Piece {
 	 * @param {Array<number>} player
 	 */
 	constructor(player, position) {
-		this.player = player
+		Object.defineProperty(this, 'player', {
+			enumerable: false,
+			value: player,
+		})
+
+		this.color = player.color
 		this.position = position
 	}
 
-	get type () {
+	get position() {
+		return this._position
+	}
+
+	set position(position) {
+		this._position = position
+		this.player.game.board[this._position.y][this._position.x] = this
+	}
+
+	get type() {
 		return this.constructor.name
 	}
 
@@ -268,8 +292,9 @@ export class Game {
 	moves = []
 
 	constructor() {
-		this.white = new Player('white')
-		this.black = new Player('black')
+		this.board = new Board(this)
+		this.white = new Player(this, 'white')
+		this.black = new Player(this, 'black')
 	}
 
 	get players() {
@@ -292,8 +317,6 @@ export class Game {
 const game = new Game()
 
 console.log(game)
-
-console.log(game.pieces)
 
 console.log(game.makeMove(game.white.king, Position.fromA1Notation('C3')))
 
