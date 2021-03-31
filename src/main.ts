@@ -1,3 +1,14 @@
+/**
+ * Returns the numeric difference between to numbers.
+ */
+function numericDifference(n1: number, n2: number): number {
+	const dist = n1 - n2
+	return dist < 0 ? dist * -1 : dist
+}
+
+/**
+ * The charCode of 'A'
+ */
 const A_CHAR_CODE = 65
 
 function from_X_to_A(x: number): string {
@@ -26,8 +37,6 @@ function from_A1_to_XY(a1: string): Array<number> | Position {
 
 /**
  * Determines whether the argument is a positive integer [number] where 0 <= arg < 8
- * @param {*} n
- * @returns {boolean}
  */
 function isValidXYCoordinatePoint(n: number): boolean {
 	return n >= 0 && n < 8
@@ -52,9 +61,6 @@ function isValidA1Coordinate(a1: string): boolean {
 
 /**
  * Returns an assertion function that expects [string] 'expectation' evaluated by [Function] 'validate'
- * @param {string} expectation
- * @param {Function} validate
- * @returns {Function} function (arg, name = 'arg')
  */
 function createAsserter(expectation: string, validate: Function): Function {
 	const f = function (arg, name = 'arg') {
@@ -205,16 +211,16 @@ export class Board extends Array {
 		this[currPos.y][currPos.x] = null
 	}
 
-	getPieceByXY(x: number, y: number): Piece {
+	getPieceByXY(x: number, y: number): Piece | null {
 		return this[y][x]
 	}
 
-	getPieceByA1(a1: string): Piece {
+	getPieceByA1(a1: string): Piece | null {
 		const [x, y] = from_A1_to_XY(a1)
 		return this.getPieceByXY(x, y)
 	}
 
-	getPieceByPosition(position: Position): Piece {
+	getPieceByPosition(position: Position): Piece | null {
 		return this.getPieceByXY(position.x, position.y)
 	}
 
@@ -234,9 +240,8 @@ export class Board extends Array {
 }
 
 abstract class Piece {
-	protected _position: Position
 	player: Player
-
+	position: Position
 	taken: boolean = false
 	moves: Array<Move> = []
 
@@ -249,71 +254,91 @@ abstract class Piece {
 		this.position = position
 	}
 
-	get position(): Position {
-		return this._position.clone()
+	get game(): Game {
+		return this.player.game
 	}
 
-	set position(position: Position) {
-		this._position = position
-		this.player.game.board[this._position.y][this._position.x] = this
+	get board(): Board {
+		return this.game.board
 	}
 
 	get type(): string {
 		return this.constructor.name
 	}
 
+	get hasMoved() {
+		return this.moves.length > 0
+	}
+
 	_registerMove(move: Move): void {
 		this.moves.push(move)
 		this.position = move.toPosition.clone()
-		this.player.game.board._registerMove(move)
+		this.board._registerMove(move)
 	}
 
-	abstract isLegalMove(toPosition: Position): boolean
+	/**
+	 * Returns whether a move to a position is a valid move.
+	 */
+	abstract isValidMove(toPosition: Position): boolean
+}
+
+function isMoveTargetOwnPiece(self: Piece, target: Position): boolean {
+	const targetPiece = self.board.getPieceByPosition(target)
+	return targetPiece !== null && self.player === targetPiece.player
 }
 
 export class King extends Piece {
-	isLegalMove(toPosition: Position): boolean {
-		// TODO: implementation
-		const pos = this.position
+	isValidMove(target: Position): boolean {
+		if (isMoveTargetOwnPiece(this, target)) {
+			// check if valid castling (rook and king swap) move
+			const targetPiece = this.board.getPieceByPosition(target)
+			return (
+				targetPiece.type === 'Rook' &&
+				!this.hasMoved &&
+				!targetPiece.hasMoved
+			)
+		}
+		if (numericDifference(target.x, this.position.x) > 1) return false
+		if (numericDifference(target.y, this.position.y) > 1) return false
 		return true
 	}
 }
 
 export class Queen extends Piece {
-	isLegalMove(toPosition: Position): boolean {
-		// TODO: implementation
-		const pos = this.position
+	isValidMove(target: Position): boolean {
+		if (isMoveTargetOwnPiece(this, target)) return false
+		// TODO: finish implementation
 		return true
 	}
 }
 
 export class Bishop extends Piece {
-	isLegalMove(toPosition: Position): boolean {
-		// TODO: implementation
-		const pos = this.position
+	isValidMove(target: Position): boolean {
+		if (isMoveTargetOwnPiece(this, target)) return false
+		// TODO: finish implementation
 		return true
 	}
 }
 
 export class Knight extends Piece {
-	isLegalMove(toPosition: Position): boolean {
-		// TODO: implementation
-		const pos = this.position
+	isValidMove(target: Position): boolean {
+		if (isMoveTargetOwnPiece(this, target)) return false
+		// TODO: finish implementation
 		return true
 	}
 }
 
 export class Rook extends Piece {
-	isLegalMove(toPosition: Position): boolean {
-		// TODO: implementation
-		const pos = this.position
+	isValidMove(target: Position): boolean {
+		if (isMoveTargetOwnPiece(this, target)) return false
+		// TODO: finish implementation
 		return true
 	}
 }
 export class Pawn extends Piece {
-	isLegalMove(toPosition: Position): boolean {
-		// TODO: implementation
-		const pos = this.position
+	isValidMove(target: Position): boolean {
+		if (isMoveTargetOwnPiece(this, target)) return false
+		// TODO: finish implementation
 		return true
 	}
 }
@@ -323,15 +348,20 @@ export class Move {
 	fromPosition: Position
 	toPosition: Position
 
-	/**
-	 * @param {Piece} piece
-	 * @param {Position} toPosition
-	 */
-	constructor(piece: Piece, toPosition: Position) {
+	constructor(
+		piece: Piece,
+		toPosition: Position,
+		_skipValidation: boolean = false
+	) {
 		this.piece = piece
 		this.fromPosition = piece.position.clone()
 		this.toPosition = toPosition.clone()
-		piece._registerMove(this)
+
+		if (_skipValidation || piece.isValidMove(toPosition)) {
+			piece._registerMove(this)
+		} else {
+			// TODO: invalid move
+		}
 	}
 }
 
@@ -339,13 +369,13 @@ export class Game {
 	board: Board
 	white: Player
 	black: Player
-
-	moves: Array<Move> = []
+	moves: Array<Move>
 
 	constructor() {
 		this.board = new Board(this)
 		this.white = new Player(this, 'white')
 		this.black = new Player(this, 'black')
+		this.moves = []
 	}
 
 	get players(): Array<Player> {
@@ -356,8 +386,12 @@ export class Game {
 		return [...this.black.pieces, ...this.white.pieces]
 	}
 
-	makeMove(piece: Piece, toPosition: Position): Move {
-		return new Move(piece, toPosition)
+	makeMove(
+		piece: Piece,
+		toPosition: Position,
+		_skipValidation?: boolean
+	): Move {
+		return new Move(piece, toPosition, _skipValidation)
 	}
 
 	clone(): Game {
@@ -365,7 +399,7 @@ export class Game {
 		const moves = this.moves
 		const l = moves.length
 		for (let i = 0; i < l; i++) {
-			game.makeMove(moves[i].piece, moves[i].toPosition)
+			game.makeMove(moves[i].piece, moves[i].toPosition, true)
 		}
 		return game
 	}
