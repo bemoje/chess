@@ -1,4 +1,18 @@
 /**
+ * Removes elements of a given array if they do not evaluate to true.
+ */
+export function arrClean(arr: Array<any>): Array<any> {
+	const res = []
+	const l = arr.length
+	for (let i = 0; i < l; i++) {
+		if (arr[i]) {
+			res.push(arr[i])
+		}
+	}
+	return res
+}
+
+/**
  * Returns the numeric difference between to numbers.
  */
 function numericDifference(n1: number, n2: number): number {
@@ -217,36 +231,25 @@ export class Position extends Array {
 	}
 
 	getAllStraight(): Array<Position> {
-		const res = []
-		const up = this.getUp()
-		if (up) res.push(up)
-		const down = this.getDown()
-		if (down) res.push(down)
-		const left = this.getLeft()
-		if (left) res.push(left)
-		const right = this.getRight()
-		if (right) res.push(right)
-		return res
+		return arrClean([
+			this.getUp(),
+			this.getDown(),
+			this.getLeft(),
+			this.getRight(),
+		])
 	}
 
 	getAllDiagonal(): Array<Position> {
-		const res = []
-		const upLeft = this.getUpLeft()
-		if (upLeft) res.push(upLeft)
-		const upRight = this.getUpRight()
-		if (upRight) res.push(upRight)
-		const downLeft = this.getDownLeft()
-		if (downLeft) res.push(downLeft)
-		const downRight = this.getDownRight()
-		if (downRight) res.push(downRight)
-		return res
+		return arrClean([
+			this.getUpLeft(),
+			this.getUpRight(),
+			this.getDownLeft(),
+			this.getDownRight(),
+		])
 	}
 
 	getAllStraightAndDiagonal(): Array<Position> {
-		const res = []
-		res.push(...this.getAllStraight())
-		res.push(...this.getAllDiagonal())
-		return res
+		return [...this.getAllStraight(), ...this.getAllDiagonal()]
 	}
 
 	private getRecursive(fn: Function): Array<Position> {
@@ -291,49 +294,41 @@ export class Position extends Array {
 	}
 
 	getAllStraightRecursive(): Array<Array<Position>> {
-		const res = []
-		res.push(this.getUpRecursive())
-		res.push(this.getDownRecursive())
-		res.push(this.getLeftRecursive())
-		res.push(this.getRightRecursive())
-		return res
+		return [
+			this.getUpRecursive(),
+			this.getDownRecursive(),
+			this.getLeftRecursive(),
+			this.getRightRecursive(),
+		]
 	}
 
 	getAllDiagonalRecursive(): Array<Array<Position>> {
-		const res = []
-		res.push(this.getUpLeftRecursive())
-		res.push(this.getUpRightRecursive())
-		res.push(this.getDownLeftRecursive())
-		res.push(this.getDownRightRecursive())
-		return res
+		return [
+			this.getUpLeftRecursive(),
+			this.getUpRightRecursive(),
+			this.getDownLeftRecursive(),
+			this.getDownRightRecursive(),
+		]
 	}
 
 	getAllStraightAndDiagonalRecursive(): Array<Array<Position>> {
-		const res = []
-		res.push(...this.getAllStraightRecursive())
-		res.push(...this.getAllDiagonalRecursive())
-		return res
+		return [
+			...this.getAllStraightRecursive(),
+			...this.getAllDiagonalRecursive(),
+		]
 	}
 
 	getAllKnightMovePositions(): Array<Position> {
-		const res = []
-		const upUpLeft = this.getUpUpLeft()
-		if (upUpLeft) res.push(upUpLeft)
-		const upUpRight = this.getUpUpRight()
-		if (upUpRight) res.push(upUpRight)
-		const downDownLeft = this.getDownDownLeft()
-		if (downDownLeft) res.push(downDownLeft)
-		const downDownRight = this.getDownDownRight()
-		if (downDownRight) res.push(downDownRight)
-		const leftLeftUp = this.getLeftLeftUp()
-		if (leftLeftUp) res.push(leftLeftUp)
-		const leftLeftDown = this.getLeftLeftDown()
-		if (leftLeftDown) res.push(leftLeftDown)
-		const rightRightUp = this.getRightRightUp()
-		if (rightRightUp) res.push(rightRightUp)
-		const rightRightDown = this.getRightRightDown()
-		if (rightRightDown) res.push(rightRightDown)
-		return res
+		return arrClean([
+			this.getUpUpLeft(),
+			this.getUpUpRight(),
+			this.getDownDownLeft(),
+			this.getDownDownRight(),
+			this.getLeftLeftUp(),
+			this.getLeftLeftDown(),
+			this.getRightRightUp(),
+			this.getRightRightDown(),
+		])
 	}
 
 	clone(): Position {
