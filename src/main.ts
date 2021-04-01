@@ -132,6 +132,10 @@ export class Position extends Array {
 		return this.A1
 	}
 
+	compare(position: Position): boolean {
+		return this.x === position.x && this.y === position.y
+	}
+
 	private getModulation(xBy: number, yBy: number): Position | null {
 		try {
 			return new Position(this.x + xBy, this.y + yBy)
@@ -240,8 +244,8 @@ export class Position extends Array {
 
 	getAllStraightAndDiagonal(): Array<Position> {
 		const res = []
-		res.concat(...this.getAllStraight())
-		res.concat(...this.getAllDiagonal())
+		res.push(...this.getAllStraight())
+		res.push(...this.getAllDiagonal())
 		return res
 	}
 
@@ -306,8 +310,8 @@ export class Position extends Array {
 
 	getAllStraightAndDiagonalRecursive(): Array<Array<Position>> {
 		const res = []
-		res.concat(...this.getAllStraightRecursive())
-		res.concat(...this.getAllDiagonalRecursive())
+		res.push(...this.getAllStraightRecursive())
+		res.push(...this.getAllDiagonalRecursive())
 		return res
 	}
 
@@ -404,8 +408,8 @@ export class Board extends Array {
 	}
 
 	registerMove(move: Move): void {
-		const currPos = move.fromPosition
-		const newPos = move.toPosition
+		const currPos = move.from
+		const newPos = move.to
 		const piece = this[currPos.y][currPos.x]
 		this[newPos.y][newPos.x] = piece
 		this[currPos.y][currPos.x] = null
@@ -469,9 +473,13 @@ abstract class Piece {
 		return this.moves.length > 0
 	}
 
+	get color(): string {
+		return this.player.color
+	}
+
 	registerMove(move: Move): void {
 		this.moves.push(move)
-		this.position = move.toPosition.clone()
+		this.position = move.to.clone()
 	}
 
 	remove(): void {
@@ -486,38 +494,56 @@ abstract class Piece {
 	/**
 	 * Returns whether a move to a position is a valid move.
 	 */
-	abstract isValidMove(toPosition: Position): boolean
+	protected isValidMove(target: Position): boolean {
+		return this.isMoveTargetOwnPiece(target)
+	}
+
+	/**
+	 * Returns a Position array with all piece-specific move positions within bounds of the board.
+	 */
+	protected abstract getMovePositionsWithinBounds(): Array<
+		Position | Array<Position>
+	>
 
 	/**
 	 * Returns a Position array with all valid moves.
 	 */
-	abstract getMovePositionsWithinBounds(): Array<Position>
-
 	getValidMovePositions(): Array<Position> {
-		return this.getMovePositionsWithinBounds().reduce((res, elem) => {
-			if (Array.isArray(elem)) {
-				for (const e of elem) {
-					if (this.isValidMove(elem)) res.push(elem)
+		return this.getMovePositionsWithinBounds().reduce((res, item) => {
+			if (Array.isArray(item)) {
+				for (const subItem of item) {
+					if (this.isValidMove(subItem)) res.push(subItem)
 					else break
 				}
-			} else if (this.isValidMove(elem)) {
-				res.push(elem)
+			} else if (this.isValidMove(item)) {
+				res.push(item)
 			}
 			return res
 		}, [])
 	}
+
+	isValidMovePosition(target: Position): boolean {
+		return !!this.getValidMovePositions().find((position: Position) => {
+			return position.compare(target)
+		})
+	}
 }
 
 export class King extends Piece {
-	isValidMove(target: Position): boolean {
-		if (this.isMoveTargetOwnPiece(target)) {
-			return this.isValidCastleMove(target)
+	protected getMovePositionsWithinBounds(): Array<Position | Array<Position>> {
+		const res = this.position.getAllStraightAndDiagonal()
+		if (this.color === 'white') {
+			res.push(Position.fromA1Notation('A1'), Position.fromA1Notation('H1'))
+		} else {
+			res.push(Position.fromA1Notation('A7'), Position.fromA1Notation('H7'))
 		}
-		return true
+		return res
 	}
 
-	getMovePositionsWithinBounds(): Array<Position> {
-		return this.position.getAllStraightAndDiagonal()
+	protected isValidMove(target: Position): boolean {
+		return this.isMoveTargetOwnPiece(target)
+			? this.isValidCastleMove(target)
+			: true
 	}
 
 	private isValidCastleMove(target: Position): boolean {
@@ -528,55 +554,21 @@ export class King extends Piece {
 	}
 }
 
-export class Queen extends Piece {
-	isValidMove(target: Position): boolean {
-		if (this.isMoveTargetOwnPiece(target)) return false
-		// TODO: finish implementation
-		return true
-	}
-
-	getMovePositionsWithinBounds(): Array<Position> {
-		// TODO: finish implementation
-		return []
-	}
-}
-
-export class Bishop extends Piece {
-	isValidMove(target: Position): boolean {
-		if (this.isMoveTargetOwnPiece(target)) return false
-		// TODO: finish implementation
-		return true
-	}
-
-	getMovePositionsWithinBounds(): Array<Position> {
-		// TODO: finish implementation
-		return []
-	}
-}
-
-export class Knight extends Piece {
-	isValidMove(target: Position): boolean {
-		if (this.isMoveTargetOwnPiece(target)) return false
-		// TODO: finish implementation
-		return true
-	}
-
-	getMovePositionsWithinBounds(): Array<Position> {
-		// TODO: finish implementation
-		return []
-	}
-}
-
 export class Rook extends Piece {
-	isValidMove(target: Position): boolean {
-		if (this.isMoveTargetOwnPiece(target)) return false
-		// TODO: finish implementation
-		return true
+	protected getMovePositionsWithinBounds(): Array<Position | Array<Position>> {
+		const res = this.position.getAllStraightRecursive()
+		if (this.color === 'white') {
+			res.push(Position.fromA1Notation('D1'))
+		} else {
+			res.push(Position.fromA1Notation('D7'))
+		}
+		return res
 	}
 
-	getMovePositionsWithinBounds(): Array<Position> {
-		// TODO: finish implementation
-		return []
+	protected isValidMove(target: Position): boolean {
+		return this.isMoveTargetOwnPiece(target)
+			? this.isValidCastleMove(target)
+			: true
 	}
 
 	private isValidCastleMove(target: Position): boolean {
@@ -586,40 +578,93 @@ export class Rook extends Piece {
 		)
 	}
 }
-export class Pawn extends Piece {
-	isValidMove(target: Position): boolean {
-		if (this.isMoveTargetOwnPiece(target)) return false
-		// TODO: finish implementation
-		return true
-	}
 
-	getMovePositionsWithinBounds(): Array<Position> {
-		// TODO: finish implementation
-		return []
+export class Queen extends Piece {
+	protected getMovePositionsWithinBounds(): Array<Position | Array<Position>> {
+		return this.position.getAllStraightAndDiagonalRecursive()
+	}
+}
+
+export class Bishop extends Piece {
+	protected getMovePositionsWithinBounds(): Array<Position | Array<Position>> {
+		return this.position.getAllDiagonalRecursive()
+	}
+}
+
+export class Knight extends Piece {
+	protected getMovePositionsWithinBounds(): Array<Position | Array<Position>> {
+		return this.position.getAllKnightMovePositions()
+	}
+}
+
+export class Pawn extends Piece {
+	protected getMovePositionsWithinBounds(): Array<Position | Array<Position>> {
+		let diagLeftPiece: Piece, diagRightPiece: Piece
+
+		const res = []
+
+		if (this.color === 'white') {
+			res.push(this.position.getUp())
+
+			if (!this.hasMoved) {
+				res.push(this.position.getUpUp())
+			}
+
+			diagLeftPiece = this.game.board.getPieceByPosition(
+				this.position.getUpLeft()
+			)
+			if (diagLeftPiece && diagLeftPiece.color === 'black') {
+				res.push(diagLeftPiece.position.clone())
+			}
+
+			diagRightPiece = this.game.board.getPieceByPosition(
+				this.position.getUpRight()
+			)
+			if (diagRightPiece && diagRightPiece.color === 'black') {
+				res.push(diagLeftPiece.position.clone())
+			}
+		} else {
+			res.push(this.position.getDown())
+
+			if (!this.hasMoved) {
+				res.push(this.position.getDownDown())
+			}
+
+			diagLeftPiece = this.game.board.getPieceByPosition(
+				this.position.getDownLeft()
+			)
+			if (diagLeftPiece && diagLeftPiece.color === 'white') {
+				res.push(diagLeftPiece.position.clone())
+			}
+
+			diagRightPiece = this.game.board.getPieceByPosition(
+				this.position.getDownRight()
+			)
+			if (diagRightPiece && diagRightPiece.color === 'white') {
+				res.push(diagLeftPiece.position.clone())
+			}
+		}
+		return res
 	}
 }
 
 export class Move {
 	piece: Piece
-	fromPosition: Position
-	toPosition: Position
+	from: Position
+	to: Position
 
-	constructor(
-		piece: Piece,
-		toPosition: Position,
-		_skipValidation: boolean = false
-	) {
+	constructor(piece: Piece, to: Position, _skipValidation: boolean = false) {
 		this.piece = piece
-		this.fromPosition = piece.position.clone()
-		this.toPosition = toPosition.clone()
+		this.from = piece.position.clone()
+		this.to = to.clone()
 
-		if (_skipValidation || piece.isValidMove(toPosition)) {
-			const targetPiece = piece.game.board.getPieceByPosition(toPosition)
+		if (_skipValidation || piece.isValidMovePosition(to)) {
+			const targetPiece = piece.game.board.getPieceByPosition(to)
 			if (targetPiece) targetPiece.remove()
 			piece.registerMove(this)
 			piece.game.board.registerMove(this)
 		} else {
-			// TODO: invalid move
+			throw new Error('Invalid move.')
 		}
 	}
 }
@@ -645,12 +690,8 @@ export class Game {
 		return [...this.black.pieces, ...this.white.pieces]
 	}
 
-	makeMove(
-		piece: Piece,
-		toPosition: Position,
-		_skipValidation?: boolean
-	): Move {
-		return new Move(piece, toPosition, _skipValidation)
+	makeMove(piece: Piece, to: Position, _skipValidation?: boolean): Move {
+		return new Move(piece, to, _skipValidation)
 	}
 
 	clone(): Game {
@@ -658,7 +699,7 @@ export class Game {
 		const moves = this.moves
 		const l = moves.length
 		for (let i = 0; i < l; i++) {
-			game.makeMove(moves[i].piece, moves[i].toPosition, true)
+			game.makeMove(moves[i].piece, moves[i].to, true)
 		}
 		return game
 	}
