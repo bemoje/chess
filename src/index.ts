@@ -91,9 +91,9 @@ function isValidXYCoordinate(coordinate: Array<number> | Position): boolean {
 /**
  * Determines whether the argument is a valid A1 notation chess board coordinate string
  */
-function isValidA1Coordinate(a1: string): boolean {
+/*function isValidA1Coordinate(a1: string): boolean {
   return isValidXYCoordinate(from_A1_to_XY(a1));
-}
+}*/
 
 /**
  * Returns an assertion function that expects [string] 'expectedToBe' evaluated by [Function] 'validate'
@@ -115,20 +115,20 @@ export function createAssertFunction(
   return f;
 }
 
-const assertValidXYCoordinatePoint: Function = createAssertFunction(
+/*const assertValidXYCoordinatePoint = createAssertFunction(
   'a positive integer between 0 and 7',
   isValidXYCoordinatePoint,
-);
+);*/
 
-const assertValidXYCoordinate: Function = createAssertFunction(
+const assertValidXYCoordinate = createAssertFunction(
   'two positive integers between 0 and 7',
   isValidXYCoordinate,
 );
 
-const assertValidA1Coordinate: Function = createAssertFunction(
+/*const assertValidA1Coordinate = createAssertFunction(
   'a valid A1 notation chess board coordinate string',
   isValidA1Coordinate,
-);
+);*/
 
 export class Position extends Array {
   static fromA1Notation(a1: string): Position {
@@ -140,7 +140,7 @@ export class Position extends Array {
    * @param x - a positive integer between 0 and 8 both inclusive.
    * @param y - a positive integer between 0 and 8 both inclusive.
    */
-  constructor(x: number, y: number, _skipValidation: boolean = false) {
+  constructor(x: number, y: number, _skipValidation = false) {
     if (!_skipValidation) {
       assertValidXYCoordinate([x, y], 'x and y');
     }
@@ -277,9 +277,10 @@ export class Position extends Array {
     return [...this.getAllStraight(), ...this.getAllDiagonal()];
   }
 
-  private getRecursive(fn: Function): Array<Position> {
+  private getRecursive(fn: () => Position | null): Array<Position> {
     const res = [];
-    let pos: Position | null = this;
+    let pos: Position | null;
+    pos = this;
     while ((pos = fn.call(pos))) {
       res.push(pos);
     }
@@ -366,7 +367,7 @@ export class Player {
   color: string;
   pieces: Array<Piece>;
 
-  constructor(game: Game, color: string, pieces?: Array<Piece>) {
+  constructor(game: Game, color: string) {
     this.game = game;
     this.color = color;
 
@@ -619,41 +620,71 @@ export class Pawn extends Piece {
   protected getMovePositionsWithinBounds(): Array<Position | Array<Position>> {
     const pos = this.position;
     if (!pos) return [];
-    let diagLeftPiece, diagRightPiece;
-
     const res = [];
 
     if (this.color === 'white') {
-      res.push(pos.getUp());
-
-      if (!this.hasMoved) {
-        res.push(pos.getUpUp());
+      const upPos = pos.getUp();
+      if (upPos) {
+        res.push(upPos);
       }
 
-      diagLeftPiece = this.game.board.getPieceByPosition(pos.getUpLeft());
-      if (diagLeftPiece && diagLeftPiece.color === 'black') {
-        res.push(diagLeftPiece.position.clone());
+      const upUpPos = pos.getUpUp();
+      if (upUpPos && !this.hasMoved) {
+        res.push(upUpPos);
       }
 
-      diagRightPiece = this.game.board.getPieceByPosition(pos.getUpRight());
-      if (diagRightPiece && diagRightPiece.color === 'black') {
-        res.push(diagLeftPiece.position.clone());
+      const upLeftPos = pos.getUpLeft();
+      if (upLeftPos) {
+        const diagLeftPiece = this.game.board.getPieceByPosition(upLeftPos);
+        if (diagLeftPiece) {
+          const diagLeftPos = diagLeftPiece.position;
+          if (diagLeftPos && diagLeftPiece.color === 'black') {
+            res.push(diagLeftPos.clone());
+          }
+        }
+      }
+
+      const upRightPos = pos.getUpRight();
+      if (upRightPos) {
+        const diagRightPiece = this.game.board.getPieceByPosition(upRightPos);
+        if (diagRightPiece) {
+          const diagLeftPos = diagRightPiece.position;
+          if (diagLeftPos && diagRightPiece.color === 'black') {
+            res.push(diagLeftPos.clone());
+          }
+        }
       }
     } else {
-      res.push(pos.getDown());
-
-      if (!this.hasMoved) {
-        res.push(pos.getDownDown());
+      const downPos = pos.getDown();
+      if (downPos) {
+        res.push(downPos);
       }
 
-      diagLeftPiece = this.game.board.getPieceByPosition(pos.getDownLeft());
-      if (diagLeftPiece && diagLeftPiece.color === 'white') {
-        res.push(diagLeftPiece.position.clone());
+      const downDownPos = pos.getDownDown();
+      if (downDownPos && !this.hasMoved) {
+        res.push(downDownPos);
       }
 
-      diagRightPiece = this.game.board.getPieceByPosition(pos.getDownRight());
-      if (diagRightPiece && diagRightPiece.color === 'white') {
-        res.push(diagLeftPiece.position.clone());
+      const downLeftPos = pos.getDownLeft();
+      if (downLeftPos) {
+        const diagLeftPiece = this.game.board.getPieceByPosition(downLeftPos);
+        if (diagLeftPiece) {
+          const diagLeftPos = diagLeftPiece.position;
+          if (diagLeftPos && diagLeftPiece.color === 'white') {
+            res.push(diagLeftPos.clone());
+          }
+        }
+      }
+
+      const downRightPos = pos.getDownRight();
+      if (downRightPos) {
+        const diagRightPiece = this.game.board.getPieceByPosition(downRightPos);
+        if (diagRightPiece) {
+          const diagLeftPos = diagRightPiece.position;
+          if (diagLeftPos && diagRightPiece.color === 'white') {
+            res.push(diagLeftPos.clone());
+          }
+        }
       }
     }
     return res;
@@ -665,7 +696,7 @@ export class Move {
   from: Position;
   to: Position;
 
-  constructor(piece: Piece, to: Position, _skipValidation: boolean = false) {
+  constructor(piece: Piece, to: Position, _skipValidation = false) {
     const pos = piece.position;
     if (!pos) throw new Error('Cannot move a piece that is not on the board.');
 
