@@ -1,6 +1,6 @@
 /*!
  * bemoje-chess-engine v0.0.0
- * (c) [authorFullName]
+ * (c) Benjamin Møller Jensen
  * Released under the MIT License.
  */
 

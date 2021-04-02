@@ -1,56 +1,44 @@
-**[Chess Engine](README.md)**
-
-> Globals
+bemoje-chess-engine / [Exports](modules.md)
 
 # Chess Engine
 
-## Index
+[![Build Status](https://travis-ci.org/bemoje/chess.svg?branch=master)](https://travis-ci.org/bemoje/chess)
+[![License](https://badgen.net/github/license/bemoje/chess)](./LICENSE)
+[![Library minified size](https://badgen.net/bundlephobia/min/bemoje-chess-engine)](https://bundlephobia.com/result?p=bemoje-chess-engine)
+[![Library minified + gzipped size](https://badgen.net/bundlephobia/minzip/bemoje-chess-engine)](https://bundlephobia.com/result?p=bemoje-chess-engine)
 
-### Type aliases
+## Installation
 
-* [NumberParseable](README.md#numberparseable)
+This library is published in the NPM registry and can be installed using any compatible package manager.
 
-### Functions
+```sh
+npm install bemoje-chess-engine --save
 
-* [isNumberParseable](README.md#isnumberparseable)
-
-## Type aliases
-
-### NumberParseable
-
-Ƭ  **NumberParseable**: number \| string \| boolean & { isNumberParseble: unique symbol  }
-
-*Defined in [index.ts:4](https://github.com/VitorLuizC/typescript-library-boilerplate/blob/bf4667f/src/index.ts#L4)*
-
-A Branded Type for values parseable to number.
-
-## Functions
-
-### isNumberParseable
-
-▸ `Const`**isNumberParseable**(`value`: unknown): value is NumberParseable
-
-*Defined in [index.ts:23](https://github.com/VitorLuizC/typescript-library-boilerplate/blob/bf4667f/src/index.ts#L23)*
-
-Check if value is parseable to number.
-
-**`example`** ```ts
-isNumberParseable('AAAA');
-//=> false
-
-isNumberParseable('100');
-//=> true
-
-if (!isNumberParseable(value))
-  throw new Error('Value can\'t be parseable to `Number`.')
-return Number(value);
+# For Yarn, use the command below.
+yarn add bemoje-chess-engine
 ```
-@param value - An `unknown` value to be checked.
 
-#### Parameters:
+### Installation from CDN
 
-Name | Type |
------- | ------ |
-`value` | unknown |
+This module has an UMD bundle available through JSDelivr and Unpkg CDNs.
 
-**Returns:** value is NumberParseable
+```html
+<!-- For UNPKG use the code below. -->
+<script src="https://unpkg.com/bemoje-chess-engine"></script>
+
+<!-- For JSDelivr use the code below. -->
+<script src="https://cdn.jsdelivr.net/npm/bemoje-chess-engine"></script>
+
+<script>
+  // UMD module is exposed through the "[libraryCamelCaseName]" global variable.
+  console.log([libraryCamelCaseName]);
+</script>
+```
+
+## Documentation
+
+[Documentation generated from source files by Typedoc](./docs/README.md).
+
+## License
+
+Released under [MIT License](./LICENSE).
