@@ -1,7 +1,7 @@
 /**
  * Removes elements of a given array if they do not evaluate to true.
  */
-export function arrClean(arr: Array<any>): Array<any> {
+export function arrClean<T>(arr: Array<T>): Array<T> {
 	const res = []
 	const l = arr.length
 	for (let i = 0; i < l; i++) {
@@ -15,7 +15,7 @@ export function arrClean(arr: Array<any>): Array<any> {
 /**
  * Returns the numeric difference between to numbers.
  */
-function numericDifference(n1: number, n2: number): number {
+export function numericDifference(n1: number, n2: number): number {
 	const dist = n1 - n2
 	return dist < 0 ? dist * -1 : dist
 }
@@ -73,7 +73,7 @@ function isValidA1Coordinate(a1: string): boolean {
 /**
  * Returns an assertion function that expects [string] 'expectedToBe' evaluated by [Function] 'validate'
  */
-function createAssertFunction(
+export function createAssertFunction(
 	expectedToBe: string,
 	validate: (arg: any) => boolean
 ): (arg: any, name: string) => void {
@@ -446,7 +446,7 @@ export class Board extends Array {
 abstract class Piece {
 	player: Player
 	position: Position | null
-	moves: Array<Move> = []
+	moves: Array<Move>
 
 	constructor(player: Player, position: Position) {
 		Object.defineProperty(this, 'player', {
@@ -454,6 +454,7 @@ abstract class Piece {
 			value: player,
 		})
 		this.position = position
+		this.moves = []
 	}
 
 	get game(): Game {
