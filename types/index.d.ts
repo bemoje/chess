@@ -1,23 +1,13 @@
-/**
- * A Branded Type for values parseable to number.
- */
-export declare type NumberParseable = (number | string | boolean) & {
-    readonly isNumberParseble: unique symbol;
-};
-/**
- * Check if value is parseable to number.
- * @example ```ts
- * isNumberParseable('AAAA');
- * //=> false
- *
- * isNumberParseable('100');
- * //=> true
- *
- * if (!isNumberParseable(value))
- *   throw new Error('Value can\'t be parseable to `Number`.')
- * return Number(value);
- * ```
- * @param value - An `unknown` value to be checked.
- */
-export declare const isNumberParseable: (value: unknown) => value is NumberParseable;
+export { Bishop } from './Bishop';
+export { Board } from './Board';
+export { Game } from './Game';
+export { King } from './King';
+export { Knight } from './Knight';
+export { Move } from './Move';
+export { Pawn } from './Pawn';
+export { Player } from './Player';
+export { Position } from './Position';
+export { Queen } from './Queen';
+export { Rook } from './Rook';
+export { from_X_to_A, from_Y_to_1, from_A_to_X, from_1_to_Y, from_XY_to_A1, from_A1_to_XY, isValidXYPoint, isValidXY, isValidA1, assertValidXYPoint, assertValidXY, assertValidA1, } from './coordinates';
 //# sourceMappingURL=index.d.ts.map
