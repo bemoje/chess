@@ -30,8 +30,8 @@ This module has an UMD bundle available through JSDelivr and Unpkg CDNs.
 <script src="https://cdn.jsdelivr.net/npm/bemoje-chess-engine"></script>
 
 <script>
-  // UMD module is exposed through the "[libraryCamelCaseName]" global variable.
-  console.log([libraryCamelCaseName]);
+  // UMD module is exposed through the "bemoje-chess-engine" global variable.
+  console.log(bemoje-chess-engine);
 </script>
 ```
 
