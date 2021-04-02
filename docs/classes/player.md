@@ -29,7 +29,7 @@ Name | Type |
 
 **Returns:** [*Player*](player.md)
 
-Defined in: [src/Player.ts:14](https://github.com/bemoje/chess/blob/e03f9b9/src/Player.ts#L14)
+Defined in: [src/Player.ts:14](https://github.com/bemoje/chess/blob/6d332b1/src/Player.ts#L14)
 
 ## Properties
 
@@ -37,7 +37,7 @@ Defined in: [src/Player.ts:14](https://github.com/bemoje/chess/blob/e03f9b9/src/
 
 • **color**: *string*
 
-Defined in: [src/Player.ts:13](https://github.com/bemoje/chess/blob/e03f9b9/src/Player.ts#L13)
+Defined in: [src/Player.ts:13](https://github.com/bemoje/chess/blob/6d332b1/src/Player.ts#L13)
 
 ___
 
@@ -45,7 +45,7 @@ ___
 
 • **game**: [*Game*](game.md)
 
-Defined in: [src/Player.ts:12](https://github.com/bemoje/chess/blob/e03f9b9/src/Player.ts#L12)
+Defined in: [src/Player.ts:12](https://github.com/bemoje/chess/blob/6d332b1/src/Player.ts#L12)
 
 ___
 
@@ -53,4 +53,4 @@ ___
 
 • **pieces**: *Piece*[]
 
-Defined in: [src/Player.ts:14](https://github.com/bemoje/chess/blob/e03f9b9/src/Player.ts#L14)
+Defined in: [src/Player.ts:14](https://github.com/bemoje/chess/blob/6d332b1/src/Player.ts#L14)

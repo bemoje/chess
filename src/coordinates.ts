@@ -34,8 +34,8 @@ export function from_1_to_Y(n: string): number {
 /**
  * Converts a XY-coordinate-array or a Position type (extends Array) to an A1-notation string.
  */
-export function from_XY_to_A1(xy: Array<number> | Position): string {
-  return from_X_to_A(xy[0]) + from_Y_to_1(xy[1]);
+export function from_XY_to_A1(pos: Array<number> | Position): string {
+  return from_X_to_A(pos[0]) + from_Y_to_1(pos[1]);
 }
 
 /**
@@ -55,8 +55,8 @@ export function isValidXYPoint(n: number): boolean {
 /**
  * Returns whether both points in an XY-coordinate is a positive integer where 0 <= arg <= 7.
  */
-export function isValidXY(coordinate: Array<number> | Position): boolean {
-  return isValidXYPoint(coordinate[0]) && isValidXYPoint(coordinate[1]);
+export function isValidXY(pos: Array<number> | Position): boolean {
+  return isValidXYPoint(pos[0]) && isValidXYPoint(pos[1]);
 }
 
 /**

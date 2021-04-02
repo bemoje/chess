@@ -18,7 +18,7 @@ export declare function from_1_to_Y(n: string): number;
 /**
  * Converts a XY-coordinate-array or a Position type (extends Array) to an A1-notation string.
  */
-export declare function from_XY_to_A1(xy: Array<number> | Position): string;
+export declare function from_XY_to_A1(pos: Array<number> | Position): string;
 /**
  * Converts an A1-notation string to a XY-coordinate-array.
  */
@@ -30,7 +30,7 @@ export declare function isValidXYPoint(n: number): boolean;
 /**
  * Returns whether both points in an XY-coordinate is a positive integer where 0 <= arg <= 7.
  */
-export declare function isValidXY(coordinate: Array<number> | Position): boolean;
+export declare function isValidXY(pos: Array<number> | Position): boolean;
 /**
  * Returns whether a string is valid A1-notation.
  */

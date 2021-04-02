@@ -62,16 +62,16 @@ export abstract class Piece {
    * Returns a Position array with all valid moves.
    */
   getValidMovePositions(): Array<Position> {
-    return this.getMovePositionsWithinBounds().reduce((res, item) => {
+    return this.getMovePositionsWithinBounds().reduce((accum, item) => {
       if (Array.isArray(item)) {
-        for (const subItem of item) {
-          if (this.isValidMove(subItem)) res.push(subItem);
+        for (const pos of item) {
+          if (pos && this.isValidMove(pos)) accum.push(pos);
           else break;
         }
       } else if (this.isValidMove(item)) {
-        res.push(item);
+        accum.push(item);
       }
-      return res;
+      return accum;
     }, []);
   }
 

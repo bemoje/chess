@@ -33,7 +33,7 @@
 
 **Returns:** [*Game*](game.md)
 
-Defined in: [src/Game.ts:11](https://github.com/bemoje/chess/blob/e03f9b9/src/Game.ts#L11)
+Defined in: [src/Game.ts:11](https://github.com/bemoje/chess/blob/6d332b1/src/Game.ts#L11)
 
 ## Properties
 
@@ -41,7 +41,7 @@ Defined in: [src/Game.ts:11](https://github.com/bemoje/chess/blob/e03f9b9/src/Ga
 
 • **black**: [*Player*](player.md)
 
-Defined in: [src/Game.ts:10](https://github.com/bemoje/chess/blob/e03f9b9/src/Game.ts#L10)
+Defined in: [src/Game.ts:10](https://github.com/bemoje/chess/blob/6d332b1/src/Game.ts#L10)
 
 ___
 
@@ -49,7 +49,7 @@ ___
 
 • **board**: [*Board*](board.md)
 
-Defined in: [src/Game.ts:8](https://github.com/bemoje/chess/blob/e03f9b9/src/Game.ts#L8)
+Defined in: [src/Game.ts:8](https://github.com/bemoje/chess/blob/6d332b1/src/Game.ts#L8)
 
 ___
 
@@ -57,7 +57,7 @@ ___
 
 • **moves**: [*Move*](move.md)[]
 
-Defined in: [src/Game.ts:11](https://github.com/bemoje/chess/blob/e03f9b9/src/Game.ts#L11)
+Defined in: [src/Game.ts:11](https://github.com/bemoje/chess/blob/6d332b1/src/Game.ts#L11)
 
 ___
 
@@ -65,7 +65,7 @@ ___
 
 • **white**: [*Player*](player.md)
 
-Defined in: [src/Game.ts:9](https://github.com/bemoje/chess/blob/e03f9b9/src/Game.ts#L9)
+Defined in: [src/Game.ts:9](https://github.com/bemoje/chess/blob/6d332b1/src/Game.ts#L9)
 
 ## Accessors
 
@@ -75,7 +75,7 @@ Defined in: [src/Game.ts:9](https://github.com/bemoje/chess/blob/e03f9b9/src/Gam
 
 **Returns:** *Piece*[]
 
-Defined in: [src/Game.ts:24](https://github.com/bemoje/chess/blob/e03f9b9/src/Game.ts#L24)
+Defined in: [src/Game.ts:24](https://github.com/bemoje/chess/blob/6d332b1/src/Game.ts#L24)
 
 ___
 
@@ -85,7 +85,7 @@ ___
 
 **Returns:** [*Player*](player.md)[]
 
-Defined in: [src/Game.ts:20](https://github.com/bemoje/chess/blob/e03f9b9/src/Game.ts#L20)
+Defined in: [src/Game.ts:20](https://github.com/bemoje/chess/blob/6d332b1/src/Game.ts#L20)
 
 ## Methods
 
@@ -95,7 +95,7 @@ Defined in: [src/Game.ts:20](https://github.com/bemoje/chess/blob/e03f9b9/src/Ga
 
 **Returns:** [*Game*](game.md)
 
-Defined in: [src/Game.ts:32](https://github.com/bemoje/chess/blob/e03f9b9/src/Game.ts#L32)
+Defined in: [src/Game.ts:32](https://github.com/bemoje/chess/blob/6d332b1/src/Game.ts#L32)
 
 ___
 
@@ -113,4 +113,4 @@ Name | Type |
 
 **Returns:** [*Move*](move.md)
 
-Defined in: [src/Game.ts:28](https://github.com/bemoje/chess/blob/e03f9b9/src/Game.ts#L28)
+Defined in: [src/Game.ts:28](https://github.com/bemoje/chess/blob/6d332b1/src/Game.ts#L28)

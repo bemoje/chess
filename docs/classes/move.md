@@ -30,7 +30,7 @@ Name | Type | Default value |
 
 **Returns:** [*Move*](move.md)
 
-Defined in: [src/Move.ts:7](https://github.com/bemoje/chess/blob/e03f9b9/src/Move.ts#L7)
+Defined in: [src/Move.ts:7](https://github.com/bemoje/chess/blob/6d332b1/src/Move.ts#L7)
 
 ## Properties
 
@@ -38,7 +38,7 @@ Defined in: [src/Move.ts:7](https://github.com/bemoje/chess/blob/e03f9b9/src/Mov
 
 • **from**: [*Position*](position.md)
 
-Defined in: [src/Move.ts:6](https://github.com/bemoje/chess/blob/e03f9b9/src/Move.ts#L6)
+Defined in: [src/Move.ts:6](https://github.com/bemoje/chess/blob/6d332b1/src/Move.ts#L6)
 
 ___
 
@@ -46,7 +46,7 @@ ___
 
 • **piece**: *Piece*
 
-Defined in: [src/Move.ts:5](https://github.com/bemoje/chess/blob/e03f9b9/src/Move.ts#L5)
+Defined in: [src/Move.ts:5](https://github.com/bemoje/chess/blob/6d332b1/src/Move.ts#L5)
 
 ___
 
@@ -54,4 +54,4 @@ ___
 
 • **to**: [*Position*](position.md)
 
-Defined in: [src/Move.ts:7](https://github.com/bemoje/chess/blob/e03f9b9/src/Move.ts#L7)
+Defined in: [src/Move.ts:7](https://github.com/bemoje/chess/blob/6d332b1/src/Move.ts#L7)

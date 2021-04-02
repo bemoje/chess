@@ -47,19 +47,19 @@ class Piece {
      * Returns a Position array with all valid moves.
      */
     getValidMovePositions() {
-        return this.getMovePositionsWithinBounds().reduce((res, item) => {
+        return this.getMovePositionsWithinBounds().reduce((accum, item) => {
             if (Array.isArray(item)) {
-                for (const subItem of item) {
-                    if (this.isValidMove(subItem))
-                        res.push(subItem);
+                for (const pos of item) {
+                    if (pos && this.isValidMove(pos))
+                        accum.push(pos);
                     else
                         break;
                 }
             }
             else if (this.isValidMove(item)) {
-                res.push(item);
+                accum.push(item);
             }
-            return res;
+            return accum;
         }, []);
     }
     isValidMovePosition(target) {
@@ -132,8 +132,8 @@ function from_1_to_Y(n) {
 /**
  * Converts a XY-coordinate-array or a Position type (extends Array) to an A1-notation string.
  */
-function from_XY_to_A1(xy) {
-    return from_X_to_A(xy[0]) + from_Y_to_1(xy[1]);
+function from_XY_to_A1(pos) {
+    return from_X_to_A(pos[0]) + from_Y_to_1(pos[1]);
 }
 /**
  * Converts an A1-notation string to a XY-coordinate-array.
@@ -150,8 +150,8 @@ function isValidXYPoint(n) {
 /**
  * Returns whether both points in an XY-coordinate is a positive integer where 0 <= arg <= 7.
  */
-function isValidXY(coordinate) {
-    return isValidXYPoint(coordinate[0]) && isValidXYPoint(coordinate[1]);
+function isValidXY(pos) {
+    return isValidXYPoint(pos[0]) && isValidXYPoint(pos[1]);
 }
 /**
  * Returns whether a string is valid A1-notation.
@@ -184,50 +184,52 @@ const assertValidXY = createAssertFunction('an array containing two positive int
  */
 const assertValidA1 = createAssertFunction('a valid A1-notation string', isValidA1);
 
-class Board extends Array {
+class Board {
     constructor(game) {
-        super(8);
         this.game = game;
+        this.grid = [];
         let i = 0;
         while (i < 8) {
-            this[i] = new Array(8).fill(null, 0, 7);
+            this.grid.push(new Array(8).fill(null, 0, 7));
             i++;
         }
     }
+    /**
+     * Updates the board instance based on the information contained within a provided Move instance.
+     */
     registerMove(move) {
         const currPos = move.from;
         const newPos = move.to;
-        const piece = this[currPos.y][currPos.x];
-        this[newPos.y][newPos.x] = piece;
-        this[currPos.y][currPos.x] = null;
+        const piece = this.grid[currPos.y][currPos.x];
+        this.grid[newPos.y][newPos.x] = piece;
+        this.grid[currPos.y][currPos.x] = null;
     }
+    /**
+     * Removes a piece from the board.
+     */
     removePiece(piece) {
         const pos = piece.position;
         if (pos)
-            this[pos.y][pos.x] = null;
+            this.grid[pos.y][pos.x] = null;
     }
+    /**
+     * Returns the piece at the given XY-coordinates or null if no piece is found there.
+     */
     getPieceByXY(x, y) {
-        return this[y][x];
+        return this.grid[y][x];
     }
+    /**
+     * Returns the piece at the given A1-notation-coordinates or null if no piece is found there.
+     */
     getPieceByA1(a1) {
         const [x, y] = from_A1_to_XY(a1);
         return this.getPieceByXY(x, y);
     }
+    /**
+     * Returns the piece at the given Position or null if no piece is found there.
+     */
     getPieceByPosition(position) {
         return this.getPieceByXY(position.x, position.y);
-    }
-    clone(game = this.game) {
-        const board = new Board(game);
-        let i = 0;
-        while (i < 8) {
-            let j = 0;
-            while (j < 8) {
-                board[i][j] = this[i][j];
-                j++;
-            }
-            i++;
-        }
-        return board;
     }
 }
 

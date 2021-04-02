@@ -56,7 +56,7 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [src/coordinates.ts:100](https://github.com/bemoje/chess/blob/e03f9b9/src/coordinates.ts#L100)
+Defined in: [src/coordinates.ts:100](https://github.com/bemoje/chess/blob/6d332b1/src/coordinates.ts#L100)
 
 ___
 
@@ -81,7 +81,7 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [src/coordinates.ts:88](https://github.com/bemoje/chess/blob/e03f9b9/src/coordinates.ts#L88)
+Defined in: [src/coordinates.ts:88](https://github.com/bemoje/chess/blob/6d332b1/src/coordinates.ts#L88)
 
 ___
 
@@ -106,7 +106,7 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [src/coordinates.ts:76](https://github.com/bemoje/chess/blob/e03f9b9/src/coordinates.ts#L76)
+Defined in: [src/coordinates.ts:76](https://github.com/bemoje/chess/blob/6d332b1/src/coordinates.ts#L76)
 
 ___
 
@@ -124,7 +124,7 @@ Name | Type |
 
 **Returns:** *number*
 
-Defined in: [src/coordinates.ts:30](https://github.com/bemoje/chess/blob/e03f9b9/src/coordinates.ts#L30)
+Defined in: [src/coordinates.ts:30](https://github.com/bemoje/chess/blob/6d332b1/src/coordinates.ts#L30)
 
 ___
 
@@ -142,7 +142,7 @@ Name | Type |
 
 **Returns:** *number*[]
 
-Defined in: [src/coordinates.ts:44](https://github.com/bemoje/chess/blob/e03f9b9/src/coordinates.ts#L44)
+Defined in: [src/coordinates.ts:44](https://github.com/bemoje/chess/blob/6d332b1/src/coordinates.ts#L44)
 
 ___
 
@@ -160,13 +160,13 @@ Name | Type |
 
 **Returns:** *number*
 
-Defined in: [src/coordinates.ts:23](https://github.com/bemoje/chess/blob/e03f9b9/src/coordinates.ts#L23)
+Defined in: [src/coordinates.ts:23](https://github.com/bemoje/chess/blob/6d332b1/src/coordinates.ts#L23)
 
 ___
 
 ### from\_XY\_to\_A1
 
-▸ **from_XY_to_A1**(`xy`: *number*[] \| [*Position*](classes/position.md)): *string*
+▸ **from_XY_to_A1**(`pos`: *number*[] \| [*Position*](classes/position.md)): *string*
 
 Converts a XY-coordinate-array or a Position type (extends Array) to an A1-notation string.
 
@@ -174,11 +174,11 @@ Converts a XY-coordinate-array or a Position type (extends Array) to an A1-notat
 
 Name | Type |
 :------ | :------ |
-`xy` | *number*[] \| [*Position*](classes/position.md) |
+`pos` | *number*[] \| [*Position*](classes/position.md) |
 
 **Returns:** *string*
 
-Defined in: [src/coordinates.ts:37](https://github.com/bemoje/chess/blob/e03f9b9/src/coordinates.ts#L37)
+Defined in: [src/coordinates.ts:37](https://github.com/bemoje/chess/blob/6d332b1/src/coordinates.ts#L37)
 
 ___
 
@@ -196,7 +196,7 @@ Name | Type |
 
 **Returns:** *string*
 
-Defined in: [src/coordinates.ts:9](https://github.com/bemoje/chess/blob/e03f9b9/src/coordinates.ts#L9)
+Defined in: [src/coordinates.ts:9](https://github.com/bemoje/chess/blob/6d332b1/src/coordinates.ts#L9)
 
 ___
 
@@ -214,7 +214,7 @@ Name | Type |
 
 **Returns:** *string*
 
-Defined in: [src/coordinates.ts:16](https://github.com/bemoje/chess/blob/e03f9b9/src/coordinates.ts#L16)
+Defined in: [src/coordinates.ts:16](https://github.com/bemoje/chess/blob/6d332b1/src/coordinates.ts#L16)
 
 ___
 
@@ -232,13 +232,13 @@ Name | Type |
 
 **Returns:** *boolean*
 
-Defined in: [src/coordinates.ts:65](https://github.com/bemoje/chess/blob/e03f9b9/src/coordinates.ts#L65)
+Defined in: [src/coordinates.ts:65](https://github.com/bemoje/chess/blob/6d332b1/src/coordinates.ts#L65)
 
 ___
 
 ### isValidXY
 
-▸ **isValidXY**(`coordinate`: *number*[] \| [*Position*](classes/position.md)): *boolean*
+▸ **isValidXY**(`pos`: *number*[] \| [*Position*](classes/position.md)): *boolean*
 
 Returns whether both points in an XY-coordinate is a positive integer where 0 <= arg <= 7.
 
@@ -246,11 +246,11 @@ Returns whether both points in an XY-coordinate is a positive integer where 0 <=
 
 Name | Type |
 :------ | :------ |
-`coordinate` | *number*[] \| [*Position*](classes/position.md) |
+`pos` | *number*[] \| [*Position*](classes/position.md) |
 
 **Returns:** *boolean*
 
-Defined in: [src/coordinates.ts:58](https://github.com/bemoje/chess/blob/e03f9b9/src/coordinates.ts#L58)
+Defined in: [src/coordinates.ts:58](https://github.com/bemoje/chess/blob/6d332b1/src/coordinates.ts#L58)
 
 ___
 
@@ -268,4 +268,4 @@ Name | Type |
 
 **Returns:** *boolean*
 
-Defined in: [src/coordinates.ts:51](https://github.com/bemoje/chess/blob/e03f9b9/src/coordinates.ts#L51)
+Defined in: [src/coordinates.ts:51](https://github.com/bemoje/chess/blob/6d332b1/src/coordinates.ts#L51)
