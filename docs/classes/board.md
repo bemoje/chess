@@ -20,6 +20,7 @@
 - [getPieceByXY](board.md#getpiecebyxy)
 - [registerMove](board.md#registermove)
 - [removePiece](board.md#removepiece)
+- [setPiece](board.md#setpiece)
 
 ## Constructors
 
@@ -35,7 +36,7 @@ Name | Type |
 
 **Returns:** [*Board*](board.md)
 
-Defined in: [src/Board.ts:10](https://github.com/bemoje/chess/blob/6d332b1/src/Board.ts#L10)
+Defined in: [Board.ts:10](https://github.com/bemoje/chess/blob/255b248/src/Board.ts#L10)
 
 ## Properties
 
@@ -43,7 +44,7 @@ Defined in: [src/Board.ts:10](https://github.com/bemoje/chess/blob/6d332b1/src/B
 
 • **game**: [*Game*](game.md)
 
-Defined in: [src/Board.ts:9](https://github.com/bemoje/chess/blob/6d332b1/src/Board.ts#L9)
+Defined in: [Board.ts:9](https://github.com/bemoje/chess/blob/255b248/src/Board.ts#L9)
 
 ___
 
@@ -51,7 +52,7 @@ ___
 
 • **grid**: (*null* \| *Piece*)[][]
 
-Defined in: [src/Board.ts:10](https://github.com/bemoje/chess/blob/6d332b1/src/Board.ts#L10)
+Defined in: [Board.ts:10](https://github.com/bemoje/chess/blob/255b248/src/Board.ts#L10)
 
 ## Methods
 
@@ -69,7 +70,7 @@ Name | Type |
 
 **Returns:** *null* \| *Piece*
 
-Defined in: [src/Board.ts:51](https://github.com/bemoje/chess/blob/6d332b1/src/Board.ts#L51)
+Defined in: [Board.ts:39](https://github.com/bemoje/chess/blob/255b248/src/Board.ts#L39)
 
 ___
 
@@ -87,7 +88,7 @@ Name | Type |
 
 **Returns:** *null* \| *Piece*
 
-Defined in: [src/Board.ts:59](https://github.com/bemoje/chess/blob/6d332b1/src/Board.ts#L59)
+Defined in: [Board.ts:32](https://github.com/bemoje/chess/blob/255b248/src/Board.ts#L32)
 
 ___
 
@@ -106,7 +107,7 @@ Name | Type |
 
 **Returns:** *null* \| *Piece*
 
-Defined in: [src/Board.ts:44](https://github.com/bemoje/chess/blob/6d332b1/src/Board.ts#L44)
+Defined in: [Board.ts:25](https://github.com/bemoje/chess/blob/255b248/src/Board.ts#L25)
 
 ___
 
@@ -124,15 +125,34 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [src/Board.ts:25](https://github.com/bemoje/chess/blob/6d332b1/src/Board.ts#L25)
+Defined in: [Board.ts:66](https://github.com/bemoje/chess/blob/255b248/src/Board.ts#L66)
 
 ___
 
 ### removePiece
 
-▸ **removePiece**(`piece`: *Piece*): *void*
+▸ **removePiece**(`piece`: *null* \| *Piece*): *void*
 
 Removes a piece from the board.
+This method does not check legality or whether this action is part of a move in the game.
+
+#### Parameters:
+
+Name | Type |
+:------ | :------ |
+`piece` | *null* \| *Piece* |
+
+**Returns:** *void*
+
+Defined in: [Board.ts:56](https://github.com/bemoje/chess/blob/255b248/src/Board.ts#L56)
+
+___
+
+### setPiece
+
+▸ **setPiece**(`piece`: *Piece*): *void*
+
+Sets a piece to the board.
 
 #### Parameters:
 
@@ -142,4 +162,4 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [src/Board.ts:36](https://github.com/bemoje/chess/blob/6d332b1/src/Board.ts#L36)
+Defined in: [Board.ts:47](https://github.com/bemoje/chess/blob/255b248/src/Board.ts#L47)

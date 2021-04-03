@@ -20,29 +20,17 @@ export class Board {
   }
 
   /**
-   * Updates the board instance based on the information contained within a provided Move instance.
-   */
-  registerMove(move: Move): void {
-    const currPos = move.from;
-    const newPos = move.to;
-    const piece = this.grid[currPos.y][currPos.x];
-    this.grid[newPos.y][newPos.x] = piece;
-    this.grid[currPos.y][currPos.x] = null;
-  }
-
-  /**
-   * Removes a piece from the board.
-   */
-  removePiece(piece: Piece): void {
-    const pos = piece.position;
-    if (pos) this.grid[pos.y][pos.x] = null;
-  }
-
-  /**
    * Returns the piece at the given XY-coordinates or null if no piece is found there.
    */
   getPieceByXY(x: number, y: number): Piece | null {
     return this.grid[y][x];
+  }
+
+  /**
+   * Returns the piece at the given Position or null if no piece is found there.
+   */
+  getPieceByPosition(position: Position): Piece | null {
+    return this.getPieceByXY(position.x, position.y);
   }
 
   /**
@@ -54,23 +42,32 @@ export class Board {
   }
 
   /**
-   * Returns the piece at the given Position or null if no piece is found there.
+   * Sets a piece to the board.
    */
-  getPieceByPosition(position: Position): Piece | null {
-    return this.getPieceByXY(position.x, position.y);
+  setPiece(piece: Piece): void {
+    const pos = piece.position;
+    if (pos) this.grid[pos.y][pos.x] = piece;
   }
 
-  // clone(game: Game = this.game): Board {
-  //   const board = new Board(game);
-  //   let i = 0;
-  //   while (i < 8) {
-  //     let j = 0;
-  //     while (j < 8) {
-  //       board[i][j] = this.grid[i][j];
-  //       j++;
-  //     }
-  //     i++;
-  //   }
-  //   return board;
-  // }
+  /**
+   * Removes a piece from the board.
+   * This method does not check legality or whether this action is part of a move in the game.
+   */
+  removePiece(piece: Piece | null): void {
+    if (piece) {
+      const pos = piece.position;
+      if (pos) this.grid[pos.y][pos.x] = null;
+    }
+  }
+
+  /**
+   * Updates the board instance based on the information contained within a provided Move instance.
+   */
+  registerMove(move: Move): void {
+    const from = move.from;
+    const to = move.to;
+    const piece = this.grid[from.y][from.x];
+    this.grid[to.y][to.x] = piece;
+    this.grid[from.y][from.x] = null;
+  }
 }

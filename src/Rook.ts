@@ -5,7 +5,8 @@ export class Rook extends Piece {
   protected getMovePositionsWithinBounds(): Array<Position | Array<Position>> {
     const pos = this.position;
     if (!pos) return [];
-    const res = pos.getAllStraightRecursive();
+    const res = [];
+    res.push(...pos.getAllStraightRecursive());
     if (this.color === 'white') {
       res.push(Position.fromA1Notation('D1'));
     } else {

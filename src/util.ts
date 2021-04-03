@@ -1,12 +1,15 @@
+import type { Position } from './Position';
+
 /**
  * Removes elements of a given array if they do not evaluate to true.
  */
-export function arrClean(arr: Array<any>): Array<any> {
+export function arrClean(arr: Array<Position | null>): Array<Position> {
   const res = [];
   const l = arr.length;
   for (let i = 0; i < l; i++) {
-    if (arr[i]) {
-      res.push(arr[i]);
+    const pos = arr[i];
+    if (pos) {
+      res.push(pos);
     }
   }
   return res;
@@ -23,11 +26,11 @@ export function numericDifference(n1: number, n2: number): number {
 /**
  * Returns an assertion function that expects [string] 'expectedToBe' evaluated by [Function] 'validate'
  */
-export function createAssertFunction(
+export function createAssertFunction<T>(
   expectedToBe: string,
-  validate: (arg: any) => boolean,
-): (arg: any, name?: string) => void {
-  const f = function (arg: any, name = 'arg') {
+  validate: (arg: T) => boolean,
+): (arg: T, name?: string) => void {
+  const f = function (arg: T, name = 'arg') {
     if (!validate(arg)) {
       throw new TypeError(
         `Expected ${name} to be ${expectedToBe}. ${name}: ${arg}`,

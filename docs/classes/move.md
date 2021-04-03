@@ -12,13 +12,14 @@
 
 - [from](move.md#from)
 - [piece](move.md#piece)
+- [takes](move.md#takes)
 - [to](move.md#to)
 
 ## Constructors
 
 ### constructor
 
-\+ **new Move**(`piece`: *Piece*, `to`: [*Position*](position.md), `_skipValidation?`: *boolean*): [*Move*](move.md)
+\+ **new Move**(`piece`: *Piece*, `to`: [*Position*](position.md), `takes?`: *null* \| *Piece*): [*Move*](move.md)
 
 #### Parameters:
 
@@ -26,11 +27,11 @@ Name | Type | Default value |
 :------ | :------ | :------ |
 `piece` | *Piece* | - |
 `to` | [*Position*](position.md) | - |
-`_skipValidation` | *boolean* | false |
+`takes` | *null* \| *Piece* | null |
 
 **Returns:** [*Move*](move.md)
 
-Defined in: [src/Move.ts:7](https://github.com/bemoje/chess/blob/6d332b1/src/Move.ts#L7)
+Defined in: [Move.ts:8](https://github.com/bemoje/chess/blob/255b248/src/Move.ts#L8)
 
 ## Properties
 
@@ -38,7 +39,7 @@ Defined in: [src/Move.ts:7](https://github.com/bemoje/chess/blob/6d332b1/src/Mov
 
 • **from**: [*Position*](position.md)
 
-Defined in: [src/Move.ts:6](https://github.com/bemoje/chess/blob/6d332b1/src/Move.ts#L6)
+Defined in: [Move.ts:7](https://github.com/bemoje/chess/blob/255b248/src/Move.ts#L7)
 
 ___
 
@@ -46,7 +47,15 @@ ___
 
 • **piece**: *Piece*
 
-Defined in: [src/Move.ts:5](https://github.com/bemoje/chess/blob/6d332b1/src/Move.ts#L5)
+Defined in: [Move.ts:5](https://github.com/bemoje/chess/blob/255b248/src/Move.ts#L5)
+
+___
+
+### takes
+
+• **takes**: *null* \| *Piece*
+
+Defined in: [Move.ts:6](https://github.com/bemoje/chess/blob/255b248/src/Move.ts#L6)
 
 ___
 
@@ -54,4 +63,4 @@ ___
 
 • **to**: [*Position*](position.md)
 
-Defined in: [src/Move.ts:7](https://github.com/bemoje/chess/blob/6d332b1/src/Move.ts#L7)
+Defined in: [Move.ts:8](https://github.com/bemoje/chess/blob/255b248/src/Move.ts#L8)

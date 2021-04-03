@@ -4,9 +4,10 @@ import type { Game } from './Game';
 import type { Move } from './Move';
 export declare abstract class Piece {
     player: Player;
+    index: number;
     position: Position | null;
     moves: Array<Move>;
-    constructor(player: Player, position: Position);
+    constructor(player: Player, index: number, position: Position);
     get game(): Game;
     get type(): string;
     get hasMoved(): boolean;

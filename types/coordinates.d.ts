@@ -1,4 +1,3 @@
-import type { Position } from './Position';
 /**
  * Converts the first value of an XY-coordinate to A1-notation.
  */
@@ -16,9 +15,9 @@ export declare function from_A_to_X(a: string): number;
  */
 export declare function from_1_to_Y(n: string): number;
 /**
- * Converts a XY-coordinate-array or a Position type (extends Array) to an A1-notation string.
+ * Converts a XY-coordinate-array to an A1-notation string.
  */
-export declare function from_XY_to_A1(pos: Array<number> | Position): string;
+export declare function from_XY_to_A1(pos: Array<number>): string;
 /**
  * Converts an A1-notation string to a XY-coordinate-array.
  */
@@ -30,7 +29,7 @@ export declare function isValidXYPoint(n: number): boolean;
 /**
  * Returns whether both points in an XY-coordinate is a positive integer where 0 <= arg <= 7.
  */
-export declare function isValidXY(pos: Array<number> | Position): boolean;
+export declare function isValidXY(pos: Array<number>): boolean;
 /**
  * Returns whether a string is valid A1-notation.
  */
@@ -42,7 +41,7 @@ export declare function isValidA1(a1: string): boolean;
  * @function assertValidXYPoint
  * @throws {TypeError}
  */
-export declare const assertValidXYPoint: (arg: any, name?: string | undefined) => void;
+export declare const assertValidXYPoint: (arg: number, name?: string | undefined) => void;
 /**
  * Throws a TypeError if the argument is not a valid XY-coordinate.
  * @see isValidXY
@@ -50,7 +49,7 @@ export declare const assertValidXYPoint: (arg: any, name?: string | undefined) =
  * @function assertValidXY
  * @throws {TypeError}
  */
-export declare const assertValidXY: (arg: any, name?: string | undefined) => void;
+export declare const assertValidXY: (arg: number[], name?: string | undefined) => void;
 /**
  * Throws a TypeError if the argument is not valid A1-notation.
  * @see isValidA1
@@ -58,5 +57,5 @@ export declare const assertValidXY: (arg: any, name?: string | undefined) => voi
  * @function assertValidA1
  * @throws {TypeError}
  */
-export declare const assertValidA1: (arg: any, name?: string | undefined) => void;
+export declare const assertValidA1: (arg: string, name?: string | undefined) => void;
 //# sourceMappingURL=coordinates.d.ts.map

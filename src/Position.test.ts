@@ -31,18 +31,6 @@ describe('Position (class)', () => {
     });
   });
 
-  describe('(getter) x', () => {
-    it('Returns the first value of the XY-point that the instance describes.', () => {
-      expect(new Position(2, 5).x).toBe(2);
-    });
-  });
-
-  describe('(getter) y', () => {
-    it('Returns the second value of the XY-point that the instance describes.', () => {
-      expect(new Position(2, 5).y).toBe(5);
-    });
-  });
-
   describe('(getter) A1', () => {
     it('Returns the board position in A1-notation.', () => {
       expect(new Position(2, 5).A1).toBe('C6');
@@ -205,7 +193,8 @@ describe('Position (class)', () => {
     it('(method) getAllStraight', () => {
       expect(
         new Position(3, 3).getAllStraight().map((pos) => {
-          return pos.toArray();
+          if (pos) return pos.toArray();
+          else return;
         }),
       ).toStrictEqual([
         new Position(3, 4).toArray(),
@@ -218,7 +207,8 @@ describe('Position (class)', () => {
     it('(method) getAllDiagonal', () => {
       expect(
         new Position(3, 3).getAllDiagonal().map((pos) => {
-          return pos.toArray();
+          if (pos) return pos.toArray();
+          else return;
         }),
       ).toStrictEqual([
         new Position(2, 4).toArray(),
@@ -231,7 +221,8 @@ describe('Position (class)', () => {
     it('(method) getAllStraightAndDiagonal', () => {
       expect(
         new Position(3, 3).getAllStraightAndDiagonal().map((pos) => {
-          return pos.toArray();
+          if (pos) return pos.toArray();
+          else return;
         }),
       ).toStrictEqual([
         new Position(3, 4).toArray(),
@@ -248,7 +239,8 @@ describe('Position (class)', () => {
     it('(method) getAllKnightMovePositions', () => {
       expect(
         new Position(3, 3).getAllKnightMovePositions().map((pos) => {
-          return pos.toArray();
+          if (pos) return pos.toArray();
+          else return;
         }),
       ).toStrictEqual([
         new Position(2, 5).toArray(),
@@ -267,7 +259,8 @@ describe('Position (class)', () => {
     it('(method) getUpRecursive', () => {
       expect(
         new Position(3, 3).getUpRecursive().map((pos) => {
-          return pos.toArray();
+          if (pos) return pos.toArray();
+          else return;
         }),
       ).toStrictEqual([
         new Position(3, 4).toArray(),
@@ -280,7 +273,8 @@ describe('Position (class)', () => {
     it('(method) getDownRecursive', () => {
       expect(
         new Position(3, 3).getDownRecursive().map((pos) => {
-          return pos.toArray();
+          if (pos) return pos.toArray();
+          else return;
         }),
       ).toStrictEqual([
         new Position(3, 2).toArray(),
@@ -292,7 +286,8 @@ describe('Position (class)', () => {
     it('(method) getLeftRecursive', () => {
       expect(
         new Position(3, 3).getLeftRecursive().map((pos) => {
-          return pos.toArray();
+          if (pos) return pos.toArray();
+          else return;
         }),
       ).toStrictEqual([
         new Position(2, 3).toArray(),
@@ -304,7 +299,8 @@ describe('Position (class)', () => {
     it('(method) getRightRecursive', () => {
       expect(
         new Position(3, 3).getRightRecursive().map((pos) => {
-          return pos.toArray();
+          if (pos) return pos.toArray();
+          else return;
         }),
       ).toStrictEqual([
         new Position(4, 3).toArray(),
@@ -317,7 +313,8 @@ describe('Position (class)', () => {
     it('(method) getUpLeftRecursive', () => {
       expect(
         new Position(3, 3).getUpLeftRecursive().map((pos) => {
-          return pos.toArray();
+          if (pos) return pos.toArray();
+          else return;
         }),
       ).toStrictEqual([
         new Position(2, 4).toArray(),
@@ -329,7 +326,8 @@ describe('Position (class)', () => {
     it('(method) getUpRightRecursive', () => {
       expect(
         new Position(3, 3).getUpRightRecursive().map((pos) => {
-          return pos.toArray();
+          if (pos) return pos.toArray();
+          else return;
         }),
       ).toStrictEqual([
         new Position(4, 4).toArray(),
@@ -342,7 +340,8 @@ describe('Position (class)', () => {
     it('(method) getDownLeftRecursive', () => {
       expect(
         new Position(3, 3).getDownLeftRecursive().map((pos) => {
-          return pos.toArray();
+          if (pos) return pos.toArray();
+          else return;
         }),
       ).toStrictEqual([
         new Position(2, 2).toArray(),
@@ -354,7 +353,8 @@ describe('Position (class)', () => {
     it('(method) getDownRightRecursive', () => {
       expect(
         new Position(3, 3).getDownRightRecursive().map((pos) => {
-          return pos.toArray();
+          if (pos) return pos.toArray();
+          else return;
         }),
       ).toStrictEqual([
         new Position(4, 2).toArray(),

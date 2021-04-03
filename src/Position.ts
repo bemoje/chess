@@ -1,7 +1,9 @@
 import { from_A1_to_XY, from_XY_to_A1, assertValidXY } from './coordinates';
 import { arrClean } from './util';
 
-export class Position extends Array {
+export class Position {
+  x: number;
+  y: number;
   /**
    * Returns a new Position instance based on A1-notation input.
    */
@@ -14,27 +16,12 @@ export class Position extends Array {
    * @param x - a positive integer between 0 and 7 both inclusive.
    * @param y - a positive integer between 0 and 7 both inclusive.
    */
-  constructor(x: number, y: number, _skipValidation = false) {
-    if (!_skipValidation) {
+  constructor(x: number, y: number, skipValidation = false) {
+    if (!skipValidation) {
       assertValidXY([x, y], 'x and y');
     }
-    super(2);
-    this[0] = x;
-    this[1] = y;
-  }
-
-  /**
-   * Returns the first value of the XY-point that the instance describes.
-   */
-  get x(): number {
-    return this[0];
-  }
-
-  /**
-   * Returns the second value of the XY-point that the instance describes.
-   */
-  get y(): number {
-    return this[1];
+    this.x = x;
+    this.y = y;
   }
 
   /**
@@ -67,7 +54,8 @@ export class Position extends Array {
   }
 
   /**
-   * Modulates the XY-position coordinate and returns a new Position instance equivalent to it.
+   * Modulates the XY-position coordinate and returns a new Position instance equivalent to it, or null if that position
+   * is out of bounds of the board.
    */
   private getModulation(xBy: number, yBy: number): Position | null {
     try {

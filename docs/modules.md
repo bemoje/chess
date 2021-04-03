@@ -37,7 +37,7 @@
 
 ### assertValidA1
 
-▸ `Const`**assertValidA1**(`arg`: *any*, `name?`: *string*): *void*
+▸ `Const`**assertValidA1**(`arg`: *string*, `name?`: *string*): *void*
 
 Throws a TypeError if the argument is not valid A1-notation.
 
@@ -51,18 +51,18 @@ Throws a TypeError if the argument is not valid A1-notation.
 
 Name | Type |
 :------ | :------ |
-`arg` | *any* |
+`arg` | *string* |
 `name?` | *string* |
 
 **Returns:** *void*
 
-Defined in: [src/coordinates.ts:100](https://github.com/bemoje/chess/blob/6d332b1/src/coordinates.ts#L100)
+Defined in: [coordinates.ts:99](https://github.com/bemoje/chess/blob/255b248/src/coordinates.ts#L99)
 
 ___
 
 ### assertValidXY
 
-▸ `Const`**assertValidXY**(`arg`: *any*, `name?`: *string*): *void*
+▸ `Const`**assertValidXY**(`arg`: *number*[], `name?`: *string*): *void*
 
 Throws a TypeError if the argument is not a valid XY-coordinate.
 
@@ -76,18 +76,18 @@ Throws a TypeError if the argument is not a valid XY-coordinate.
 
 Name | Type |
 :------ | :------ |
-`arg` | *any* |
+`arg` | *number*[] |
 `name?` | *string* |
 
 **Returns:** *void*
 
-Defined in: [src/coordinates.ts:88](https://github.com/bemoje/chess/blob/6d332b1/src/coordinates.ts#L88)
+Defined in: [coordinates.ts:87](https://github.com/bemoje/chess/blob/255b248/src/coordinates.ts#L87)
 
 ___
 
 ### assertValidXYPoint
 
-▸ `Const`**assertValidXYPoint**(`arg`: *any*, `name?`: *string*): *void*
+▸ `Const`**assertValidXYPoint**(`arg`: *number*, `name?`: *string*): *void*
 
 Throws a TypeError if the argument is not a valid XY-coordinate point.
 
@@ -101,12 +101,12 @@ Throws a TypeError if the argument is not a valid XY-coordinate point.
 
 Name | Type |
 :------ | :------ |
-`arg` | *any* |
+`arg` | *number* |
 `name?` | *string* |
 
 **Returns:** *void*
 
-Defined in: [src/coordinates.ts:76](https://github.com/bemoje/chess/blob/6d332b1/src/coordinates.ts#L76)
+Defined in: [coordinates.ts:75](https://github.com/bemoje/chess/blob/255b248/src/coordinates.ts#L75)
 
 ___
 
@@ -124,7 +124,7 @@ Name | Type |
 
 **Returns:** *number*
 
-Defined in: [src/coordinates.ts:30](https://github.com/bemoje/chess/blob/6d332b1/src/coordinates.ts#L30)
+Defined in: [coordinates.ts:29](https://github.com/bemoje/chess/blob/255b248/src/coordinates.ts#L29)
 
 ___
 
@@ -142,7 +142,7 @@ Name | Type |
 
 **Returns:** *number*[]
 
-Defined in: [src/coordinates.ts:44](https://github.com/bemoje/chess/blob/6d332b1/src/coordinates.ts#L44)
+Defined in: [coordinates.ts:43](https://github.com/bemoje/chess/blob/255b248/src/coordinates.ts#L43)
 
 ___
 
@@ -160,25 +160,25 @@ Name | Type |
 
 **Returns:** *number*
 
-Defined in: [src/coordinates.ts:23](https://github.com/bemoje/chess/blob/6d332b1/src/coordinates.ts#L23)
+Defined in: [coordinates.ts:22](https://github.com/bemoje/chess/blob/255b248/src/coordinates.ts#L22)
 
 ___
 
 ### from\_XY\_to\_A1
 
-▸ **from_XY_to_A1**(`pos`: *number*[] \| [*Position*](classes/position.md)): *string*
+▸ **from_XY_to_A1**(`pos`: *number*[]): *string*
 
-Converts a XY-coordinate-array or a Position type (extends Array) to an A1-notation string.
+Converts a XY-coordinate-array to an A1-notation string.
 
 #### Parameters:
 
 Name | Type |
 :------ | :------ |
-`pos` | *number*[] \| [*Position*](classes/position.md) |
+`pos` | *number*[] |
 
 **Returns:** *string*
 
-Defined in: [src/coordinates.ts:37](https://github.com/bemoje/chess/blob/6d332b1/src/coordinates.ts#L37)
+Defined in: [coordinates.ts:36](https://github.com/bemoje/chess/blob/255b248/src/coordinates.ts#L36)
 
 ___
 
@@ -196,7 +196,7 @@ Name | Type |
 
 **Returns:** *string*
 
-Defined in: [src/coordinates.ts:9](https://github.com/bemoje/chess/blob/6d332b1/src/coordinates.ts#L9)
+Defined in: [coordinates.ts:8](https://github.com/bemoje/chess/blob/255b248/src/coordinates.ts#L8)
 
 ___
 
@@ -214,7 +214,7 @@ Name | Type |
 
 **Returns:** *string*
 
-Defined in: [src/coordinates.ts:16](https://github.com/bemoje/chess/blob/6d332b1/src/coordinates.ts#L16)
+Defined in: [coordinates.ts:15](https://github.com/bemoje/chess/blob/255b248/src/coordinates.ts#L15)
 
 ___
 
@@ -232,13 +232,13 @@ Name | Type |
 
 **Returns:** *boolean*
 
-Defined in: [src/coordinates.ts:65](https://github.com/bemoje/chess/blob/6d332b1/src/coordinates.ts#L65)
+Defined in: [coordinates.ts:64](https://github.com/bemoje/chess/blob/255b248/src/coordinates.ts#L64)
 
 ___
 
 ### isValidXY
 
-▸ **isValidXY**(`pos`: *number*[] \| [*Position*](classes/position.md)): *boolean*
+▸ **isValidXY**(`pos`: *number*[]): *boolean*
 
 Returns whether both points in an XY-coordinate is a positive integer where 0 <= arg <= 7.
 
@@ -246,11 +246,11 @@ Returns whether both points in an XY-coordinate is a positive integer where 0 <=
 
 Name | Type |
 :------ | :------ |
-`pos` | *number*[] \| [*Position*](classes/position.md) |
+`pos` | *number*[] |
 
 **Returns:** *boolean*
 
-Defined in: [src/coordinates.ts:58](https://github.com/bemoje/chess/blob/6d332b1/src/coordinates.ts#L58)
+Defined in: [coordinates.ts:57](https://github.com/bemoje/chess/blob/255b248/src/coordinates.ts#L57)
 
 ___
 
@@ -268,4 +268,4 @@ Name | Type |
 
 **Returns:** *boolean*
 
-Defined in: [src/coordinates.ts:51](https://github.com/bemoje/chess/blob/6d332b1/src/coordinates.ts#L51)
+Defined in: [coordinates.ts:50](https://github.com/bemoje/chess/blob/255b248/src/coordinates.ts#L50)

@@ -1,4 +1,6 @@
-export declare class Position extends Array {
+export declare class Position {
+    x: number;
+    y: number;
     /**
      * Returns a new Position instance based on A1-notation input.
      */
@@ -7,15 +9,7 @@ export declare class Position extends Array {
      * @param x - a positive integer between 0 and 7 both inclusive.
      * @param y - a positive integer between 0 and 7 both inclusive.
      */
-    constructor(x: number, y: number, _skipValidation?: boolean);
-    /**
-     * Returns the first value of the XY-point that the instance describes.
-     */
-    get x(): number;
-    /**
-     * Returns the second value of the XY-point that the instance describes.
-     */
-    get y(): number;
+    constructor(x: number, y: number, skipValidation?: boolean);
     /**
      * Returns the board position in A1-notation.
      */
@@ -34,7 +28,8 @@ export declare class Position extends Array {
      */
     toArray(): Array<number>;
     /**
-     * Modulates the XY-position coordinate and returns a new Position instance equivalent to it.
+     * Modulates the XY-position coordinate and returns a new Position instance equivalent to it, or null if that position
+     * is out of bounds of the board.
      */
     private getModulation;
     /**

@@ -15,14 +15,10 @@
 - [moves](game.md#moves)
 - [white](game.md#white)
 
-### Accessors
-
-- [pieces](game.md#pieces)
-- [players](game.md#players)
-
 ### Methods
 
 - [clone](game.md#clone)
+- [forEachPiece](game.md#foreachpiece)
 - [makeMove](game.md#makemove)
 
 ## Constructors
@@ -33,7 +29,7 @@
 
 **Returns:** [*Game*](game.md)
 
-Defined in: [src/Game.ts:11](https://github.com/bemoje/chess/blob/6d332b1/src/Game.ts#L11)
+Defined in: [Game.ts:11](https://github.com/bemoje/chess/blob/255b248/src/Game.ts#L11)
 
 ## Properties
 
@@ -41,7 +37,7 @@ Defined in: [src/Game.ts:11](https://github.com/bemoje/chess/blob/6d332b1/src/Ga
 
 • **black**: [*Player*](player.md)
 
-Defined in: [src/Game.ts:10](https://github.com/bemoje/chess/blob/6d332b1/src/Game.ts#L10)
+Defined in: [Game.ts:10](https://github.com/bemoje/chess/blob/255b248/src/Game.ts#L10)
 
 ___
 
@@ -49,7 +45,7 @@ ___
 
 • **board**: [*Board*](board.md)
 
-Defined in: [src/Game.ts:8](https://github.com/bemoje/chess/blob/6d332b1/src/Game.ts#L8)
+Defined in: [Game.ts:8](https://github.com/bemoje/chess/blob/255b248/src/Game.ts#L8)
 
 ___
 
@@ -57,7 +53,7 @@ ___
 
 • **moves**: [*Move*](move.md)[]
 
-Defined in: [src/Game.ts:11](https://github.com/bemoje/chess/blob/6d332b1/src/Game.ts#L11)
+Defined in: [Game.ts:11](https://github.com/bemoje/chess/blob/255b248/src/Game.ts#L11)
 
 ___
 
@@ -65,27 +61,7 @@ ___
 
 • **white**: [*Player*](player.md)
 
-Defined in: [src/Game.ts:9](https://github.com/bemoje/chess/blob/6d332b1/src/Game.ts#L9)
-
-## Accessors
-
-### pieces
-
-• get **pieces**(): *Piece*[]
-
-**Returns:** *Piece*[]
-
-Defined in: [src/Game.ts:24](https://github.com/bemoje/chess/blob/6d332b1/src/Game.ts#L24)
-
-___
-
-### players
-
-• get **players**(): [*Player*](player.md)[]
-
-**Returns:** [*Player*](player.md)[]
-
-Defined in: [src/Game.ts:20](https://github.com/bemoje/chess/blob/6d332b1/src/Game.ts#L20)
+Defined in: [Game.ts:9](https://github.com/bemoje/chess/blob/255b248/src/Game.ts#L9)
 
 ## Methods
 
@@ -93,15 +69,41 @@ Defined in: [src/Game.ts:20](https://github.com/bemoje/chess/blob/6d332b1/src/Ga
 
 ▸ **clone**(): [*Game*](game.md)
 
+Returns a deep clone of the game instance.
+
 **Returns:** [*Game*](game.md)
 
-Defined in: [src/Game.ts:32](https://github.com/bemoje/chess/blob/6d332b1/src/Game.ts#L32)
+Defined in: [Game.ts:55](https://github.com/bemoje/chess/blob/255b248/src/Game.ts#L55)
+
+___
+
+### forEachPiece
+
+▸ **forEachPiece**(`f`: (`piece`: *Piece*) => *boolean* \| *void*): *void*
+
+Iterate each piece on the board very efficiently.
+If the callback function returns true, iteration ends.
+
+#### Parameters:
+
+Name | Type |
+:------ | :------ |
+`f` | (`piece`: *Piece*) => *boolean* \| *void* |
+
+**Returns:** *void*
+
+Defined in: [Game.ts:24](https://github.com/bemoje/chess/blob/255b248/src/Game.ts#L24)
 
 ___
 
 ### makeMove
 
-▸ **makeMove**(`piece`: *Piece*, `to`: [*Position*](position.md), `_skipValidation?`: *boolean*): [*Move*](move.md)
+▸ **makeMove**(`piece`: *Piece*, `to`: [*Position*](position.md), `_skipValidation?`: *boolean*): *void*
+
+Moves a piece on the board.
+If the target position already has a piece belonging to the opposing player, it is removed from the board.
+Allows for skipping validation of the move's legality according to the rules of the game. This is used internally
+for performance reasons when cloning the game, repeating the moves that were previously checked.
 
 #### Parameters:
 
@@ -111,6 +113,6 @@ Name | Type |
 `to` | [*Position*](position.md) |
 `_skipValidation?` | *boolean* |
 
-**Returns:** [*Move*](move.md)
+**Returns:** *void*
 
-Defined in: [src/Game.ts:28](https://github.com/bemoje/chess/blob/6d332b1/src/Game.ts#L28)
+Defined in: [Game.ts:40](https://github.com/bemoje/chess/blob/255b248/src/Game.ts#L40)

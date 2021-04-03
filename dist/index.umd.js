@@ -11,10 +11,12 @@
 }(this, (function (exports) { 'use strict';
 
   class Piece {
-      constructor(player, position) {
+      constructor(player, index, position) {
           this.player = player;
+          this.index = index;
           this.position = position;
           this.moves = [];
+          this.player.game.board.setPiece(this);
       }
       get game() {
           return this.player.game;
@@ -49,20 +51,18 @@
        * Returns a Position array with all valid moves.
        */
       getValidMovePositions() {
-          return this.getMovePositionsWithinBounds().reduce((accum, item) => {
-              if (Array.isArray(item)) {
-                  for (const pos of item) {
-                      if (pos && this.isValidMove(pos))
-                          accum.push(pos);
-                      else
-                          break;
-                  }
-              }
-              else if (this.isValidMove(item)) {
-                  accum.push(item);
-              }
-              return accum;
-          }, []);
+          // return this.getMovePositionsWithinBounds().reduce((accum, item) => {
+          //   if (Array.isArray(item)) {
+          //     for (const pos of item) {
+          //       if (pos && this.isValidMove(pos)) accum.push(pos);
+          //       else break;
+          //     }
+          //   } else if (this.isValidMove(item)) {
+          //     accum.push(item);
+          //   }
+          //   return accum;
+          // }, []);
+          return [];
       }
       isValidMovePosition(target) {
           return !!this.getValidMovePositions().find((position) => {
@@ -85,8 +85,9 @@
       const res = [];
       const l = arr.length;
       for (let i = 0; i < l; i++) {
-          if (arr[i]) {
-              res.push(arr[i]);
+          const pos = arr[i];
+          if (pos) {
+              res.push(pos);
           }
       }
       return res;
@@ -132,7 +133,7 @@
       return Number(n.charAt(0)) - 1;
   }
   /**
-   * Converts a XY-coordinate-array or a Position type (extends Array) to an A1-notation string.
+   * Converts a XY-coordinate-array to an A1-notation string.
    */
   function from_XY_to_A1(pos) {
       return from_X_to_A(pos[0]) + from_Y_to_1(pos[1]);
@@ -197,28 +198,16 @@
           }
       }
       /**
-       * Updates the board instance based on the information contained within a provided Move instance.
-       */
-      registerMove(move) {
-          const currPos = move.from;
-          const newPos = move.to;
-          const piece = this.grid[currPos.y][currPos.x];
-          this.grid[newPos.y][newPos.x] = piece;
-          this.grid[currPos.y][currPos.x] = null;
-      }
-      /**
-       * Removes a piece from the board.
-       */
-      removePiece(piece) {
-          const pos = piece.position;
-          if (pos)
-              this.grid[pos.y][pos.x] = null;
-      }
-      /**
        * Returns the piece at the given XY-coordinates or null if no piece is found there.
        */
       getPieceByXY(x, y) {
           return this.grid[y][x];
+      }
+      /**
+       * Returns the piece at the given Position or null if no piece is found there.
+       */
+      getPieceByPosition(position) {
+          return this.getPieceByXY(position.x, position.y);
       }
       /**
        * Returns the piece at the given A1-notation-coordinates or null if no piece is found there.
@@ -228,44 +217,54 @@
           return this.getPieceByXY(x, y);
       }
       /**
-       * Returns the piece at the given Position or null if no piece is found there.
+       * Sets a piece to the board.
        */
-      getPieceByPosition(position) {
-          return this.getPieceByXY(position.x, position.y);
+      setPiece(piece) {
+          const pos = piece.position;
+          if (pos)
+              this.grid[pos.y][pos.x] = piece;
+      }
+      /**
+       * Removes a piece from the board.
+       * This method does not check legality or whether this action is part of a move in the game.
+       */
+      removePiece(piece) {
+          if (piece) {
+              const pos = piece.position;
+              if (pos)
+                  this.grid[pos.y][pos.x] = null;
+          }
+      }
+      /**
+       * Updates the board instance based on the information contained within a provided Move instance.
+       */
+      registerMove(move) {
+          const from = move.from;
+          const to = move.to;
+          const piece = this.grid[from.y][from.x];
+          this.grid[to.y][to.x] = piece;
+          this.grid[from.y][from.x] = null;
       }
   }
 
-  class Position extends Array {
+  class Position {
+      /**
+       * @param x - a positive integer between 0 and 7 both inclusive.
+       * @param y - a positive integer between 0 and 7 both inclusive.
+       */
+      constructor(x, y, skipValidation = false) {
+          if (!skipValidation) {
+              assertValidXY([x, y], 'x and y');
+          }
+          this.x = x;
+          this.y = y;
+      }
       /**
        * Returns a new Position instance based on A1-notation input.
        */
       static fromA1Notation(a1) {
           const xy = from_A1_to_XY(a1);
           return new Position(xy[0], xy[1]);
-      }
-      /**
-       * @param x - a positive integer between 0 and 7 both inclusive.
-       * @param y - a positive integer between 0 and 7 both inclusive.
-       */
-      constructor(x, y, _skipValidation = false) {
-          if (!_skipValidation) {
-              assertValidXY([x, y], 'x and y');
-          }
-          super(2);
-          this[0] = x;
-          this[1] = y;
-      }
-      /**
-       * Returns the first value of the XY-point that the instance describes.
-       */
-      get x() {
-          return this[0];
-      }
-      /**
-       * Returns the second value of the XY-point that the instance describes.
-       */
-      get y() {
-          return this[1];
       }
       /**
        * Returns the board position in A1-notation.
@@ -293,7 +292,8 @@
           return [this.x, this.y];
       }
       /**
-       * Modulates the XY-position coordinate and returns a new Position instance equivalent to it.
+       * Modulates the XY-position coordinate and returns a new Position instance equivalent to it, or null if that position
+       * is out of bounds of the board.
        */
       getModulation(xBy, yBy) {
           try {
@@ -655,7 +655,8 @@
           const pos = this.position;
           if (!pos)
               return [];
-          const res = pos.getAllStraightRecursive();
+          const res = [];
+          res.push(...pos.getAllStraightRecursive());
           if (this.color === 'white') {
               res.push(Position.fromA1Notation('D1'));
           }
@@ -720,46 +721,37 @@
           else {
               throw new Error('Invalid color');
           }
-          const pos = Position.fromA1Notation;
           this.pieces = [
-              new King(this, pos('E' + row1)),
-              new Queen(this, pos('D' + row1)),
-              new Bishop(this, pos('C' + row1)),
-              new Bishop(this, pos('F' + row1)),
-              new Knight(this, pos('B' + row1)),
-              new Knight(this, pos('G' + row1)),
-              new Rook(this, pos('A' + row1)),
-              new Rook(this, pos('H' + row1)),
-              new Pawn(this, pos('A' + row2)),
-              new Pawn(this, pos('B' + row2)),
-              new Pawn(this, pos('C' + row2)),
-              new Pawn(this, pos('D' + row2)),
-              new Pawn(this, pos('E' + row2)),
-              new Pawn(this, pos('F' + row2)),
-              new Pawn(this, pos('G' + row2)),
-              new Pawn(this, pos('H' + row2)),
+              new King(this, 0, Position.fromA1Notation('E' + row1)),
+              new Queen(this, 1, Position.fromA1Notation('D' + row1)),
+              new Bishop(this, 2, Position.fromA1Notation('C' + row1)),
+              new Bishop(this, 3, Position.fromA1Notation('F' + row1)),
+              new Knight(this, 4, Position.fromA1Notation('B' + row1)),
+              new Knight(this, 5, Position.fromA1Notation('G' + row1)),
+              new Rook(this, 6, Position.fromA1Notation('A' + row1)),
+              new Rook(this, 7, Position.fromA1Notation('H' + row1)),
+              new Pawn(this, 8, Position.fromA1Notation('A' + row2)),
+              new Pawn(this, 9, Position.fromA1Notation('B' + row2)),
+              new Pawn(this, 10, Position.fromA1Notation('C' + row2)),
+              new Pawn(this, 11, Position.fromA1Notation('D' + row2)),
+              new Pawn(this, 12, Position.fromA1Notation('E' + row2)),
+              new Pawn(this, 13, Position.fromA1Notation('F' + row2)),
+              new Pawn(this, 14, Position.fromA1Notation('G' + row2)),
+              new Pawn(this, 15, Position.fromA1Notation('H' + row2)),
           ];
       }
   }
 
   class Move {
-      constructor(piece, to, _skipValidation = false) {
+      constructor(piece, to, takes = null) {
           const pos = piece.position;
-          if (!pos)
+          if (!pos) {
               throw new Error('Cannot move a piece that is not on the board.');
+          }
           this.piece = piece;
+          this.takes = takes;
           this.from = pos.clone();
           this.to = to.clone();
-          if (_skipValidation || piece.isValidMovePosition(to)) {
-              const targetPiece = piece.game.board.getPieceByPosition(to);
-              if (targetPiece)
-                  targetPiece.remove();
-              piece.registerMove(this);
-              piece.game.board.registerMove(this);
-          }
-          else {
-              throw new Error('Invalid move.');
-          }
       }
   }
 
@@ -770,21 +762,50 @@
           this.black = new Player(this, 'black');
           this.moves = [];
       }
-      get players() {
-          return [this.black, this.white];
+      /**
+       * Iterate each piece on the board very efficiently.
+       * If the callback function returns true, iteration ends.
+       */
+      forEachPiece(f) {
+          const wPcs = this.white.pieces;
+          const bPcs = this.black.pieces;
+          for (let i = 0; i < 16; i++) {
+              if (f(wPcs[i]) === true || f(bPcs[i]) === true) {
+                  return;
+              }
+          }
       }
-      get pieces() {
-          return [...this.black.pieces, ...this.white.pieces];
-      }
+      /**
+       * Moves a piece on the board.
+       * If the target position already has a piece belonging to the opposing player, it is removed from the board.
+       * Allows for skipping validation of the move's legality according to the rules of the game. This is used internally
+       * for performance reasons when cloning the game, repeating the moves that were previously checked.
+       */
       makeMove(piece, to, _skipValidation) {
-          return new Move(piece, to, _skipValidation);
+          if (_skipValidation || piece.isValidMovePosition(to)) {
+              const targetPiece = piece.game.board.getPieceByPosition(to);
+              const move = new Move(piece, to, targetPiece);
+              this.board.registerMove(move);
+              piece.registerMove(move);
+              if (targetPiece)
+                  targetPiece.remove();
+          }
+          else {
+              throw new Error('Invalid move.');
+          }
       }
+      /**
+       * Returns a deep clone of the game instance.
+       */
       clone() {
           const game = new Game();
+          const wPcs = game.white.pieces;
+          const bPcs = game.black.pieces;
           const moves = this.moves;
           const l = moves.length;
-          for (let i = 0; i < l; i++) {
-              game.makeMove(moves[i].piece, moves[i].to, true);
+          for (let piece, i = 0; i < l; i++) {
+              piece = moves[i].piece;
+              game.makeMove((piece.color === 'white' ? wPcs : bPcs)[piece.index], moves[i].to.clone(), true);
           }
           return game;
       }

@@ -16,6 +16,7 @@
 
 ### Properties
 
+- [index](king.md#index)
 - [moves](king.md#moves)
 - [player](king.md#player)
 - [position](king.md#position)
@@ -42,22 +43,33 @@
 
 ### constructor
 
-\+ **new King**(`player`: [*Player*](player.md), `position`: [*Position*](position.md)): [*King*](king.md)
+\+ **new King**(`player`: [*Player*](player.md), `index`: *number*, `position`: [*Position*](position.md)): [*King*](king.md)
 
 #### Parameters:
 
 Name | Type |
 :------ | :------ |
 `player` | [*Player*](player.md) |
+`index` | *number* |
 `position` | [*Position*](position.md) |
 
 **Returns:** [*King*](king.md)
 
 Inherited from: void
 
-Defined in: [src/AbstractPiece.ts:9](https://github.com/bemoje/chess/blob/6d332b1/src/AbstractPiece.ts#L9)
+Defined in: [AbstractPiece.ts:10](https://github.com/bemoje/chess/blob/255b248/src/AbstractPiece.ts#L10)
 
 ## Properties
+
+### index
+
+• **index**: *number*
+
+Inherited from: void
+
+Defined in: [AbstractPiece.ts:8](https://github.com/bemoje/chess/blob/255b248/src/AbstractPiece.ts#L8)
+
+___
 
 ### moves
 
@@ -65,7 +77,7 @@ Defined in: [src/AbstractPiece.ts:9](https://github.com/bemoje/chess/blob/6d332b
 
 Inherited from: void
 
-Defined in: [src/AbstractPiece.ts:9](https://github.com/bemoje/chess/blob/6d332b1/src/AbstractPiece.ts#L9)
+Defined in: [AbstractPiece.ts:10](https://github.com/bemoje/chess/blob/255b248/src/AbstractPiece.ts#L10)
 
 ___
 
@@ -75,7 +87,7 @@ ___
 
 Inherited from: void
 
-Defined in: [src/AbstractPiece.ts:7](https://github.com/bemoje/chess/blob/6d332b1/src/AbstractPiece.ts#L7)
+Defined in: [AbstractPiece.ts:7](https://github.com/bemoje/chess/blob/255b248/src/AbstractPiece.ts#L7)
 
 ___
 
@@ -85,7 +97,7 @@ ___
 
 Inherited from: void
 
-Defined in: [src/AbstractPiece.ts:8](https://github.com/bemoje/chess/blob/6d332b1/src/AbstractPiece.ts#L8)
+Defined in: [AbstractPiece.ts:9](https://github.com/bemoje/chess/blob/255b248/src/AbstractPiece.ts#L9)
 
 ## Accessors
 
@@ -95,7 +107,7 @@ Defined in: [src/AbstractPiece.ts:8](https://github.com/bemoje/chess/blob/6d332b
 
 **Returns:** *string*
 
-Defined in: [src/AbstractPiece.ts:29](https://github.com/bemoje/chess/blob/6d332b1/src/AbstractPiece.ts#L29)
+Defined in: [AbstractPiece.ts:33](https://github.com/bemoje/chess/blob/255b248/src/AbstractPiece.ts#L33)
 
 ___
 
@@ -105,7 +117,7 @@ ___
 
 **Returns:** [*Game*](game.md)
 
-Defined in: [src/AbstractPiece.ts:17](https://github.com/bemoje/chess/blob/6d332b1/src/AbstractPiece.ts#L17)
+Defined in: [AbstractPiece.ts:21](https://github.com/bemoje/chess/blob/255b248/src/AbstractPiece.ts#L21)
 
 ___
 
@@ -115,7 +127,7 @@ ___
 
 **Returns:** *boolean*
 
-Defined in: [src/AbstractPiece.ts:25](https://github.com/bemoje/chess/blob/6d332b1/src/AbstractPiece.ts#L25)
+Defined in: [AbstractPiece.ts:29](https://github.com/bemoje/chess/blob/255b248/src/AbstractPiece.ts#L29)
 
 ___
 
@@ -125,7 +137,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: [src/AbstractPiece.ts:21](https://github.com/bemoje/chess/blob/6d332b1/src/AbstractPiece.ts#L21)
+Defined in: [AbstractPiece.ts:25](https://github.com/bemoje/chess/blob/255b248/src/AbstractPiece.ts#L25)
 
 ## Methods
 
@@ -137,7 +149,7 @@ Defined in: [src/AbstractPiece.ts:21](https://github.com/bemoje/chess/blob/6d332
 
 Overrides: void
 
-Defined in: [src/King.ts:5](https://github.com/bemoje/chess/blob/6d332b1/src/King.ts#L5)
+Defined in: [King.ts:5](https://github.com/bemoje/chess/blob/255b248/src/King.ts#L5)
 
 ___
 
@@ -151,7 +163,7 @@ Returns a Position array with all valid moves.
 
 Inherited from: void
 
-Defined in: [src/AbstractPiece.ts:64](https://github.com/bemoje/chess/blob/6d332b1/src/AbstractPiece.ts#L64)
+Defined in: [AbstractPiece.ts:68](https://github.com/bemoje/chess/blob/255b248/src/AbstractPiece.ts#L68)
 
 ___
 
@@ -169,7 +181,7 @@ Name | Type |
 
 Inherited from: void
 
-Defined in: [src/AbstractPiece.ts:42](https://github.com/bemoje/chess/blob/6d332b1/src/AbstractPiece.ts#L42)
+Defined in: [AbstractPiece.ts:46](https://github.com/bemoje/chess/blob/255b248/src/AbstractPiece.ts#L46)
 
 ___
 
@@ -185,7 +197,7 @@ Name | Type |
 
 **Returns:** *boolean*
 
-Defined in: [src/King.ts:23](https://github.com/bemoje/chess/blob/6d332b1/src/King.ts#L23)
+Defined in: [King.ts:23](https://github.com/bemoje/chess/blob/255b248/src/King.ts#L23)
 
 ___
 
@@ -203,7 +215,7 @@ Name | Type |
 
 Overrides: void
 
-Defined in: [src/King.ts:17](https://github.com/bemoje/chess/blob/6d332b1/src/King.ts#L17)
+Defined in: [King.ts:17](https://github.com/bemoje/chess/blob/255b248/src/King.ts#L17)
 
 ___
 
@@ -221,7 +233,7 @@ Name | Type |
 
 Inherited from: void
 
-Defined in: [src/AbstractPiece.ts:78](https://github.com/bemoje/chess/blob/6d332b1/src/AbstractPiece.ts#L78)
+Defined in: [AbstractPiece.ts:83](https://github.com/bemoje/chess/blob/255b248/src/AbstractPiece.ts#L83)
 
 ___
 
@@ -239,7 +251,7 @@ Name | Type |
 
 Inherited from: void
 
-Defined in: [src/AbstractPiece.ts:33](https://github.com/bemoje/chess/blob/6d332b1/src/AbstractPiece.ts#L33)
+Defined in: [AbstractPiece.ts:37](https://github.com/bemoje/chess/blob/255b248/src/AbstractPiece.ts#L37)
 
 ___
 
@@ -251,4 +263,4 @@ ___
 
 Inherited from: void
 
-Defined in: [src/AbstractPiece.ts:38](https://github.com/bemoje/chess/blob/6d332b1/src/AbstractPiece.ts#L38)
+Defined in: [AbstractPiece.ts:42](https://github.com/bemoje/chess/blob/255b248/src/AbstractPiece.ts#L42)

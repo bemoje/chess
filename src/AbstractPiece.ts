@@ -5,13 +5,17 @@ import type { Move } from './Move';
 
 export abstract class Piece {
   player: Player;
+  index: number;
   position: Position | null;
   moves: Array<Move>;
 
-  constructor(player: Player, position: Position) {
+  constructor(player: Player, index: number, position: Position) {
     this.player = player;
+    this.index = index;
     this.position = position;
     this.moves = [];
+
+    this.player.game.board.setPiece(this);
   }
 
   get game(): Game {
@@ -62,17 +66,18 @@ export abstract class Piece {
    * Returns a Position array with all valid moves.
    */
   getValidMovePositions(): Array<Position> {
-    return this.getMovePositionsWithinBounds().reduce((accum, item) => {
-      if (Array.isArray(item)) {
-        for (const pos of item) {
-          if (pos && this.isValidMove(pos)) accum.push(pos);
-          else break;
-        }
-      } else if (this.isValidMove(item)) {
-        accum.push(item);
-      }
-      return accum;
-    }, []);
+    // return this.getMovePositionsWithinBounds().reduce((accum, item) => {
+    //   if (Array.isArray(item)) {
+    //     for (const pos of item) {
+    //       if (pos && this.isValidMove(pos)) accum.push(pos);
+    //       else break;
+    //     }
+    //   } else if (this.isValidMove(item)) {
+    //     accum.push(item);
+    //   }
+    //   return accum;
+    // }, []);
+    return [];
   }
 
   isValidMovePosition(target: Position): boolean {

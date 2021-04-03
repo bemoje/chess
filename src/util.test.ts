@@ -1,12 +1,11 @@
 import { arrClean, numericDifference, createAssertFunction } from './util';
+import { Position } from './Position';
 
 describe('util', () => {
   describe('arrClean', () => {
     it('Removes elements of a given array if they do not evaluate to true.', () => {
-      expect(arrClean([null, undefined, 1, 'a', 0, ''])).toStrictEqual([
-        1,
-        'a',
-      ]);
+      const pos = new Position(0, 0);
+      expect(arrClean([null, pos, null])).toStrictEqual([pos]);
     });
   });
 
@@ -32,16 +31,9 @@ describe('util', () => {
       // string expected not to throw
       assertString(myString, 'myString');
       // myInteger expected to throw
-      let threw, msg;
-      try {
+      expect(() => {
         assertString(myInteger, 'myInteger');
-        threw = false;
-      } catch (e) {
-        threw = true;
-        msg = e.message;
-      }
-      expect(threw).toBe(true);
-      expect(msg).toBe('Expected myInteger to be a string. myInteger: 2');
+      }).toThrow(TypeError);
     });
   });
 });
