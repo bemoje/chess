@@ -47,17 +47,13 @@ describe('(class) Board', () => {
   });
 
   describe('(method) makeMove', () => {
-    it('moves a piece on the Board.', () => {
+    it("allows for skipping validation of the move's legality according to the rules of chess.", () => {
       const piece = game.board.getPieceByA1('A2');
-      const to = Position.fromA1Notation('A3');
+      const to = Position.fromA1('A3');
       if (piece) {
         game.makeMove(piece, to, true);
         expect(game.board.getPieceByA1('A3')).toBe(piece);
       } else throw new Error('piece is null');
-    });
-
-    it("allows for skipping validation of the move's legality according to the rules of chess.", () => {
-      // TODO
     });
 
     it('throws on illegal/invalid moves if _skipValidation is not ´true´.', () => {

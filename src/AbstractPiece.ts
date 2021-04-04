@@ -7,13 +7,13 @@ export abstract class Piece {
   player: Player;
   index: number;
   position: Position | null;
-  moves: Array<Move>;
+  moveCount: number;
 
   constructor(player: Player, index: number, position: Position) {
     this.player = player;
     this.index = index;
     this.position = position;
-    this.moves = [];
+    this.moveCount = 0;
 
     this.player.game.board.setPiece(this);
   }
@@ -27,15 +27,25 @@ export abstract class Piece {
   }
 
   get hasMoved(): boolean {
-    return this.moves.length > 0;
+    return this.moveCount > 0;
   }
 
   get color(): string {
     return this.player.color;
   }
 
+  get isTaken(): boolean {
+    return this.position === null;
+  }
+
+  get moves(): Move[] {
+    return this.player.game.moves.filter((move) => {
+      return move.piece === this;
+    });
+  }
+
   registerMove(move: Move): void {
-    this.moves.push(move);
+    this.moveCount++;
     this.position = move.to.clone();
   }
 

@@ -6,12 +6,14 @@ export declare abstract class Piece {
     player: Player;
     index: number;
     position: Position | null;
-    moves: Array<Move>;
+    moveCount: number;
     constructor(player: Player, index: number, position: Position);
     get game(): Game;
     get type(): string;
     get hasMoved(): boolean;
     get color(): string;
+    get isTaken(): boolean;
+    get moves(): Move[];
     registerMove(move: Move): void;
     remove(): void;
     protected isMoveTargetOwnPiece(target: Position): boolean;

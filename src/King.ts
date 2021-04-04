@@ -7,9 +7,9 @@ export class King extends Piece {
     if (!pos) return [];
     const res = pos.getAllStraightAndDiagonal();
     if (this.color === 'white') {
-      res.push(Position.fromA1Notation('A1'), Position.fromA1Notation('H1'));
+      res.push(Position.fromA1('A1'), Position.fromA1('H1'));
     } else {
-      res.push(Position.fromA1Notation('A7'), Position.fromA1Notation('H7'));
+      res.push(Position.fromA1('A7'), Position.fromA1('H7'));
     }
     return res;
   }

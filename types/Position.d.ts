@@ -4,7 +4,7 @@ export declare class Position {
     /**
      * Returns a new Position instance based on A1-notation input.
      */
-    static fromA1Notation(a1: string): Position;
+    static fromA1(a1: string): Position;
     /**
      * @param x - a positive integer between 0 and 7 both inclusive.
      * @param y - a positive integer between 0 and 7 both inclusive.

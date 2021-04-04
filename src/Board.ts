@@ -1,5 +1,4 @@
 import { from_A1_to_XY } from './coordinates';
-
 import type { Position } from './Position';
 import type { Game } from './Game';
 import type { Move } from './Move';

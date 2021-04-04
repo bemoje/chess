@@ -36,7 +36,7 @@ Name | Type |
 
 **Returns:** [*Board*](board.md)
 
-Defined in: [Board.ts:10](https://github.com/bemoje/chess/blob/255b248/src/Board.ts#L10)
+Defined in: [Board.ts:9](https://github.com/bemoje/chess/blob/5a6d4ac/src/Board.ts#L9)
 
 ## Properties
 
@@ -44,7 +44,7 @@ Defined in: [Board.ts:10](https://github.com/bemoje/chess/blob/255b248/src/Board
 
 • **game**: [*Game*](game.md)
 
-Defined in: [Board.ts:9](https://github.com/bemoje/chess/blob/255b248/src/Board.ts#L9)
+Defined in: [Board.ts:8](https://github.com/bemoje/chess/blob/5a6d4ac/src/Board.ts#L8)
 
 ___
 
@@ -52,7 +52,7 @@ ___
 
 • **grid**: (*null* \| *Piece*)[][]
 
-Defined in: [Board.ts:10](https://github.com/bemoje/chess/blob/255b248/src/Board.ts#L10)
+Defined in: [Board.ts:9](https://github.com/bemoje/chess/blob/5a6d4ac/src/Board.ts#L9)
 
 ## Methods
 
@@ -70,7 +70,7 @@ Name | Type |
 
 **Returns:** *null* \| *Piece*
 
-Defined in: [Board.ts:39](https://github.com/bemoje/chess/blob/255b248/src/Board.ts#L39)
+Defined in: [Board.ts:38](https://github.com/bemoje/chess/blob/5a6d4ac/src/Board.ts#L38)
 
 ___
 
@@ -88,7 +88,7 @@ Name | Type |
 
 **Returns:** *null* \| *Piece*
 
-Defined in: [Board.ts:32](https://github.com/bemoje/chess/blob/255b248/src/Board.ts#L32)
+Defined in: [Board.ts:31](https://github.com/bemoje/chess/blob/5a6d4ac/src/Board.ts#L31)
 
 ___
 
@@ -107,7 +107,7 @@ Name | Type |
 
 **Returns:** *null* \| *Piece*
 
-Defined in: [Board.ts:25](https://github.com/bemoje/chess/blob/255b248/src/Board.ts#L25)
+Defined in: [Board.ts:24](https://github.com/bemoje/chess/blob/5a6d4ac/src/Board.ts#L24)
 
 ___
 
@@ -125,7 +125,7 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [Board.ts:66](https://github.com/bemoje/chess/blob/255b248/src/Board.ts#L66)
+Defined in: [Board.ts:65](https://github.com/bemoje/chess/blob/5a6d4ac/src/Board.ts#L65)
 
 ___
 
@@ -144,7 +144,7 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [Board.ts:56](https://github.com/bemoje/chess/blob/255b248/src/Board.ts#L56)
+Defined in: [Board.ts:55](https://github.com/bemoje/chess/blob/5a6d4ac/src/Board.ts#L55)
 
 ___
 
@@ -162,4 +162,4 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [Board.ts:47](https://github.com/bemoje/chess/blob/255b248/src/Board.ts#L47)
+Defined in: [Board.ts:46](https://github.com/bemoje/chess/blob/5a6d4ac/src/Board.ts#L46)

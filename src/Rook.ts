@@ -8,9 +8,9 @@ export class Rook extends Piece {
     const res = [];
     res.push(...pos.getAllStraightRecursive());
     if (this.color === 'white') {
-      res.push(Position.fromA1Notation('D1'));
+      res.push(Position.fromA1('D1'));
     } else {
-      res.push(Position.fromA1Notation('D7'));
+      res.push(Position.fromA1('D7'));
     }
     return res;
   }

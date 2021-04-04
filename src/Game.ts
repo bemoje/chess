@@ -18,14 +18,14 @@ export class Game {
   }
 
   /**
-   * Iterate each piece on the board very efficiently.
+   * Iterate each piece on the board.
    * If the callback function returns true, iteration ends.
    */
   forEachPiece(f: (piece: Piece) => boolean | void): void {
-    const wPcs = this.white.pieces;
-    const bPcs = this.black.pieces;
+    const w = this.white.pieces;
+    const b = this.black.pieces;
     for (let i = 0; i < 16; i++) {
-      if (f(wPcs[i]) === true || f(bPcs[i]) === true) {
+      if (f(w[i]) === true || f(b[i]) === true) {
         return;
       }
     }
@@ -37,10 +37,11 @@ export class Game {
    * Allows for skipping validation of the move's legality according to the rules of the game. This is used internally
    * for performance reasons when cloning the game, repeating the moves that were previously checked.
    */
-  makeMove(piece: Piece, to: Position, _skipValidation?: boolean): void {
-    if (_skipValidation || piece.isValidMovePosition(to)) {
+  makeMove(piece: Piece, to: Position, skipValidation?: boolean): void {
+    if (skipValidation || piece.isValidMovePosition(to)) {
       const targetPiece = piece.game.board.getPieceByPosition(to);
       const move = new Move(piece, to, targetPiece);
+      this.moves.push(move);
       this.board.registerMove(move);
       piece.registerMove(move);
       if (targetPiece) targetPiece.remove();
@@ -54,14 +55,14 @@ export class Game {
    */
   clone(): Game {
     const game = new Game();
-    const wPcs = game.white.pieces;
-    const bPcs = game.black.pieces;
+    const w = game.white.pieces;
+    const b = game.black.pieces;
     const moves = this.moves;
     const l = moves.length;
     for (let piece, i = 0; i < l; i++) {
       piece = moves[i].piece;
       game.makeMove(
-        (piece.color === 'white' ? wPcs : bPcs)[piece.index],
+        (piece.color === 'white' ? w : b)[piece.index],
         moves[i].to.clone(),
         true,
       );

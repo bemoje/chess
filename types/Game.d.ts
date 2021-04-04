@@ -20,7 +20,7 @@ export declare class Game {
      * Allows for skipping validation of the move's legality according to the rules of the game. This is used internally
      * for performance reasons when cloning the game, repeating the moves that were previously checked.
      */
-    makeMove(piece: Piece, to: Position, _skipValidation?: boolean): void;
+    makeMove(piece: Piece, to: Position, skipValidation?: boolean): void;
     /**
      * Returns a deep clone of the game instance.
      */

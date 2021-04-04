@@ -19,14 +19,14 @@ describe('Position (class)', () => {
     });
   });
 
-  describe('(static) fromA1Notation', () => {
+  describe('(static) fromA1', () => {
     it('Returns a new Position instance based on A1-notation input.', () => {
-      expect(Position.fromA1Notation('A1').constructor).toBe(Position);
+      expect(Position.fromA1('A1').constructor).toBe(Position);
     });
 
     it('throws if an out of bounds board position is attemped created.', () => {
       expect(() => {
-        Position.fromA1Notation('A0');
+        Position.fromA1('A0');
       }).toThrow(Error);
     });
   });
