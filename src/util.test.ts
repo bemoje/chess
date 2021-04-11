@@ -1,5 +1,10 @@
-import { arrClean, numericDifference, createAssertFunction } from './util';
 import { Position } from './Position';
+import {
+  arrClean,
+  numericDifference,
+  createAssertFunction,
+  isEven,
+} from './util';
 
 describe('util', () => {
   describe('arrClean', () => {
@@ -34,6 +39,18 @@ describe('util', () => {
       expect(() => {
         assertString(myInteger, 'myInteger');
       }).toThrow(TypeError);
+    });
+  });
+
+  describe('isEven', () => {
+    it('Returns whether a number is an even number.', () => {
+      expect(isEven(-2)).toBe(true);
+      expect(isEven(-1)).toBe(false);
+      expect(isEven(0)).toBe(true);
+      expect(isEven(1)).toBe(false);
+      expect(isEven(2)).toBe(true);
+      expect(isEven(15)).toBe(false);
+      expect(isEven(16)).toBe(true);
     });
   });
 });

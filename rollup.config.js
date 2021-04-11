@@ -51,7 +51,7 @@ const options = {
     createOutputOptions({
       file: './dist/index.umd.min.js',
       format: 'umd',
-      plugins: [terser()],
+      plugins: [terser({ keep_classnames: false, keep_fnames: false })],
     }),
   ],
   plugins: [

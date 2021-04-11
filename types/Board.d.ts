@@ -31,5 +31,10 @@ export declare class Board {
      * Updates the board instance based on the information contained within a provided Move instance.
      */
     registerMove(move: Move): void;
+    /**
+     * Updates the board instance based on the information contained within a provided Move instance that is known to make
+     * out a swap (used for castling moves).
+     */
+    registerSwap(move: Move): void;
 }
 //# sourceMappingURL=Board.d.ts.map

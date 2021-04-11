@@ -1,29 +1,33 @@
 import { Piece } from './AbstractPiece';
-import { Position } from './Position';
+import type { Position } from './Position';
 
 export class King extends Piece {
+  /**
+   * Returns the class name of the Piece.
+   */
+  public get type(): string {
+    return 'King';
+  }
+
+  /**
+   * Returns a Position array with all piece-specific move positions within bounds of the board.
+   */
   protected getMovePositionsWithinBounds(): Array<Position | Array<Position>> {
     const pos = this.position;
     if (!pos) return [];
-    const res = pos.getAllStraightAndDiagonal();
-    if (this.color === 'white') {
-      res.push(Position.fromA1('A1'), Position.fromA1('H1'));
-    } else {
-      res.push(Position.fromA1('A7'), Position.fromA1('H7'));
-    }
-    return res;
+    return pos.getAllStraightAndDiagonal();
   }
 
-  protected isValidMove(target: Position): boolean {
-    return this.isMoveTargetOwnPiece(target)
-      ? this.isValidCastleMove(target)
-      : true;
-  }
-
-  private isValidCastleMove(target: Position): boolean {
+  /**
+   * Returns whether a move to a target position is a castling move.
+   */
+  public isCastleMove(target: Position): boolean {
     const targetPiece = this.game.board.getPieceByPosition(target);
-    return targetPiece
-      ? targetPiece.type === 'Rook' && !targetPiece.hasMoved && !this.hasMoved
-      : false;
+    if (!targetPiece) return false;
+    // it is not necessary to check whether the taget piece is an own piece since an enemy piece will never be in the
+    // designated position without having moved, which gets checked.
+    return (
+      targetPiece.type === 'Rook' && !targetPiece.hasMoved && !this.hasMoved
+    );
   }
 }

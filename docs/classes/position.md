@@ -75,7 +75,7 @@ Name | Type | Default value | Description |
 
 **Returns:** [*Position*](position.md)
 
-Defined in: [Position.ts:13](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L13)
+Defined in: [Position.ts:13](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L13)
 
 ## Properties
 
@@ -83,7 +83,7 @@ Defined in: [Position.ts:13](https://github.com/bemoje/chess/blob/57afc4d/src/Po
 
 • **x**: *number*
 
-Defined in: [Position.ts:5](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L5)
+Defined in: [Position.ts:5](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L5)
 
 ___
 
@@ -91,7 +91,7 @@ ___
 
 • **y**: *number*
 
-Defined in: [Position.ts:6](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L6)
+Defined in: [Position.ts:6](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L6)
 
 ## Accessors
 
@@ -103,7 +103,7 @@ Returns the board position in A1-notation.
 
 **Returns:** *string*
 
-Defined in: [Position.ts:30](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L30)
+Defined in: [Position.ts:30](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L30)
 
 ## Methods
 
@@ -116,7 +116,7 @@ Out of bounds -validation is skipped.
 
 **Returns:** [*Position*](position.md)
 
-Defined in: [Position.ts:45](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L45)
+Defined in: [Position.ts:45](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L45)
 
 ___
 
@@ -134,7 +134,7 @@ Name | Type |
 
 **Returns:** *boolean*
 
-Defined in: [Position.ts:37](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L37)
+Defined in: [Position.ts:37](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L37)
 
 ___
 
@@ -146,7 +146,7 @@ Returns an array of new Position instances that are moved by 1 in all diagonal d
 
 **Returns:** [*Position*](position.md)[]
 
-Defined in: [Position.ts:209](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L209)
+Defined in: [Position.ts:209](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L209)
 
 ___
 
@@ -160,7 +160,7 @@ becomes out of bounds of the board.
 
 **Returns:** [*Position*](position.md)[][]
 
-Defined in: [Position.ts:342](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L342)
+Defined in: [Position.ts:342](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L342)
 
 ___
 
@@ -172,7 +172,7 @@ Returns an array of new Position instances that are moved one time equivalent of
 
 **Returns:** [*Position*](position.md)[]
 
-Defined in: [Position.ts:228](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L228)
+Defined in: [Position.ts:228](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L228)
 
 ___
 
@@ -184,7 +184,7 @@ Returns an array of new Position instances that are moved by 1 in all straight (
 
 **Returns:** [*Position*](position.md)[]
 
-Defined in: [Position.ts:197](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L197)
+Defined in: [Position.ts:197](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L197)
 
 ___
 
@@ -196,7 +196,7 @@ Returns an array of new Position instances that are moved by 1 in all straight (
 
 **Returns:** [*Position*](position.md)[]
 
-Defined in: [Position.ts:221](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L221)
+Defined in: [Position.ts:221](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L221)
 
 ___
 
@@ -210,7 +210,7 @@ the resulting Position instance becomes out of bounds of the board.
 
 **Returns:** [*Position*](position.md)[][]
 
-Defined in: [Position.ts:356](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L356)
+Defined in: [Position.ts:356](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L356)
 
 ___
 
@@ -224,7 +224,7 @@ resulting Position instance becomes out of bounds of the board.
 
 **Returns:** [*Position*](position.md)[][]
 
-Defined in: [Position.ts:328](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L328)
+Defined in: [Position.ts:328](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L328)
 
 ___
 
@@ -236,7 +236,7 @@ Returns a new Position instance that is moved down by 1 from the position on the
 
 **Returns:** *null* \| [*Position*](position.md)
 
-Defined in: [Position.ts:78](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L78)
+Defined in: [Position.ts:78](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L78)
 
 ___
 
@@ -248,7 +248,7 @@ Returns a new Position instance that is moved down by 2 from the position on the
 
 **Returns:** *null* \| [*Position*](position.md)
 
-Defined in: [Position.ts:134](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L134)
+Defined in: [Position.ts:134](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L134)
 
 ___
 
@@ -260,7 +260,7 @@ Returns a new Position instance that is moved down by 2 and left by 1 from the p
 
 **Returns:** *null* \| [*Position*](position.md)
 
-Defined in: [Position.ts:155](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L155)
+Defined in: [Position.ts:155](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L155)
 
 ___
 
@@ -272,7 +272,7 @@ Returns a new Position instance that is moved down by 2 and right by 1 from the 
 
 **Returns:** *null* \| [*Position*](position.md)
 
-Defined in: [Position.ts:162](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L162)
+Defined in: [Position.ts:162](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L162)
 
 ___
 
@@ -284,7 +284,7 @@ Returns a new Position instance that is moved down by 1 and left by 1 from the p
 
 **Returns:** *null* \| [*Position*](position.md)
 
-Defined in: [Position.ts:113](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L113)
+Defined in: [Position.ts:113](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L113)
 
 ___
 
@@ -298,7 +298,7 @@ the board.
 
 **Returns:** [*Position*](position.md)[]
 
-Defined in: [Position.ts:310](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L310)
+Defined in: [Position.ts:310](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L310)
 
 ___
 
@@ -311,7 +311,7 @@ the board that this instance describes until the resulting Position instance bec
 
 **Returns:** [*Position*](position.md)[]
 
-Defined in: [Position.ts:267](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L267)
+Defined in: [Position.ts:267](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L267)
 
 ___
 
@@ -323,7 +323,7 @@ Returns a new Position instance that is moved down by 1 and right by 1 from the 
 
 **Returns:** *null* \| [*Position*](position.md)
 
-Defined in: [Position.ts:120](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L120)
+Defined in: [Position.ts:120](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L120)
 
 ___
 
@@ -337,7 +337,7 @@ the board.
 
 **Returns:** [*Position*](position.md)[]
 
-Defined in: [Position.ts:319](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L319)
+Defined in: [Position.ts:319](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L319)
 
 ___
 
@@ -349,7 +349,7 @@ Returns a new Position instance that is moved left by 1 from the position on the
 
 **Returns:** *null* \| [*Position*](position.md)
 
-Defined in: [Position.ts:85](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L85)
+Defined in: [Position.ts:85](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L85)
 
 ___
 
@@ -361,7 +361,7 @@ Returns a new Position instance that is moved left by 2 and up by 1 from the pos
 
 **Returns:** *null* \| [*Position*](position.md)
 
-Defined in: [Position.ts:176](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L176)
+Defined in: [Position.ts:176](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L176)
 
 ___
 
@@ -373,7 +373,7 @@ Returns a new Position instance that is moved left by 2 and up by 1 from the pos
 
 **Returns:** *null* \| [*Position*](position.md)
 
-Defined in: [Position.ts:169](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L169)
+Defined in: [Position.ts:169](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L169)
 
 ___
 
@@ -386,7 +386,7 @@ the board that this instance describes until the resulting Position instance bec
 
 **Returns:** [*Position*](position.md)[]
 
-Defined in: [Position.ts:275](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L275)
+Defined in: [Position.ts:275](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L275)
 
 ___
 
@@ -406,7 +406,7 @@ Name | Type |
 
 **Returns:** *null* \| [*Position*](position.md)
 
-Defined in: [Position.ts:60](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L60)
+Defined in: [Position.ts:60](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L60)
 
 ___
 
@@ -425,7 +425,7 @@ Name | Type |
 
 **Returns:** [*Position*](position.md)[]
 
-Defined in: [Position.ts:245](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L245)
+Defined in: [Position.ts:245](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L245)
 
 ___
 
@@ -437,7 +437,7 @@ Returns a new Position instance that is moved right by 1 from the position on th
 
 **Returns:** *null* \| [*Position*](position.md)
 
-Defined in: [Position.ts:92](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L92)
+Defined in: [Position.ts:92](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L92)
 
 ___
 
@@ -450,7 +450,7 @@ the board that this instance describes until the resulting Position instance bec
 
 **Returns:** [*Position*](position.md)[]
 
-Defined in: [Position.ts:283](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L283)
+Defined in: [Position.ts:283](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L283)
 
 ___
 
@@ -462,7 +462,7 @@ Returns a new Position instance that is moved right by 2 and down by 1 from the 
 
 **Returns:** *null* \| [*Position*](position.md)
 
-Defined in: [Position.ts:190](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L190)
+Defined in: [Position.ts:190](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L190)
 
 ___
 
@@ -474,7 +474,7 @@ Returns a new Position instance that is moved right by 2 and up by 1 from the po
 
 **Returns:** *null* \| [*Position*](position.md)
 
-Defined in: [Position.ts:183](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L183)
+Defined in: [Position.ts:183](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L183)
 
 ___
 
@@ -486,7 +486,7 @@ Returns a new Position instance that is moved up by 1 from the position on the b
 
 **Returns:** *null* \| [*Position*](position.md)
 
-Defined in: [Position.ts:71](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L71)
+Defined in: [Position.ts:71](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L71)
 
 ___
 
@@ -498,7 +498,7 @@ Returns a new Position instance that is moved up by 1 and left by 1 from the pos
 
 **Returns:** *null* \| [*Position*](position.md)
 
-Defined in: [Position.ts:99](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L99)
+Defined in: [Position.ts:99](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L99)
 
 ___
 
@@ -512,7 +512,7 @@ the board.
 
 **Returns:** [*Position*](position.md)[]
 
-Defined in: [Position.ts:292](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L292)
+Defined in: [Position.ts:292](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L292)
 
 ___
 
@@ -525,7 +525,7 @@ the board that this instance describes until the resulting Position instance bec
 
 **Returns:** [*Position*](position.md)[]
 
-Defined in: [Position.ts:259](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L259)
+Defined in: [Position.ts:259](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L259)
 
 ___
 
@@ -537,7 +537,7 @@ Returns a new Position instance that is moved up by 1 and right by 1 from the po
 
 **Returns:** *null* \| [*Position*](position.md)
 
-Defined in: [Position.ts:106](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L106)
+Defined in: [Position.ts:106](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L106)
 
 ___
 
@@ -551,7 +551,7 @@ the board.
 
 **Returns:** [*Position*](position.md)[]
 
-Defined in: [Position.ts:301](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L301)
+Defined in: [Position.ts:301](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L301)
 
 ___
 
@@ -563,7 +563,7 @@ Returns a new Position instance that is moved up by 2 from the position on the b
 
 **Returns:** *null* \| [*Position*](position.md)
 
-Defined in: [Position.ts:127](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L127)
+Defined in: [Position.ts:127](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L127)
 
 ___
 
@@ -575,7 +575,7 @@ Returns a new Position instance that is moved up by 2 and left by 1 from the pos
 
 **Returns:** *null* \| [*Position*](position.md)
 
-Defined in: [Position.ts:141](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L141)
+Defined in: [Position.ts:141](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L141)
 
 ___
 
@@ -587,7 +587,7 @@ Returns a new Position instance that is moved up by 2 and right by 1 from the po
 
 **Returns:** *null* \| [*Position*](position.md)
 
-Defined in: [Position.ts:148](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L148)
+Defined in: [Position.ts:148](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L148)
 
 ___
 
@@ -599,7 +599,7 @@ Returns the instance as a normal array.
 
 **Returns:** *number*[]
 
-Defined in: [Position.ts:52](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L52)
+Defined in: [Position.ts:52](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L52)
 
 ___
 
@@ -617,4 +617,4 @@ Name | Type |
 
 **Returns:** [*Position*](position.md)
 
-Defined in: [Position.ts:10](https://github.com/bemoje/chess/blob/57afc4d/src/Position.ts#L10)
+Defined in: [Position.ts:10](https://github.com/bemoje/chess/blob/d6d5fcb/src/Position.ts#L10)

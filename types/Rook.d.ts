@@ -1,8 +1,17 @@
 import { Piece } from './AbstractPiece';
-import { Position } from './Position';
+import type { Position } from './Position';
 export declare class Rook extends Piece {
+    /**
+     * Returns the class name of the Piece.
+     */
+    get type(): string;
+    /**
+     * Returns a Position array with all piece-specific move positions within bounds of the board.
+     */
     protected getMovePositionsWithinBounds(): Array<Position | Array<Position>>;
-    protected isValidMove(target: Position): boolean;
-    private isValidCastleMove;
+    /**
+     * Returns whether a move to a target position is a castling move.
+     */
+    isCastleMove(target: Position): boolean;
 }
 //# sourceMappingURL=Rook.d.ts.map

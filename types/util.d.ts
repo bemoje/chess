@@ -11,4 +11,8 @@ export declare function numericDifference(n1: number, n2: number): number;
  * Returns an assertion function that expects [string] 'expectedToBe' evaluated by [Function] 'validate'
  */
 export declare function createAssertFunction<T>(expectedToBe: string, validate: (arg: T) => boolean): (arg: T, name?: string) => void;
+/**
+ * Returns whether a number is an even number.
+ */
+export declare function isEven(n: number): boolean;
 //# sourceMappingURL=util.d.ts.map

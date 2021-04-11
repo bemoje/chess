@@ -19,6 +19,7 @@
 - [getPieceByPosition](board.md#getpiecebyposition)
 - [getPieceByXY](board.md#getpiecebyxy)
 - [registerMove](board.md#registermove)
+- [registerSwap](board.md#registerswap)
 - [removePiece](board.md#removepiece)
 - [setPiece](board.md#setpiece)
 
@@ -36,7 +37,7 @@ Name | Type |
 
 **Returns:** [*Board*](board.md)
 
-Defined in: [Board.ts:9](https://github.com/bemoje/chess/blob/57afc4d/src/Board.ts#L9)
+Defined in: [Board.ts:9](https://github.com/bemoje/chess/blob/d6d5fcb/src/Board.ts#L9)
 
 ## Properties
 
@@ -44,7 +45,7 @@ Defined in: [Board.ts:9](https://github.com/bemoje/chess/blob/57afc4d/src/Board.
 
 • **game**: [*Game*](game.md)
 
-Defined in: [Board.ts:8](https://github.com/bemoje/chess/blob/57afc4d/src/Board.ts#L8)
+Defined in: [Board.ts:8](https://github.com/bemoje/chess/blob/d6d5fcb/src/Board.ts#L8)
 
 ___
 
@@ -52,7 +53,7 @@ ___
 
 • **grid**: (*null* \| *Piece*)[][]
 
-Defined in: [Board.ts:9](https://github.com/bemoje/chess/blob/57afc4d/src/Board.ts#L9)
+Defined in: [Board.ts:9](https://github.com/bemoje/chess/blob/d6d5fcb/src/Board.ts#L9)
 
 ## Methods
 
@@ -70,7 +71,7 @@ Name | Type |
 
 **Returns:** *null* \| *Piece*
 
-Defined in: [Board.ts:38](https://github.com/bemoje/chess/blob/57afc4d/src/Board.ts#L38)
+Defined in: [Board.ts:38](https://github.com/bemoje/chess/blob/d6d5fcb/src/Board.ts#L38)
 
 ___
 
@@ -88,7 +89,7 @@ Name | Type |
 
 **Returns:** *null* \| *Piece*
 
-Defined in: [Board.ts:31](https://github.com/bemoje/chess/blob/57afc4d/src/Board.ts#L31)
+Defined in: [Board.ts:31](https://github.com/bemoje/chess/blob/d6d5fcb/src/Board.ts#L31)
 
 ___
 
@@ -107,7 +108,7 @@ Name | Type |
 
 **Returns:** *null* \| *Piece*
 
-Defined in: [Board.ts:24](https://github.com/bemoje/chess/blob/57afc4d/src/Board.ts#L24)
+Defined in: [Board.ts:24](https://github.com/bemoje/chess/blob/d6d5fcb/src/Board.ts#L24)
 
 ___
 
@@ -125,7 +126,26 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [Board.ts:65](https://github.com/bemoje/chess/blob/57afc4d/src/Board.ts#L65)
+Defined in: [Board.ts:65](https://github.com/bemoje/chess/blob/d6d5fcb/src/Board.ts#L65)
+
+___
+
+### registerSwap
+
+▸ **registerSwap**(`move`: [*Move*](move.md)): *void*
+
+Updates the board instance based on the information contained within a provided Move instance that is known to make
+out a swap (used for castling moves).
+
+#### Parameters:
+
+Name | Type |
+:------ | :------ |
+`move` | [*Move*](move.md) |
+
+**Returns:** *void*
+
+Defined in: [Board.ts:77](https://github.com/bemoje/chess/blob/d6d5fcb/src/Board.ts#L77)
 
 ___
 
@@ -144,7 +164,7 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [Board.ts:55](https://github.com/bemoje/chess/blob/57afc4d/src/Board.ts#L55)
+Defined in: [Board.ts:55](https://github.com/bemoje/chess/blob/d6d5fcb/src/Board.ts#L55)
 
 ___
 
@@ -162,4 +182,4 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [Board.ts:46](https://github.com/bemoje/chess/blob/57afc4d/src/Board.ts#L46)
+Defined in: [Board.ts:46](https://github.com/bemoje/chess/blob/d6d5fcb/src/Board.ts#L46)

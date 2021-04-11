@@ -69,4 +69,17 @@ export class Board {
     this.grid[to.y][to.x] = piece;
     this.grid[from.y][from.x] = null;
   }
+
+  /**
+   * Updates the board instance based on the information contained within a provided Move instance that is known to make
+   * out a swap (used for castling moves).
+   */
+  public registerSwap(move: Move): void {
+    const from = move.from;
+    const to = move.to;
+    const pieceFrom = this.grid[from.y][from.x];
+    const pieceTo = this.grid[to.y][to.x];
+    this.grid[to.y][to.x] = pieceFrom;
+    this.grid[from.y][from.x] = pieceTo;
+  }
 }

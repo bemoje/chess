@@ -2,10 +2,24 @@ import { Piece } from './AbstractPiece';
 import type { Position } from './Position';
 
 export class Pawn extends Piece {
+  /**
+   * Returns the class name of the Piece.
+   */
+  public get type(): string {
+    return 'Pawn';
+  }
+
+  /**
+   * Returns a Position array with all piece-specific move positions within bounds of the board.
+   */
   protected getMovePositionsWithinBounds(): Array<Position | Array<Position>> {
+    const board = this.game.board;
     const pos = this.position;
-    if (!pos) return [];
     const res = [];
+
+    if (!pos) {
+      return [];
+    }
 
     if (this.color === 'white') {
       const upPos = pos.getUp();
@@ -20,7 +34,7 @@ export class Pawn extends Piece {
 
       const upLeftPos = pos.getUpLeft();
       if (upLeftPos) {
-        const diagLeftPiece = this.game.board.getPieceByPosition(upLeftPos);
+        const diagLeftPiece = board.getPieceByPosition(upLeftPos);
         if (diagLeftPiece) {
           const diagLeftPos = diagLeftPiece.position;
           if (diagLeftPos && diagLeftPiece.color === 'black') {
@@ -31,7 +45,7 @@ export class Pawn extends Piece {
 
       const upRightPos = pos.getUpRight();
       if (upRightPos) {
-        const diagRightPiece = this.game.board.getPieceByPosition(upRightPos);
+        const diagRightPiece = board.getPieceByPosition(upRightPos);
         if (diagRightPiece) {
           const diagLeftPos = diagRightPiece.position;
           if (diagLeftPos && diagRightPiece.color === 'black') {
@@ -52,7 +66,7 @@ export class Pawn extends Piece {
 
       const downLeftPos = pos.getDownLeft();
       if (downLeftPos) {
-        const diagLeftPiece = this.game.board.getPieceByPosition(downLeftPos);
+        const diagLeftPiece = board.getPieceByPosition(downLeftPos);
         if (diagLeftPiece) {
           const diagLeftPos = diagLeftPiece.position;
           if (diagLeftPos && diagLeftPiece.color === 'white') {
@@ -63,7 +77,7 @@ export class Pawn extends Piece {
 
       const downRightPos = pos.getDownRight();
       if (downRightPos) {
-        const diagRightPiece = this.game.board.getPieceByPosition(downRightPos);
+        const diagRightPiece = board.getPieceByPosition(downRightPos);
         if (diagRightPiece) {
           const diagLeftPos = diagRightPiece.position;
           if (diagLeftPos && diagRightPiece.color === 'white') {

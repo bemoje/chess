@@ -42,3 +42,10 @@ export function createAssertFunction<T>(
   });
   return f;
 }
+
+/**
+ * Returns whether a number is an even number.
+ */
+export function isEven(n: number): boolean {
+  return n % 2 == 0;
+}

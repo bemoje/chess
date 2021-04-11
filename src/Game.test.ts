@@ -46,6 +46,68 @@ describe('(class) Board', () => {
     });
   });
 
+  describe('(method) forEachWhitePiece', () => {
+    it('iterates all 16 white pieces on the board.', () => {
+      let c = 0;
+      game.forEachWhitePiece((piece) => {
+        if (piece) {
+          expect(piece.color).toBe('white');
+          c++;
+        } else throw new Error('!piece');
+      });
+      expect(c).toBe(16);
+    });
+
+    it('is able to stop iteration.', () => {
+      let i = 0;
+      game.forEachWhitePiece(() => {
+        i++;
+        if (i === 5) return true;
+        else return;
+      });
+      expect(i).toBe(5);
+    });
+
+    it('iterates unique Piece instances.', () => {
+      const set = new Set();
+      game.forEachWhitePiece((piece) => {
+        set.add(piece);
+      });
+      expect(set.size).toBe(16);
+    });
+  });
+
+  describe('(method) forEachBlackPiece', () => {
+    it('iterates all 16 black pieces on the board.', () => {
+      let c = 0;
+      game.forEachBlackPiece((piece) => {
+        if (piece) {
+          expect(piece.color).toBe('black');
+          c++;
+        } else throw new Error('!piece');
+      });
+      expect(c).toBe(16);
+    });
+
+    it('is able to stop iteration.', () => {
+      let i = 0;
+      game.forEachBlackPiece(() => {
+        i++;
+        if (i === 5) return true;
+        else return;
+      });
+      expect(i).toBe(5);
+    });
+
+    it('iterates unique Piece instances.', () => {
+      const set = new Set();
+      game.forEachBlackPiece((piece) => {
+        set.add(piece);
+      });
+      expect(set.size).toBe(16);
+    });
+  });
+
   describe('(method) makeMove', () => {
     it("allows for skipping validation of the move's legality according to the rules of chess.", () => {
       const piece = game.board.getPieceByA1('A2');
