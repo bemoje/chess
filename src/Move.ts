@@ -2,12 +2,12 @@ import type { Piece } from './AbstractPiece';
 import type { Position } from './Position';
 
 export class Move {
-  piece: Piece;
-  takes: Piece | null;
-  from: Position;
-  to: Position;
+  public piece: Piece;
+  public takes: Piece | null;
+  public from: Position;
+  public to: Position;
 
-  constructor(piece: Piece, to: Position, takes: Piece | null = null) {
+  public constructor(piece: Piece, to: Position, takes: Piece | null = null) {
     const pos = piece.position;
     if (!pos) {
       throw new Error('Cannot move a piece that is not on the board.');

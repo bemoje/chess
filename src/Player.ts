@@ -10,11 +10,11 @@ import type { Game } from './Game';
 import type { Move } from './Move';
 
 export class Player {
-  game: Game;
-  color: string;
-  pieces: Piece[];
+  public game: Game;
+  public color: string;
+  public pieces: Piece[];
 
-  constructor(game: Game, color: string) {
+  public constructor(game: Game, color: string) {
     this.game = game;
     this.color = color;
 
@@ -52,7 +52,7 @@ export class Player {
   /**
    * Returns an array of Move instances that describe moves of this Piece.
    */
-  get moves(): Move[] {
+  public get moves(): Move[] {
     return this.game.moves.filter((move) => {
       return move.piece.player === this;
     });

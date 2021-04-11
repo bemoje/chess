@@ -29,7 +29,7 @@
 
 **Returns:** [*Game*](game.md)
 
-Defined in: [Game.ts:11](https://github.com/bemoje/chess/blob/5a6d4ac/src/Game.ts#L11)
+Defined in: [Game.ts:11](https://github.com/bemoje/chess/blob/57afc4d/src/Game.ts#L11)
 
 ## Properties
 
@@ -37,7 +37,7 @@ Defined in: [Game.ts:11](https://github.com/bemoje/chess/blob/5a6d4ac/src/Game.t
 
 • **black**: [*Player*](player.md)
 
-Defined in: [Game.ts:10](https://github.com/bemoje/chess/blob/5a6d4ac/src/Game.ts#L10)
+Defined in: [Game.ts:10](https://github.com/bemoje/chess/blob/57afc4d/src/Game.ts#L10)
 
 ___
 
@@ -45,7 +45,7 @@ ___
 
 • **board**: [*Board*](board.md)
 
-Defined in: [Game.ts:8](https://github.com/bemoje/chess/blob/5a6d4ac/src/Game.ts#L8)
+Defined in: [Game.ts:8](https://github.com/bemoje/chess/blob/57afc4d/src/Game.ts#L8)
 
 ___
 
@@ -53,7 +53,7 @@ ___
 
 • **moves**: [*Move*](move.md)[]
 
-Defined in: [Game.ts:11](https://github.com/bemoje/chess/blob/5a6d4ac/src/Game.ts#L11)
+Defined in: [Game.ts:11](https://github.com/bemoje/chess/blob/57afc4d/src/Game.ts#L11)
 
 ___
 
@@ -61,7 +61,7 @@ ___
 
 • **white**: [*Player*](player.md)
 
-Defined in: [Game.ts:9](https://github.com/bemoje/chess/blob/5a6d4ac/src/Game.ts#L9)
+Defined in: [Game.ts:9](https://github.com/bemoje/chess/blob/57afc4d/src/Game.ts#L9)
 
 ## Methods
 
@@ -73,7 +73,7 @@ Returns a deep clone of the game instance.
 
 **Returns:** [*Game*](game.md)
 
-Defined in: [Game.ts:56](https://github.com/bemoje/chess/blob/5a6d4ac/src/Game.ts#L56)
+Defined in: [Game.ts:56](https://github.com/bemoje/chess/blob/57afc4d/src/Game.ts#L56)
 
 ___
 
@@ -81,7 +81,7 @@ ___
 
 ▸ **forEachPiece**(`f`: (`piece`: *Piece*) => *boolean* \| *void*): *void*
 
-Iterate each piece on the board very efficiently.
+Iterate each piece on the board.
 If the callback function returns true, iteration ends.
 
 #### Parameters:
@@ -92,7 +92,7 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [Game.ts:24](https://github.com/bemoje/chess/blob/5a6d4ac/src/Game.ts#L24)
+Defined in: [Game.ts:24](https://github.com/bemoje/chess/blob/57afc4d/src/Game.ts#L24)
 
 ___
 
@@ -115,4 +115,4 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [Game.ts:40](https://github.com/bemoje/chess/blob/5a6d4ac/src/Game.ts#L40)
+Defined in: [Game.ts:40](https://github.com/bemoje/chess/blob/57afc4d/src/Game.ts#L40)

@@ -56,7 +56,7 @@ describe('(class) Board', () => {
       } else throw new Error('piece is null');
     });
 
-    it('throws on illegal/invalid moves if _skipValidation is not ´true´.', () => {
+    it('throws on illegal/invalid moves if skipValidation is not ´true´.', () => {
       // TODO
     });
   });

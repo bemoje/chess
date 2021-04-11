@@ -10,7 +10,7 @@ export declare class Game {
     moves: Array<Move>;
     constructor();
     /**
-     * Iterate each piece on the board very efficiently.
+     * Iterate each piece on the board.
      * If the callback function returns true, iteration ends.
      */
     forEachPiece(f: (piece: Piece) => boolean | void): void;

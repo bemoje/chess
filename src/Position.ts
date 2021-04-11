@@ -2,12 +2,12 @@ import { from_A1_to_XY, from_XY_to_A1, assertValidXY } from './coordinates';
 import { arrClean } from './util';
 
 export class Position {
-  x: number;
-  y: number;
+  public x: number;
+  public y: number;
   /**
    * Returns a new Position instance based on A1-notation input.
    */
-  static fromA1(a1: string): Position {
+  public static fromA1(a1: string): Position {
     const xy = from_A1_to_XY(a1);
     return new Position(xy[0], xy[1]);
   }
@@ -16,7 +16,7 @@ export class Position {
    * @param x - a positive integer between 0 and 7 both inclusive.
    * @param y - a positive integer between 0 and 7 both inclusive.
    */
-  constructor(x: number, y: number, skipValidation = false) {
+  public constructor(x: number, y: number, skipValidation = false) {
     if (!skipValidation) {
       assertValidXY([x, y], 'x and y');
     }
@@ -27,14 +27,14 @@ export class Position {
   /**
    * Returns the board position in A1-notation.
    */
-  get A1(): string {
+  public get A1(): string {
     return from_XY_to_A1([this.x, this.y]);
   }
 
   /**
    * Deep-equality-compares the Position instance to another Position instance.
    */
-  compare(position: Position): boolean {
+  public compare(position: Position): boolean {
     return this.x === position.x && this.y === position.y;
   }
 
@@ -42,14 +42,14 @@ export class Position {
    * Returns a clone of the instance.
    * Out of bounds -validation is skipped.
    */
-  clone(): Position {
+  public clone(): Position {
     return new Position(this.x, this.y, true);
   }
 
   /**
    * Returns the instance as a normal array.
    */
-  toArray(): Array<number> {
+  public toArray(): Array<number> {
     return [this.x, this.y];
   }
 
@@ -68,133 +68,133 @@ export class Position {
   /**
    * Returns a new Position instance that is moved up by 1 from the position on the board that this instance describes.
    */
-  getUp(): Position | null {
+  public getUp(): Position | null {
     return this.getModulation(0, 1);
   }
 
   /**
    * Returns a new Position instance that is moved down by 1 from the position on the board that this instance describes.
    */
-  getDown(): Position | null {
+  public getDown(): Position | null {
     return this.getModulation(0, -1);
   }
 
   /**
    * Returns a new Position instance that is moved left by 1 from the position on the board that this instance describes.
    */
-  getLeft(): Position | null {
+  public getLeft(): Position | null {
     return this.getModulation(-1, 0);
   }
 
   /**
    * Returns a new Position instance that is moved right by 1 from the position on the board that this instance describes.
    */
-  getRight(): Position | null {
+  public getRight(): Position | null {
     return this.getModulation(1, 0);
   }
 
   /**
    * Returns a new Position instance that is moved up by 1 and left by 1 from the position on the board that this instance describes.
    */
-  getUpLeft(): Position | null {
+  public getUpLeft(): Position | null {
     return this.getModulation(-1, 1);
   }
 
   /**
    * Returns a new Position instance that is moved up by 1 and right by 1 from the position on the board that this instance describes.
    */
-  getUpRight(): Position | null {
+  public getUpRight(): Position | null {
     return this.getModulation(1, 1);
   }
 
   /**
    * Returns a new Position instance that is moved down by 1 and left by 1 from the position on the board that this instance describes.
    */
-  getDownLeft(): Position | null {
+  public getDownLeft(): Position | null {
     return this.getModulation(-1, -1);
   }
 
   /**
    * Returns a new Position instance that is moved down by 1 and right by 1 from the position on the board that this instance describes.
    */
-  getDownRight(): Position | null {
+  public getDownRight(): Position | null {
     return this.getModulation(1, -1);
   }
 
   /**
    * Returns a new Position instance that is moved up by 2 from the position on the board that this instance describes.
    */
-  getUpUp(): Position | null {
+  public getUpUp(): Position | null {
     return this.getModulation(0, 2);
   }
 
   /**
    * Returns a new Position instance that is moved down by 2 from the position on the board that this instance describes.
    */
-  getDownDown(): Position | null {
+  public getDownDown(): Position | null {
     return this.getModulation(0, -2);
   }
 
   /**
    * Returns a new Position instance that is moved up by 2 and left by 1 from the position on the board that this instance describes.
    */
-  getUpUpLeft(): Position | null {
+  public getUpUpLeft(): Position | null {
     return this.getModulation(-1, 2);
   }
 
   /**
    * Returns a new Position instance that is moved up by 2 and right by 1 from the position on the board that this instance describes.
    */
-  getUpUpRight(): Position | null {
+  public getUpUpRight(): Position | null {
     return this.getModulation(1, 2);
   }
 
   /**
    * Returns a new Position instance that is moved down by 2 and left by 1 from the position on the board that this instance describes.
    */
-  getDownDownLeft(): Position | null {
+  public getDownDownLeft(): Position | null {
     return this.getModulation(-1, -2);
   }
 
   /**
    * Returns a new Position instance that is moved down by 2 and right by 1 from the position on the board that this instance describes.
    */
-  getDownDownRight(): Position | null {
+  public getDownDownRight(): Position | null {
     return this.getModulation(1, -2);
   }
 
   /**
    * Returns a new Position instance that is moved left by 2 and up by 1 from the position on the board that this instance describes.
    */
-  getLeftLeftUp(): Position | null {
+  public getLeftLeftUp(): Position | null {
     return this.getModulation(-2, 1);
   }
 
   /**
    * Returns a new Position instance that is moved left by 2 and up by 1 from the position on the board that this instance describes.
    */
-  getLeftLeftDown(): Position | null {
+  public getLeftLeftDown(): Position | null {
     return this.getModulation(-2, -1);
   }
 
   /**
    * Returns a new Position instance that is moved right by 2 and up by 1 from the position on the board that this instance describes.
    */
-  getRightRightUp(): Position | null {
+  public getRightRightUp(): Position | null {
     return this.getModulation(2, 1);
   }
 
   /**
    * Returns a new Position instance that is moved right by 2 and down by 1 from the position on the board that this instance describes.
    */
-  getRightRightDown(): Position | null {
+  public getRightRightDown(): Position | null {
     return this.getModulation(2, -1);
   }
 
   /**
    * Returns an array of new Position instances that are moved by 1 in all straight (horizontal and vertical) directions.
    */
-  getAllStraight(): Array<Position> {
+  public getAllStraight(): Array<Position> {
     return arrClean([
       this.getUp(),
       this.getDown(),
@@ -206,7 +206,7 @@ export class Position {
   /**
    * Returns an array of new Position instances that are moved by 1 in all diagonal directions.
    */
-  getAllDiagonal(): Array<Position> {
+  public getAllDiagonal(): Array<Position> {
     return arrClean([
       this.getUpLeft(),
       this.getUpRight(),
@@ -218,14 +218,14 @@ export class Position {
   /**
    * Returns an array of new Position instances that are moved by 1 in all straight (horizontal and vertical) and diagonal directions.
    */
-  getAllStraightAndDiagonal(): Array<Position> {
+  public getAllStraightAndDiagonal(): Array<Position> {
     return [...this.getAllStraight(), ...this.getAllDiagonal()];
   }
 
   /**
    * Returns an array of new Position instances that are moved one time equivalent of all legal knight-piece moves.
    */
-  getAllKnightMovePositions(): Array<Position> {
+  public getAllKnightMovePositions(): Array<Position> {
     return arrClean([
       this.getUpUpLeft(),
       this.getUpUpRight(),
@@ -256,7 +256,7 @@ export class Position {
    * Returns an array of new Position instances that are the result of recursively moving up by 1 from the position on
    * the board that this instance describes until the resulting Position instance becomes out of bounds of the board.
    */
-  getUpRecursive(): Array<Position> {
+  public getUpRecursive(): Array<Position> {
     return this.getRecursive(this.getUp);
   }
 
@@ -264,7 +264,7 @@ export class Position {
    * Returns an array of new Position instances that are the result of recursively moving down by 1 from the position on
    * the board that this instance describes until the resulting Position instance becomes out of bounds of the board.
    */
-  getDownRecursive(): Array<Position> {
+  public getDownRecursive(): Array<Position> {
     return this.getRecursive(this.getDown);
   }
 
@@ -272,7 +272,7 @@ export class Position {
    * Returns an array of new Position instances that are the result of recursively moving left by 1 from the position on
    * the board that this instance describes until the resulting Position instance becomes out of bounds of the board.
    */
-  getLeftRecursive(): Array<Position> {
+  public getLeftRecursive(): Array<Position> {
     return this.getRecursive(this.getLeft);
   }
 
@@ -280,7 +280,7 @@ export class Position {
    * Returns an array of new Position instances that are the result of recursively moving right by 1 from the position on
    * the board that this instance describes until the resulting Position instance becomes out of bounds of the board.
    */
-  getRightRecursive(): Array<Position> {
+  public getRightRecursive(): Array<Position> {
     return this.getRecursive(this.getRight);
   }
 
@@ -289,7 +289,7 @@ export class Position {
    * position on the board that this instance describes until the resulting Position instance becomes out of bounds of
    * the board.
    */
-  getUpLeftRecursive(): Array<Position> {
+  public getUpLeftRecursive(): Array<Position> {
     return this.getRecursive(this.getUpLeft);
   }
 
@@ -298,7 +298,7 @@ export class Position {
    * position on the board that this instance describes until the resulting Position instance becomes out of bounds of
    * the board.
    */
-  getUpRightRecursive(): Array<Position> {
+  public getUpRightRecursive(): Array<Position> {
     return this.getRecursive(this.getUpRight);
   }
 
@@ -307,7 +307,7 @@ export class Position {
    * position on the board that this instance describes until the resulting Position instance becomes out of bounds of
    * the board.
    */
-  getDownLeftRecursive(): Array<Position> {
+  public getDownLeftRecursive(): Array<Position> {
     return this.getRecursive(this.getDownLeft);
   }
 
@@ -316,7 +316,7 @@ export class Position {
    * position on the board that this instance describes until the resulting Position instance becomes out of bounds of
    * the board.
    */
-  getDownRightRecursive(): Array<Position> {
+  public getDownRightRecursive(): Array<Position> {
     return this.getRecursive(this.getDownRight);
   }
 
@@ -325,7 +325,7 @@ export class Position {
    * (horizontal and vertical) directions from the position on the board that this instance describes until the
    * resulting Position instance becomes out of bounds of the board.
    */
-  getAllStraightRecursive(): Array<Array<Position>> {
+  public getAllStraightRecursive(): Array<Array<Position>> {
     return [
       this.getUpRecursive(),
       this.getDownRecursive(),
@@ -339,7 +339,7 @@ export class Position {
    * directions. from the position on the board that this instance describes until the resulting Position instance
    * becomes out of bounds of the board.
    */
-  getAllDiagonalRecursive(): Array<Array<Position>> {
+  public getAllDiagonalRecursive(): Array<Array<Position>> {
     return [
       this.getUpLeftRecursive(),
       this.getUpRightRecursive(),
@@ -353,7 +353,7 @@ export class Position {
    * (horizontal and vertical) and diagonal directions from the position on the board that this instance describes until
    * the resulting Position instance becomes out of bounds of the board.
    */
-  getAllStraightAndDiagonalRecursive(): Array<Array<Position>> {
+  public getAllStraightAndDiagonalRecursive(): Array<Array<Position>> {
     return [
       ...this.getAllStraightRecursive(),
       ...this.getAllDiagonalRecursive(),

@@ -58,7 +58,7 @@ Name | Type |
 
 Inherited from: void
 
-Defined in: [AbstractPiece.ts:10](https://github.com/bemoje/chess/blob/5a6d4ac/src/AbstractPiece.ts#L10)
+Defined in: [AbstractPiece.ts:10](https://github.com/bemoje/chess/blob/57afc4d/src/AbstractPiece.ts#L10)
 
 ## Properties
 
@@ -68,7 +68,7 @@ Defined in: [AbstractPiece.ts:10](https://github.com/bemoje/chess/blob/5a6d4ac/s
 
 Inherited from: void
 
-Defined in: [AbstractPiece.ts:8](https://github.com/bemoje/chess/blob/5a6d4ac/src/AbstractPiece.ts#L8)
+Defined in: [AbstractPiece.ts:8](https://github.com/bemoje/chess/blob/57afc4d/src/AbstractPiece.ts#L8)
 
 ___
 
@@ -78,7 +78,7 @@ ___
 
 Inherited from: void
 
-Defined in: [AbstractPiece.ts:10](https://github.com/bemoje/chess/blob/5a6d4ac/src/AbstractPiece.ts#L10)
+Defined in: [AbstractPiece.ts:10](https://github.com/bemoje/chess/blob/57afc4d/src/AbstractPiece.ts#L10)
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 Inherited from: void
 
-Defined in: [AbstractPiece.ts:7](https://github.com/bemoje/chess/blob/5a6d4ac/src/AbstractPiece.ts#L7)
+Defined in: [AbstractPiece.ts:7](https://github.com/bemoje/chess/blob/57afc4d/src/AbstractPiece.ts#L7)
 
 ___
 
@@ -98,7 +98,7 @@ ___
 
 Inherited from: void
 
-Defined in: [AbstractPiece.ts:9](https://github.com/bemoje/chess/blob/5a6d4ac/src/AbstractPiece.ts#L9)
+Defined in: [AbstractPiece.ts:9](https://github.com/bemoje/chess/blob/57afc4d/src/AbstractPiece.ts#L9)
 
 ## Accessors
 
@@ -108,7 +108,7 @@ Defined in: [AbstractPiece.ts:9](https://github.com/bemoje/chess/blob/5a6d4ac/sr
 
 **Returns:** *string*
 
-Defined in: [AbstractPiece.ts:33](https://github.com/bemoje/chess/blob/5a6d4ac/src/AbstractPiece.ts#L33)
+Defined in: [AbstractPiece.ts:33](https://github.com/bemoje/chess/blob/57afc4d/src/AbstractPiece.ts#L33)
 
 ___
 
@@ -118,7 +118,7 @@ ___
 
 **Returns:** [*Game*](game.md)
 
-Defined in: [AbstractPiece.ts:21](https://github.com/bemoje/chess/blob/5a6d4ac/src/AbstractPiece.ts#L21)
+Defined in: [AbstractPiece.ts:21](https://github.com/bemoje/chess/blob/57afc4d/src/AbstractPiece.ts#L21)
 
 ___
 
@@ -128,7 +128,7 @@ ___
 
 **Returns:** *boolean*
 
-Defined in: [AbstractPiece.ts:29](https://github.com/bemoje/chess/blob/5a6d4ac/src/AbstractPiece.ts#L29)
+Defined in: [AbstractPiece.ts:29](https://github.com/bemoje/chess/blob/57afc4d/src/AbstractPiece.ts#L29)
 
 ___
 
@@ -138,7 +138,7 @@ ___
 
 **Returns:** *boolean*
 
-Defined in: [AbstractPiece.ts:37](https://github.com/bemoje/chess/blob/5a6d4ac/src/AbstractPiece.ts#L37)
+Defined in: [AbstractPiece.ts:37](https://github.com/bemoje/chess/blob/57afc4d/src/AbstractPiece.ts#L37)
 
 ___
 
@@ -148,7 +148,7 @@ ___
 
 **Returns:** [*Move*](move.md)[]
 
-Defined in: [AbstractPiece.ts:41](https://github.com/bemoje/chess/blob/5a6d4ac/src/AbstractPiece.ts#L41)
+Defined in: [AbstractPiece.ts:41](https://github.com/bemoje/chess/blob/57afc4d/src/AbstractPiece.ts#L41)
 
 ___
 
@@ -158,7 +158,7 @@ ___
 
 **Returns:** *string*
 
-Defined in: [AbstractPiece.ts:25](https://github.com/bemoje/chess/blob/5a6d4ac/src/AbstractPiece.ts#L25)
+Defined in: [AbstractPiece.ts:25](https://github.com/bemoje/chess/blob/57afc4d/src/AbstractPiece.ts#L25)
 
 ## Methods
 
@@ -170,7 +170,7 @@ Defined in: [AbstractPiece.ts:25](https://github.com/bemoje/chess/blob/5a6d4ac/s
 
 Overrides: void
 
-Defined in: [Queen.ts:5](https://github.com/bemoje/chess/blob/5a6d4ac/src/Queen.ts#L5)
+Defined in: [Queen.ts:5](https://github.com/bemoje/chess/blob/57afc4d/src/Queen.ts#L5)
 
 ___
 
@@ -184,7 +184,7 @@ Returns a Position array with all valid moves.
 
 Inherited from: void
 
-Defined in: [AbstractPiece.ts:78](https://github.com/bemoje/chess/blob/5a6d4ac/src/AbstractPiece.ts#L78)
+Defined in: [AbstractPiece.ts:78](https://github.com/bemoje/chess/blob/57afc4d/src/AbstractPiece.ts#L78)
 
 ___
 
@@ -202,7 +202,7 @@ Name | Type |
 
 Inherited from: void
 
-Defined in: [AbstractPiece.ts:56](https://github.com/bemoje/chess/blob/5a6d4ac/src/AbstractPiece.ts#L56)
+Defined in: [AbstractPiece.ts:56](https://github.com/bemoje/chess/blob/57afc4d/src/AbstractPiece.ts#L56)
 
 ___
 
@@ -222,7 +222,7 @@ Name | Type |
 
 Inherited from: void
 
-Defined in: [AbstractPiece.ts:64](https://github.com/bemoje/chess/blob/5a6d4ac/src/AbstractPiece.ts#L64)
+Defined in: [AbstractPiece.ts:64](https://github.com/bemoje/chess/blob/57afc4d/src/AbstractPiece.ts#L64)
 
 ___
 
@@ -240,7 +240,7 @@ Name | Type |
 
 Inherited from: void
 
-Defined in: [AbstractPiece.ts:93](https://github.com/bemoje/chess/blob/5a6d4ac/src/AbstractPiece.ts#L93)
+Defined in: [AbstractPiece.ts:93](https://github.com/bemoje/chess/blob/57afc4d/src/AbstractPiece.ts#L93)
 
 ___
 
@@ -258,7 +258,7 @@ Name | Type |
 
 Inherited from: void
 
-Defined in: [AbstractPiece.ts:47](https://github.com/bemoje/chess/blob/5a6d4ac/src/AbstractPiece.ts#L47)
+Defined in: [AbstractPiece.ts:47](https://github.com/bemoje/chess/blob/57afc4d/src/AbstractPiece.ts#L47)
 
 ___
 
@@ -270,4 +270,4 @@ ___
 
 Inherited from: void
 
-Defined in: [AbstractPiece.ts:52](https://github.com/bemoje/chess/blob/5a6d4ac/src/AbstractPiece.ts#L52)
+Defined in: [AbstractPiece.ts:52](https://github.com/bemoje/chess/blob/57afc4d/src/AbstractPiece.ts#L52)

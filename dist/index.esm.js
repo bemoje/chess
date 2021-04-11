@@ -773,14 +773,14 @@ class Game {
         this.moves = [];
     }
     /**
-     * Iterate each piece on the board very efficiently.
+     * Iterate each piece on the board.
      * If the callback function returns true, iteration ends.
      */
     forEachPiece(f) {
-        const wPcs = this.white.pieces;
-        const bPcs = this.black.pieces;
+        const w = this.white.pieces;
+        const b = this.black.pieces;
         for (let i = 0; i < 16; i++) {
-            if (f(wPcs[i]) === true || f(bPcs[i]) === true) {
+            if (f(w[i]) === true || f(b[i]) === true) {
                 return;
             }
         }
@@ -810,13 +810,13 @@ class Game {
      */
     clone() {
         const game = new Game();
-        const wPcs = game.white.pieces;
-        const bPcs = game.black.pieces;
+        const w = game.white.pieces;
+        const b = game.black.pieces;
         const moves = this.moves;
         const l = moves.length;
         for (let piece, i = 0; i < l; i++) {
             piece = moves[i].piece;
-            game.makeMove((piece.color === 'white' ? wPcs : bPcs)[piece.index], moves[i].to.clone(), true);
+            game.makeMove((piece.color === 'white' ? w : b)[piece.index], moves[i].to.clone(), true);
         }
         return game;
     }

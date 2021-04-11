@@ -5,10 +5,10 @@ import type { Move } from './Move';
 import type { Piece } from './AbstractPiece';
 
 export class Board {
-  game: Game;
-  grid: Array<Array<Piece | null>>;
+  public game: Game;
+  public grid: Array<Array<Piece | null>>;
 
-  constructor(game: Game) {
+  public constructor(game: Game) {
     this.game = game;
     this.grid = [];
     let i = 0;
@@ -21,21 +21,21 @@ export class Board {
   /**
    * Returns the piece at the given XY-coordinates or null if no piece is found there.
    */
-  getPieceByXY(x: number, y: number): Piece | null {
+  public getPieceByXY(x: number, y: number): Piece | null {
     return this.grid[y][x];
   }
 
   /**
    * Returns the piece at the given Position or null if no piece is found there.
    */
-  getPieceByPosition(position: Position): Piece | null {
+  public getPieceByPosition(position: Position): Piece | null {
     return this.getPieceByXY(position.x, position.y);
   }
 
   /**
    * Returns the piece at the given A1-notation-coordinates or null if no piece is found there.
    */
-  getPieceByA1(a1: string): Piece | null {
+  public getPieceByA1(a1: string): Piece | null {
     const [x, y] = from_A1_to_XY(a1);
     return this.getPieceByXY(x, y);
   }
@@ -43,7 +43,7 @@ export class Board {
   /**
    * Sets a piece to the board.
    */
-  setPiece(piece: Piece): void {
+  public setPiece(piece: Piece): void {
     const pos = piece.position;
     if (pos) this.grid[pos.y][pos.x] = piece;
   }
@@ -52,7 +52,7 @@ export class Board {
    * Removes a piece from the board.
    * This method does not check legality or whether this action is part of a move in the game.
    */
-  removePiece(piece: Piece | null): void {
+  public removePiece(piece: Piece | null): void {
     if (piece) {
       const pos = piece.position;
       if (pos) this.grid[pos.y][pos.x] = null;
@@ -62,7 +62,7 @@ export class Board {
   /**
    * Updates the board instance based on the information contained within a provided Move instance.
    */
-  registerMove(move: Move): void {
+  public registerMove(move: Move): void {
     const from = move.from;
     const to = move.to;
     const piece = this.grid[from.y][from.x];
