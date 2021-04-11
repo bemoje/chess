@@ -28,7 +28,7 @@ export abstract class Piece {
    * Returns the class name of the Piece.
    */
   public get type(): string {
-    return 'Piece';
+    return this.constructor.name;
   }
 
   /**

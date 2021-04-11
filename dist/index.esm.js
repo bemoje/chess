@@ -64,7 +64,7 @@ var Piece = /** @class */ (function () {
          * Returns the class name of the Piece.
          */
         get: function () {
-            return 'Piece';
+            return this.constructor.name;
         },
         enumerable: false,
         configurable: true
@@ -205,16 +205,6 @@ var Bishop = /** @class */ (function (_super) {
     function Bishop() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    Object.defineProperty(Bishop.prototype, "type", {
-        /**
-         * Returns the class name of the Piece.
-         */
-        get: function () {
-            return 'Bishop';
-        },
-        enumerable: false,
-        configurable: true
-    });
     /**
      * Returns a Position array with all piece-specific move positions within bounds of the board.
      */
@@ -413,6 +403,144 @@ var Board = /** @class */ (function () {
     };
     return Board;
 }());
+
+var King = /** @class */ (function (_super) {
+    __extends(King, _super);
+    function King() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    /**
+     * Returns a Position array with all piece-specific move positions within bounds of the board.
+     */
+    King.prototype.getMovePositionsWithinBounds = function () {
+        var pos = this.position;
+        if (!pos)
+            return [];
+        return pos.getAllStraightAndDiagonal();
+    };
+    /**
+     * Returns whether a move to a target position is a castling move.
+     */
+    King.prototype.isCastleMove = function (target) {
+        var targetPiece = this.game.board.getPieceByPosition(target);
+        if (!targetPiece)
+            return false;
+        // it is not necessary to check whether the taget piece is an own piece since an enemy piece will never be in the
+        // designated position without having moved, which gets checked.
+        return (targetPiece.type === 'Rook' && !targetPiece.hasMoved && !this.hasMoved);
+    };
+    return King;
+}(Piece));
+
+var Knight = /** @class */ (function (_super) {
+    __extends(Knight, _super);
+    function Knight() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    /**
+     * Returns a Position array with all piece-specific move positions within bounds of the board.
+     */
+    Knight.prototype.getMovePositionsWithinBounds = function () {
+        var pos = this.position;
+        return pos ? pos.getAllKnightMovePositions() : [];
+    };
+    return Knight;
+}(Piece));
+
+var Move = /** @class */ (function () {
+    function Move(piece, to, takes) {
+        if (takes === void 0) { takes = null; }
+        var pos = piece.position;
+        if (!pos) {
+            throw new Error('Cannot move a piece that is not on the board.');
+        }
+        this.piece = piece;
+        this.takes = takes;
+        this.from = pos.clone();
+        this.to = to.clone();
+    }
+    return Move;
+}());
+
+var Pawn = /** @class */ (function (_super) {
+    __extends(Pawn, _super);
+    function Pawn() {
+        return _super !== null && _super.apply(this, arguments) || this;
+    }
+    /**
+     * Returns a Position array with all piece-specific move positions within bounds of the board.
+     */
+    Pawn.prototype.getMovePositionsWithinBounds = function () {
+        var board = this.game.board;
+        var pos = this.position;
+        var res = [];
+        if (!pos) {
+            return [];
+        }
+        if (this.color === 'white') {
+            var upPos = pos.getUp();
+            if (upPos) {
+                res.push(upPos);
+            }
+            var upUpPos = pos.getUpUp();
+            if (upUpPos && !this.hasMoved) {
+                res.push(upUpPos);
+            }
+            var upLeftPos = pos.getUpLeft();
+            if (upLeftPos) {
+                var diagLeftPiece = board.getPieceByPosition(upLeftPos);
+                if (diagLeftPiece) {
+                    var diagLeftPos = diagLeftPiece.position;
+                    if (diagLeftPos && diagLeftPiece.color === 'black') {
+                        res.push(diagLeftPos.clone());
+                    }
+                }
+            }
+            var upRightPos = pos.getUpRight();
+            if (upRightPos) {
+                var diagRightPiece = board.getPieceByPosition(upRightPos);
+                if (diagRightPiece) {
+                    var diagLeftPos = diagRightPiece.position;
+                    if (diagLeftPos && diagRightPiece.color === 'black') {
+                        res.push(diagLeftPos.clone());
+                    }
+                }
+            }
+        }
+        else {
+            var downPos = pos.getDown();
+            if (downPos) {
+                res.push(downPos);
+            }
+            var downDownPos = pos.getDownDown();
+            if (downDownPos && !this.hasMoved) {
+                res.push(downDownPos);
+            }
+            var downLeftPos = pos.getDownLeft();
+            if (downLeftPos) {
+                var diagLeftPiece = board.getPieceByPosition(downLeftPos);
+                if (diagLeftPiece) {
+                    var diagLeftPos = diagLeftPiece.position;
+                    if (diagLeftPos && diagLeftPiece.color === 'white') {
+                        res.push(diagLeftPos.clone());
+                    }
+                }
+            }
+            var downRightPos = pos.getDownRight();
+            if (downRightPos) {
+                var diagRightPiece = board.getPieceByPosition(downRightPos);
+                if (diagRightPiece) {
+                    var diagLeftPos = diagRightPiece.position;
+                    if (diagLeftPos && diagRightPiece.color === 'white') {
+                        res.push(diagLeftPos.clone());
+                    }
+                }
+            }
+        }
+        return res;
+    };
+    return Pawn;
+}(Piece));
 
 var Position = /** @class */ (function () {
     /**
@@ -736,136 +864,11 @@ var Position = /** @class */ (function () {
     return Position;
 }());
 
-var Pawn = /** @class */ (function (_super) {
-    __extends(Pawn, _super);
-    function Pawn() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    Object.defineProperty(Pawn.prototype, "type", {
-        /**
-         * Returns the class name of the Piece.
-         */
-        get: function () {
-            return 'Pawn';
-        },
-        enumerable: false,
-        configurable: true
-    });
-    /**
-     * Returns a Position array with all piece-specific move positions within bounds of the board.
-     */
-    Pawn.prototype.getMovePositionsWithinBounds = function () {
-        var board = this.game.board;
-        var pos = this.position;
-        var res = [];
-        if (!pos) {
-            return [];
-        }
-        if (this.color === 'white') {
-            var upPos = pos.getUp();
-            if (upPos) {
-                res.push(upPos);
-            }
-            var upUpPos = pos.getUpUp();
-            if (upUpPos && !this.hasMoved) {
-                res.push(upUpPos);
-            }
-            var upLeftPos = pos.getUpLeft();
-            if (upLeftPos) {
-                var diagLeftPiece = board.getPieceByPosition(upLeftPos);
-                if (diagLeftPiece) {
-                    var diagLeftPos = diagLeftPiece.position;
-                    if (diagLeftPos && diagLeftPiece.color === 'black') {
-                        res.push(diagLeftPos.clone());
-                    }
-                }
-            }
-            var upRightPos = pos.getUpRight();
-            if (upRightPos) {
-                var diagRightPiece = board.getPieceByPosition(upRightPos);
-                if (diagRightPiece) {
-                    var diagLeftPos = diagRightPiece.position;
-                    if (diagLeftPos && diagRightPiece.color === 'black') {
-                        res.push(diagLeftPos.clone());
-                    }
-                }
-            }
-        }
-        else {
-            var downPos = pos.getDown();
-            if (downPos) {
-                res.push(downPos);
-            }
-            var downDownPos = pos.getDownDown();
-            if (downDownPos && !this.hasMoved) {
-                res.push(downDownPos);
-            }
-            var downLeftPos = pos.getDownLeft();
-            if (downLeftPos) {
-                var diagLeftPiece = board.getPieceByPosition(downLeftPos);
-                if (diagLeftPiece) {
-                    var diagLeftPos = diagLeftPiece.position;
-                    if (diagLeftPos && diagLeftPiece.color === 'white') {
-                        res.push(diagLeftPos.clone());
-                    }
-                }
-            }
-            var downRightPos = pos.getDownRight();
-            if (downRightPos) {
-                var diagRightPiece = board.getPieceByPosition(downRightPos);
-                if (diagRightPiece) {
-                    var diagLeftPos = diagRightPiece.position;
-                    if (diagLeftPos && diagRightPiece.color === 'white') {
-                        res.push(diagLeftPos.clone());
-                    }
-                }
-            }
-        }
-        return res;
-    };
-    return Pawn;
-}(Piece));
-
-var Knight = /** @class */ (function (_super) {
-    __extends(Knight, _super);
-    function Knight() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    Object.defineProperty(Knight.prototype, "type", {
-        /**
-         * Returns the class name of the Piece.
-         */
-        get: function () {
-            return 'Knight';
-        },
-        enumerable: false,
-        configurable: true
-    });
-    /**
-     * Returns a Position array with all piece-specific move positions within bounds of the board.
-     */
-    Knight.prototype.getMovePositionsWithinBounds = function () {
-        var pos = this.position;
-        return pos ? pos.getAllKnightMovePositions() : [];
-    };
-    return Knight;
-}(Piece));
-
 var Queen = /** @class */ (function (_super) {
     __extends(Queen, _super);
     function Queen() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    Object.defineProperty(Queen.prototype, "type", {
-        /**
-         * Returns the class name of the Piece.
-         */
-        get: function () {
-            return 'Queen';
-        },
-        enumerable: false,
-        configurable: true
-    });
     /**
      * Returns a Position array with all piece-specific move positions within bounds of the board.
      */
@@ -881,16 +884,6 @@ var Rook = /** @class */ (function (_super) {
     function Rook() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    Object.defineProperty(Rook.prototype, "type", {
-        /**
-         * Returns the class name of the Piece.
-         */
-        get: function () {
-            return 'Rook';
-        },
-        enumerable: false,
-        configurable: true
-    });
     /**
      * Returns a Position array with all piece-specific move positions within bounds of the board.
      */
@@ -912,44 +905,6 @@ var Rook = /** @class */ (function (_super) {
         return (targetPiece.type === 'King' && !targetPiece.hasMoved && !this.hasMoved);
     };
     return Rook;
-}(Piece));
-
-var King = /** @class */ (function (_super) {
-    __extends(King, _super);
-    function King() {
-        return _super !== null && _super.apply(this, arguments) || this;
-    }
-    Object.defineProperty(King.prototype, "type", {
-        /**
-         * Returns the class name of the Piece.
-         */
-        get: function () {
-            return 'King';
-        },
-        enumerable: false,
-        configurable: true
-    });
-    /**
-     * Returns a Position array with all piece-specific move positions within bounds of the board.
-     */
-    King.prototype.getMovePositionsWithinBounds = function () {
-        var pos = this.position;
-        if (!pos)
-            return [];
-        return pos.getAllStraightAndDiagonal();
-    };
-    /**
-     * Returns whether a move to a target position is a castling move.
-     */
-    King.prototype.isCastleMove = function (target) {
-        var targetPiece = this.game.board.getPieceByPosition(target);
-        if (!targetPiece)
-            return false;
-        // it is not necessary to check whether the taget piece is an own piece since an enemy piece will never be in the
-        // designated position without having moved, which gets checked.
-        return (targetPiece.type === 'Rook' && !targetPiece.hasMoved && !this.hasMoved);
-    };
-    return King;
 }(Piece));
 
 var Player = /** @class */ (function () {
@@ -1001,21 +956,6 @@ var Player = /** @class */ (function () {
         configurable: true
     });
     return Player;
-}());
-
-var Move = /** @class */ (function () {
-    function Move(piece, to, takes) {
-        if (takes === void 0) { takes = null; }
-        var pos = piece.position;
-        if (!pos) {
-            throw new Error('Cannot move a piece that is not on the board.');
-        }
-        this.piece = piece;
-        this.takes = takes;
-        this.from = pos.clone();
-        this.to = to.clone();
-    }
-    return Move;
 }());
 
 var Game = /** @class */ (function () {
@@ -1159,5 +1099,6 @@ var Game = /** @class */ (function () {
     return Game;
 }());
 
+export default Game;
 export { Bishop, Board, Game, King, Knight, Move, Pawn, Player, Position, Queen, Rook, assertValidA1, assertValidXY, assertValidXYPoint, from_1_to_Y, from_A1_to_XY, from_A_to_X, from_XY_to_A1, from_X_to_A, from_Y_to_1, isValidA1, isValidXY, isValidXYPoint };
 //# sourceMappingURL=index.esm.js.map

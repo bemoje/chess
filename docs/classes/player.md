@@ -33,7 +33,7 @@ Name | Type |
 
 **Returns:** [*Player*](player.md)
 
-Defined in: [Player.ts:15](https://github.com/bemoje/chess/blob/d6d5fcb/src/Player.ts#L15)
+Defined in: [Player.ts:15](https://github.com/bemoje/chess/blob/1c5c430/src/Player.ts#L15)
 
 ## Properties
 
@@ -41,7 +41,7 @@ Defined in: [Player.ts:15](https://github.com/bemoje/chess/blob/d6d5fcb/src/Play
 
 • **color**: *string*
 
-Defined in: [Player.ts:14](https://github.com/bemoje/chess/blob/d6d5fcb/src/Player.ts#L14)
+Defined in: [Player.ts:14](https://github.com/bemoje/chess/blob/1c5c430/src/Player.ts#L14)
 
 ___
 
@@ -49,7 +49,7 @@ ___
 
 • **game**: [*Game*](game.md)
 
-Defined in: [Player.ts:13](https://github.com/bemoje/chess/blob/d6d5fcb/src/Player.ts#L13)
+Defined in: [Player.ts:13](https://github.com/bemoje/chess/blob/1c5c430/src/Player.ts#L13)
 
 ___
 
@@ -57,7 +57,7 @@ ___
 
 • **pieces**: *Piece*[]
 
-Defined in: [Player.ts:15](https://github.com/bemoje/chess/blob/d6d5fcb/src/Player.ts#L15)
+Defined in: [Player.ts:15](https://github.com/bemoje/chess/blob/1c5c430/src/Player.ts#L15)
 
 ## Accessors
 
@@ -69,4 +69,4 @@ Returns an array of Move instances that describe moves of this Piece.
 
 **Returns:** [*Move*](move.md)[]
 
-Defined in: [Player.ts:55](https://github.com/bemoje/chess/blob/d6d5fcb/src/Player.ts#L55)
+Defined in: [Player.ts:55](https://github.com/bemoje/chess/blob/1c5c430/src/Player.ts#L55)

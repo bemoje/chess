@@ -1,6 +1,5 @@
 export { Bishop } from './Bishop';
 export { Board } from './Board';
-export { Game } from './Game';
 export { King } from './King';
 export { Knight } from './Knight';
 export { Move } from './Move';
@@ -23,3 +22,7 @@ export {
   assertValidXY,
   assertValidA1,
 } from './coordinates';
+
+import { Game } from './Game';
+export { Game };
+export default Game;

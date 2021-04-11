@@ -38,7 +38,7 @@
 
 **Returns:** [*Game*](game.md)
 
-Defined in: [Game.ts:12](https://github.com/bemoje/chess/blob/d6d5fcb/src/Game.ts#L12)
+Defined in: [Game.ts:12](https://github.com/bemoje/chess/blob/1c5c430/src/Game.ts#L12)
 
 ## Properties
 
@@ -46,7 +46,7 @@ Defined in: [Game.ts:12](https://github.com/bemoje/chess/blob/d6d5fcb/src/Game.t
 
 • **black**: [*Player*](player.md)
 
-Defined in: [Game.ts:11](https://github.com/bemoje/chess/blob/d6d5fcb/src/Game.ts#L11)
+Defined in: [Game.ts:11](https://github.com/bemoje/chess/blob/1c5c430/src/Game.ts#L11)
 
 ___
 
@@ -54,7 +54,7 @@ ___
 
 • **board**: [*Board*](board.md)
 
-Defined in: [Game.ts:9](https://github.com/bemoje/chess/blob/d6d5fcb/src/Game.ts#L9)
+Defined in: [Game.ts:9](https://github.com/bemoje/chess/blob/1c5c430/src/Game.ts#L9)
 
 ___
 
@@ -62,7 +62,7 @@ ___
 
 • **moves**: [*Move*](move.md)[]
 
-Defined in: [Game.ts:12](https://github.com/bemoje/chess/blob/d6d5fcb/src/Game.ts#L12)
+Defined in: [Game.ts:12](https://github.com/bemoje/chess/blob/1c5c430/src/Game.ts#L12)
 
 ___
 
@@ -70,7 +70,7 @@ ___
 
 • **white**: [*Player*](player.md)
 
-Defined in: [Game.ts:10](https://github.com/bemoje/chess/blob/d6d5fcb/src/Game.ts#L10)
+Defined in: [Game.ts:10](https://github.com/bemoje/chess/blob/1c5c430/src/Game.ts#L10)
 
 ## Accessors
 
@@ -82,7 +82,7 @@ Returns whether it is black player's turn to move.
 
 **Returns:** [*Player*](player.md)
 
-Defined in: [Game.ts:38](https://github.com/bemoje/chess/blob/d6d5fcb/src/Game.ts#L38)
+Defined in: [Game.ts:38](https://github.com/bemoje/chess/blob/1c5c430/src/Game.ts#L38)
 
 ___
 
@@ -94,7 +94,7 @@ Returns whether it is black player's turn to move.
 
 **Returns:** *boolean*
 
-Defined in: [Game.ts:31](https://github.com/bemoje/chess/blob/d6d5fcb/src/Game.ts#L31)
+Defined in: [Game.ts:31](https://github.com/bemoje/chess/blob/1c5c430/src/Game.ts#L31)
 
 ___
 
@@ -106,7 +106,7 @@ Returns whether it is white player's turn to move.
 
 **Returns:** *boolean*
 
-Defined in: [Game.ts:24](https://github.com/bemoje/chess/blob/d6d5fcb/src/Game.ts#L24)
+Defined in: [Game.ts:24](https://github.com/bemoje/chess/blob/1c5c430/src/Game.ts#L24)
 
 ## Methods
 
@@ -118,7 +118,7 @@ Returns a deep clone of the game instance.
 
 **Returns:** [*Game*](game.md)
 
-Defined in: [Game.ts:138](https://github.com/bemoje/chess/blob/d6d5fcb/src/Game.ts#L138)
+Defined in: [Game.ts:138](https://github.com/bemoje/chess/blob/1c5c430/src/Game.ts#L138)
 
 ___
 
@@ -136,7 +136,7 @@ Name | Type | Description |
 
 **Returns:** *void*
 
-Defined in: [Game.ts:90](https://github.com/bemoje/chess/blob/d6d5fcb/src/Game.ts#L90)
+Defined in: [Game.ts:90](https://github.com/bemoje/chess/blob/1c5c430/src/Game.ts#L90)
 
 ___
 
@@ -154,7 +154,7 @@ Name | Type | Description |
 
 **Returns:** *void*
 
-Defined in: [Game.ts:76](https://github.com/bemoje/chess/blob/d6d5fcb/src/Game.ts#L76)
+Defined in: [Game.ts:76](https://github.com/bemoje/chess/blob/1c5c430/src/Game.ts#L76)
 
 ___
 
@@ -172,7 +172,7 @@ Name | Type | Description |
 
 **Returns:** *void*
 
-Defined in: [Game.ts:47](https://github.com/bemoje/chess/blob/d6d5fcb/src/Game.ts#L47)
+Defined in: [Game.ts:47](https://github.com/bemoje/chess/blob/1c5c430/src/Game.ts#L47)
 
 ___
 
@@ -190,7 +190,7 @@ Name | Type | Description |
 
 **Returns:** *void*
 
-Defined in: [Game.ts:62](https://github.com/bemoje/chess/blob/d6d5fcb/src/Game.ts#L62)
+Defined in: [Game.ts:62](https://github.com/bemoje/chess/blob/1c5c430/src/Game.ts#L62)
 
 ___
 
@@ -213,4 +213,4 @@ Name | Type | Description |
 
 **Returns:** *void*
 
-Defined in: [Game.ts:107](https://github.com/bemoje/chess/blob/d6d5fcb/src/Game.ts#L107)
+Defined in: [Game.ts:107](https://github.com/bemoje/chess/blob/1c5c430/src/Game.ts#L107)

@@ -1,3 +1,4 @@
+import defExport from './';
 import {
   Bishop,
   Board,
@@ -25,6 +26,10 @@ import {
 } from './';
 
 describe('Exports', () => {
+  it('default exports Game class', () => {
+    expect(defExport).toBe(Game);
+  });
+
   it('exports all classes.', () => {
     expect(Bishop.constructor).toBe(Function);
     expect(Board.constructor).toBe(Function);
@@ -37,19 +42,20 @@ describe('Exports', () => {
     expect(Position.constructor).toBe(Function);
     expect(Queen.constructor).toBe(Function);
     expect(Rook.constructor).toBe(Function);
-  }),
-    it('exports all coordinate-related functions.', () => {
-      expect(from_X_to_A.constructor).toBe(Function);
-      expect(from_Y_to_1.constructor).toBe(Function);
-      expect(from_A_to_X.constructor).toBe(Function);
-      expect(from_1_to_Y.constructor).toBe(Function);
-      expect(from_XY_to_A1.constructor).toBe(Function);
-      expect(from_A1_to_XY.constructor).toBe(Function);
-      expect(isValidXYPoint.constructor).toBe(Function);
-      expect(isValidXY.constructor).toBe(Function);
-      expect(isValidA1.constructor).toBe(Function);
-      expect(assertValidXYPoint.constructor).toBe(Function);
-      expect(assertValidXY.constructor).toBe(Function);
-      expect(assertValidA1.constructor).toBe(Function);
-    });
+  });
+
+  it('exports all coordinate-related functions.', () => {
+    expect(from_X_to_A.constructor).toBe(Function);
+    expect(from_Y_to_1.constructor).toBe(Function);
+    expect(from_A_to_X.constructor).toBe(Function);
+    expect(from_1_to_Y.constructor).toBe(Function);
+    expect(from_XY_to_A1.constructor).toBe(Function);
+    expect(from_A1_to_XY.constructor).toBe(Function);
+    expect(isValidXYPoint.constructor).toBe(Function);
+    expect(isValidXY.constructor).toBe(Function);
+    expect(isValidA1.constructor).toBe(Function);
+    expect(assertValidXYPoint.constructor).toBe(Function);
+    expect(assertValidXY.constructor).toBe(Function);
+    expect(assertValidA1.constructor).toBe(Function);
+  });
 });

@@ -3,13 +3,6 @@ import type { Position } from './Position';
 
 export class Pawn extends Piece {
   /**
-   * Returns the class name of the Piece.
-   */
-  public get type(): string {
-    return 'Pawn';
-  }
-
-  /**
    * Returns a Position array with all piece-specific move positions within bounds of the board.
    */
   protected getMovePositionsWithinBounds(): Array<Position | Array<Position>> {
