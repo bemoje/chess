@@ -3,25 +3,25 @@ import { Player } from './Player';
 import { Move } from './Move';
 import { isEven } from './util';
 import { Position } from './Position';
-import type { Piece } from './AbstractPiece';
+import { Piece } from './AbstractPiece';
+import { from_A1_to_Position, from_XY_to_Position } from './coordinates';
 
 export class Game {
   /**
    * Recreates a Game instance from a previously stringified Game instance.
+   * @throws {Error} on invalid JSON data
    */
   public static fromJSON(data: string): Game {
-    const game = new Game();
-    const moves = JSON.parse(data);
-    for (let i = 0; i < moves.length; i++) {
-      const from = moves[i][0];
-      const to = moves[i][1];
-      game.makeMove(
-        new Position(from[0], from[1]),
-        new Position(to[0], to[1]),
-        true,
-      );
+    try {
+      const game = new Game();
+      const moves = JSON.parse(data);
+      for (let i = 0; i < moves.length; i++) {
+        game.makeMove(moves[i][0], moves[i][1]);
+      }
+      return game;
+    } catch (e) {
+      throw new Error('Invalid JSON data');
     }
-    return game;
   }
 
   /**
@@ -140,20 +140,42 @@ export class Game {
   }
 
   /**
+   * Ensures the argument is converted into a Position instance.
+   */
+  private ensurePosition(from: Position | string | Array<number>): Position {
+    return from instanceof Position
+      ? from
+      : typeof from === 'string'
+      ? from_A1_to_Position(from)
+      : from_XY_to_Position(from);
+  }
+
+  /**
+   * Get a Piece instance from the board by either Position, an A1 string or XY-coordinates
+   */
+  private getPiece(
+    from?: Position | string | Array<number> | Piece,
+  ): Piece | null {
+    return !from
+      ? null
+      : from instanceof Piece
+      ? from
+      : this.board.getPieceByPosition(this.ensurePosition(from));
+  }
+
+  /**
    * Iterate each valid move position for either all active player pieces or a given piece.
    *
    * @param f - a callback function to invoke for each Piece. If it returns true, iteration ends.
-   * @param pieceOrPosition - only iterate a single piece's valid move positions.
+   * @param pieceOrCoordinate - only iterate a single piece's valid move positions. Can be the Piece to move, or where
+   * to find the piece which can be a Position instance, XY-array or A1-notation string.
    * @returns true if iteration was ended before completion.
    */
   public forEachValidMove(
     f: (position?: Position, piece?: Piece) => boolean | void,
-    pieceOrPosition?: Piece | Position,
+    pieceOrCoordinate?: Piece | Position | string | Array<number>,
   ): boolean | void {
-    const piece =
-      pieceOrPosition instanceof Position
-        ? this.board.getPieceByPosition(pieceOrPosition)
-        : pieceOrPosition;
+    const piece = this.getPiece(pieceOrCoordinate);
     return piece
       ? piece.forEachValidMovePosition((pos) => {
           return f(pos, piece);
@@ -171,33 +193,32 @@ export class Game {
    * Moves a piece on the board.
    * If the target position already has a piece belonging to the opposing player, it is removed from the board.
    *
-   * @param pieceOrPosition - The Piece to move.
-   * @param position - The Position to move to.
+   * @param pieceOrCoordinate - The Piece to move, or where to find the piece which can be a Position instance, XY-array
+   * or A1-notation string.
+   * @param to - The Position to move to.
    * @param skipValidation - skips validation of the move's legality according to the rules of the game. This is used
-   * internally for performance reasons when cloning a game, repeating the moves that were previously validated.
+   * internally for performance reasons when cloning a game, which repeats the moves that were previously validated.
    *
    * @throws {Error} on invalid move, unless `skipValidation` is true.
    */
   public makeMove(
-    pieceOrPosition: Piece | Position,
-    position: Position,
+    pieceOrCoordinate: Piece | Position,
+    to: Position | string | Array<number>,
     skipValidation?: boolean,
   ): void {
-    const piece =
-      pieceOrPosition instanceof Position
-        ? this.board.getPieceByPosition(pieceOrPosition)
-        : pieceOrPosition;
-    if (piece && (skipValidation || piece.isValidMove(position))) {
-      const targetPiece = piece.game.board.getPieceByPosition(position);
-      let move: Move;
-      if (piece.isCastleMove(position)) {
-        move = new Move(piece, position);
+    to = this.ensurePosition(to);
+    const piece = this.getPiece(pieceOrCoordinate);
+    if (piece && (skipValidation || piece.isValidMove(to))) {
+      const targetPiece = piece.game.board.getPieceByPosition(to);
+      let move;
+      if (piece.isCastleMove(to)) {
+        move = new Move(piece, to);
         this.board.registerSwap(move);
         if (targetPiece) {
           targetPiece.registerMove(new Move(targetPiece, move.from));
         }
       } else {
-        move = new Move(piece, position, targetPiece);
+        move = new Move(piece, to, targetPiece);
         this.board.registerMove(move);
         if (targetPiece) {
           targetPiece.remove();

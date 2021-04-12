@@ -1,4 +1,5 @@
 import { createAssertFunction } from './util';
+import { Position } from './Position';
 
 const A_CHAR_CODE = 'A'.charCodeAt(0);
 
@@ -42,6 +43,20 @@ export function from_XY_to_A1(pos: Array<number>): string {
  */
 export function from_A1_to_XY(a1: string): Array<number> {
   return [from_A_to_X(a1.charAt(0)), from_1_to_Y(a1.charAt(1))];
+}
+
+/**
+ * Converts an A1-notation string to a Position instance.
+ */
+export function from_A1_to_Position(a1: string): Position {
+  return new Position(from_A_to_X(a1.charAt(0)), from_1_to_Y(a1.charAt(1)));
+}
+
+/**
+ * Converts an A1-notation string to a Position instance.
+ */
+export function from_XY_to_Position(xy: Array<number>): Position {
+  return new Position(xy[0], xy[1]);
 }
 
 /**

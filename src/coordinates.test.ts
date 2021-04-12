@@ -4,7 +4,9 @@ import {
   from_A_to_X,
   from_1_to_Y,
   from_XY_to_A1,
+  from_XY_to_Position,
   from_A1_to_XY,
+  from_A1_to_Position,
   isValidXYPoint,
   isValidXY,
   isValidA1,
@@ -12,10 +14,11 @@ import {
   assertValidXY,
   assertValidA1,
 } from './coordinates';
+import { Position } from './Position';
 
 describe('A1Notation', () => {
   describe('from_X_to_A', () => {
-    it('Converts the first value of a XY-coordinate to A1-notation.', () => {
+    it('converts the first value of a XY-coordinate to A1-notation', () => {
       expect(from_X_to_A(0)).toBe('A');
       expect(from_X_to_A(1)).toBe('B');
       expect(from_X_to_A(2)).toBe('C');
@@ -28,7 +31,7 @@ describe('A1Notation', () => {
   });
 
   describe('from_Y_to_1', () => {
-    it('Converts the second value of a XY-coordinate to A1-notation.', () => {
+    it('converts the second value of a XY-coordinate to A1-notation', () => {
       expect(from_Y_to_1(0)).toBe('1');
       expect(from_Y_to_1(1)).toBe('2');
       expect(from_Y_to_1(2)).toBe('3');
@@ -41,7 +44,7 @@ describe('A1Notation', () => {
   });
 
   describe('from_A_to_X', () => {
-    it('Converts the first character of A1-notation to the first value of an XY-coordinate.', () => {
+    it('converts the first character of A1-notation to the first value of an XY-coordinate', () => {
       expect(from_A_to_X('A')).toBe(0);
       expect(from_A_to_X('B')).toBe(1);
       expect(from_A_to_X('C')).toBe(2);
@@ -54,7 +57,7 @@ describe('A1Notation', () => {
   });
 
   describe('from_1_to_Y', () => {
-    it('Converts the second value of a XY-coordinate to A1-notation.', () => {
+    it('converts the second value of a XY-coordinate to A1-notation', () => {
       expect(from_1_to_Y('1')).toBe(0);
       expect(from_1_to_Y('2')).toBe(1);
       expect(from_1_to_Y('3')).toBe(2);
@@ -67,7 +70,7 @@ describe('A1Notation', () => {
   });
 
   describe('from_XY_to_A1', () => {
-    it('Converts a XY-coordinate-array or a Position type (extends Array) to an A1-notation string.', () => {
+    it('converts a XY-coordinate-array or a Position type (extends Array) to an A1-notation string', () => {
       expect(from_XY_to_A1([0, 0])).toBe('A1');
       expect(from_XY_to_A1([1, 6])).toBe('B7');
       expect(from_XY_to_A1([5, 3])).toBe('F4');
@@ -75,8 +78,25 @@ describe('A1Notation', () => {
     });
   });
 
+  describe('from_XY_to_Position', () => {
+    it('converts a XY-coordinate-array or a Position type (extends Array) to an A1-notation string', () => {
+      expect(from_XY_to_Position([0, 0]).compare(new Position(0, 0))).toBe(
+        true,
+      );
+      expect(from_XY_to_Position([1, 6]).compare(new Position(1, 6))).toBe(
+        true,
+      );
+      expect(from_XY_to_Position([5, 3]).compare(new Position(5, 3))).toBe(
+        true,
+      );
+      expect(from_XY_to_Position([7, 7]).compare(new Position(7, 7))).toBe(
+        true,
+      );
+    });
+  });
+
   describe('from_A1_to_XY', () => {
-    it('Converts a XY-coordinate-array or a Position type (extends Array) to an A1-notation string.', () => {
+    it('converts an A1-notation string to a XY-coordinate-array', () => {
       expect(from_A1_to_XY('A1')).toStrictEqual([0, 0]);
       expect(from_A1_to_XY('B7')).toStrictEqual([1, 6]);
       expect(from_A1_to_XY('F4')).toStrictEqual([5, 3]);
@@ -84,8 +104,17 @@ describe('A1Notation', () => {
     });
   });
 
+  describe('from_A1_to_Position', () => {
+    it('converts an A1-notation string to a Position instance', () => {
+      expect(from_A1_to_Position('A1').compare(new Position(0, 0))).toBe(true);
+      expect(from_A1_to_Position('B7').compare(new Position(1, 6))).toBe(true);
+      expect(from_A1_to_Position('F4').compare(new Position(5, 3))).toBe(true);
+      expect(from_A1_to_Position('H8').compare(new Position(7, 7))).toBe(true);
+    });
+  });
+
   describe('isValidXYPoint', () => {
-    it('Returns whether the argument is a positive integer where 0 <= arg <= 7.', () => {
+    it('returns whether the argument is a positive integer where 0 <= arg <= 7', () => {
       expect(isValidXYPoint(0)).toBe(true);
       expect(isValidXYPoint(3)).toBe(true);
       expect(isValidXYPoint(7)).toBe(true);
@@ -95,7 +124,7 @@ describe('A1Notation', () => {
   });
 
   describe('isValidXY', () => {
-    it('Returns whether both points in an XY-coordinate is a positive integer where 0 <= arg <= 7.', () => {
+    it('returns whether both points in an XY-coordinate is a positive integer where 0 <= arg <= 7', () => {
       expect(isValidXY([0, 0])).toBe(true);
       expect(isValidXY([2, 5])).toBe(true);
       expect(isValidXY([6, 1])).toBe(true);
@@ -110,7 +139,7 @@ describe('A1Notation', () => {
   });
 
   describe('isValidA1', () => {
-    it('Returns whether a string is valid A1-notation.', () => {
+    it('returns whether a string is valid A1-notation', () => {
       expect(isValidA1('A1')).toBe(true);
       expect(isValidA1('A7')).toBe(true);
       expect(isValidA1('A8')).toBe(true);
@@ -131,7 +160,7 @@ describe('A1Notation', () => {
   });
 
   describe('assertValidXYPoint', () => {
-    it('Throws a TypeError if the argument is not a valid XY-coordinate point.', () => {
+    it('Throws a TypeError if the argument is not a valid XY-coordinate point', () => {
       assertValidXYPoint(0);
       assertValidXYPoint(5);
       assertValidXYPoint(7);
@@ -145,7 +174,7 @@ describe('A1Notation', () => {
   });
 
   describe('assertValidXY', () => {
-    it('Throws a TypeError if the argument is not a valid XY-coordinate.', () => {
+    it('Throws a TypeError if the argument is not a valid XY-coordinate', () => {
       assertValidXY([0, 0]);
       assertValidXY([5, 3]);
       assertValidXY([7, 7]);
@@ -159,7 +188,7 @@ describe('A1Notation', () => {
   });
 
   describe('assertValidA1', () => {
-    it('Throws a TypeError if the argument is not valid A1-notation.', () => {
+    it('Throws a TypeError if the argument is not valid A1-notation', () => {
       assertValidA1('A1');
       assertValidA1('D4');
       assertValidA1('H8');
