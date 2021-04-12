@@ -2,11 +2,31 @@ import type { Player } from '../Player';
 import type { Position } from '../Position';
 import type { Game } from '../Game';
 import type { Move } from '../Move';
+/**
+ * Abstract piece class that each type of Piece (class) will extend.
+ */
 export declare abstract class Piece {
+    /**
+     * The Player who owns the Piece.
+     */
     player: Player;
+    /**
+     * Manually set piece index value. Only unique per Player instance.
+     */
     index: number;
+    /**
+     * The Position of the piece.
+     */
     position: Position | null;
+    /**
+     * The number of times the piece has moved.
+     */
     moveCount: number;
+    /**
+     * @param player - The Player who owns the Piece.
+     * @param index - Manually set piece index value. Only unique per Player instance.
+     * @param position - The Position of the piece.
+     */
     constructor(player: Player, index: number, position: Position);
     /**
      * Returns the Game instance that this Piece is associated with.
@@ -61,6 +81,7 @@ export declare abstract class Piece {
     forEachValidMovePosition(f: (position: Position) => boolean | void): boolean | void;
     /**
      * Returns whether a move to a target position is a castling move.
+     * The King and Rook classes override this method.
      */
     isCastleMove(_target: Position): boolean;
     /**

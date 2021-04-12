@@ -47,7 +47,15 @@
         return r;
     }
 
+    /**
+     * Abstract piece class that each type of Piece (class) will extend.
+     */
     var Piece = /** @class */ (function () {
+        /**
+         * @param player - The Player who owns the Piece.
+         * @param index - Manually set piece index value. Only unique per Player instance.
+         * @param position - The Position of the piece.
+         */
         function Piece(player, index, position) {
             this.player = player;
             this.index = index;
@@ -184,6 +192,7 @@
         };
         /**
          * Returns whether a move to a target position is a castling move.
+         * The King and Rook classes override this method.
          */
         Piece.prototype.isCastleMove = function (_target) {
             return false;
@@ -192,23 +201,17 @@
          * Returns whether a move to a position is a valid move.
          */
         Piece.prototype.isValidMove = function (target) {
-            if (this.isCastleMove(target))
-                return true;
-            var res = false;
-            this.forEachValidMovePosition(function (position) {
-                if (position.compare(target)) {
-                    res = true;
-                    // end iteration
-                    return true;
-                }
-                else
-                    return;
-            });
-            return res;
+            return (this.isCastleMove(target) ||
+                !!this.forEachValidMovePosition(function (position) {
+                    return position.compare(target);
+                }));
         };
         return Piece;
     }());
 
+    /**
+     * {Piece} Bishop class.
+     */
     var Bishop = /** @class */ (function (_super) {
         __extends(Bishop, _super);
         function Bishop() {
@@ -259,6 +262,359 @@
     function isEven(n) {
         return n % 2 == 0;
     }
+    /**
+     * Converts an Uint8Array to an array of integers between 0 and 255.
+     *
+     * @param uInt8 - An Uint8Array instance.
+     */
+    function uInt8ToBytes(uInt8) {
+        var l = uInt8.length;
+        var res = new Array(l);
+        for (var i = 0; i < l; i++) {
+            res[i] = uInt8[i];
+        }
+        return res;
+    }
+    /**
+     * Converts an array of bytes to a Uint8Array.
+     *
+     * @param arr - An array of integers between 0 and 255.
+     */
+    function bytesToUint8Array(arr) {
+        var l = arr.length;
+        var res = new Uint8Array(l);
+        for (var i = 0; i < l; i++) {
+            res[i] = arr[i];
+        }
+        return res;
+    }
+
+    var A_CHAR_CODE = 'A'.charCodeAt(0);
+    /**
+     * Converts the first value of an XY-coordinate to A1-notation.
+     */
+    function from_X_to_A(x) {
+        return String.fromCharCode(x + A_CHAR_CODE);
+    }
+    /**
+     * Converts the second value of an XY-coordinate to A1-notation.
+     */
+    function from_Y_to_1(y) {
+        return (y + 1).toString();
+    }
+    /**
+     * Converts the first character of A1-notation to the first value of an XY-coordinate.
+     */
+    function from_A_to_X(a) {
+        return a.toUpperCase().charCodeAt(0) - A_CHAR_CODE;
+    }
+    /**
+     * Converts the second character of A1-notation to the second value of an XY-coordinate.
+     */
+    function from_1_to_Y(n) {
+        return Number(n.charAt(0)) - 1;
+    }
+    /**
+     * Converts a XY-coordinate-array to an A1-notation string.
+     */
+    function from_XY_to_A1(pos) {
+        return from_X_to_A(pos[0]) + from_Y_to_1(pos[1]);
+    }
+    /**
+     * Converts an A1-notation string to a XY-coordinate-array.
+     */
+    function from_A1_to_XY(a1) {
+        return [from_A_to_X(a1.charAt(0)), from_1_to_Y(a1.charAt(1))];
+    }
+    /**
+     * Returns whether the argument is a positive integer where 0 <= arg <= 7.
+     */
+    function isValidXYPoint(n) {
+        return n >= 0 && n <= 7;
+    }
+    /**
+     * Returns whether both points in an XY-coordinate is a positive integer where 0 <= arg <= 7.
+     */
+    function isValidXY(pos) {
+        return isValidXYPoint(pos[0]) && isValidXYPoint(pos[1]);
+    }
+    /**
+     * Returns whether a string is valid A1-notation.
+     */
+    function isValidA1(a1) {
+        return a1.length === 2 && isValidXY(from_A1_to_XY(a1));
+    }
+    /**
+     * Throws a TypeError if the argument is not a valid XY-coordinate point.
+     * @see isValidXYPoint
+     *
+     * @function assertValidXYPoint
+     * @throws {TypeError}
+     */
+    var assertValidXYPoint = createAssertFunction('a positive integer between 0 and 7', isValidXYPoint);
+    /**
+     * Throws a TypeError if the argument is not a valid XY-coordinate.
+     * @see isValidXY
+     *
+     * @function assertValidXY
+     * @throws {TypeError}
+     */
+    var assertValidXY = createAssertFunction('an array containing two positive integers between 0 and 7', isValidXY);
+    /**
+     * Throws a TypeError if the argument is not valid A1-notation.
+     * @see isValidA1
+     *
+     * @function assertValidA1
+     * @throws {TypeError}
+     */
+    var assertValidA1 = createAssertFunction('a valid A1-notation string', isValidA1);
+
+    /**
+     * A class that acts as a data view of all the pieces that offers faster lookups than iterating pieces.
+     */
+    var Board = /** @class */ (function () {
+        /**
+         * @param game - The Game instance that the board belongs to.
+         */
+        function Board(game) {
+            this.game = game;
+            this.grid = [];
+            var i = 0;
+            while (i < 8) {
+                this.grid.push(new Array(8).fill(null, 0, 7));
+                i++;
+            }
+        }
+        /**
+         * Returns the piece at the given XY-coordinates or null if no piece is found there.
+         *
+         * @param x - The X coordinate
+         * @param y - The Y coordinate
+         */
+        Board.prototype.getPieceByXY = function (x, y) {
+            return this.grid[y][x];
+        };
+        /**
+         * Returns the piece at the given Position or null if no piece is found there.
+         *
+         * @param position - The position on the game board by which to find the Piece instance there.
+         */
+        Board.prototype.getPieceByPosition = function (position) {
+            return this.getPieceByXY(position.x, position.y);
+        };
+        /**
+         * Returns the piece at the given A1-notation-coordinates or null if no piece is found there.
+         *
+         * @param a1 - An A1-notation string.
+         */
+        Board.prototype.getPieceByA1 = function (a1) {
+            var _a = from_A1_to_XY(a1), x = _a[0], y = _a[1];
+            return this.getPieceByXY(x, y);
+        };
+        /**
+         * Moves a piece to the board.
+         *
+         * @param piece - The piece to move.
+         */
+        Board.prototype.setPiece = function (piece) {
+            var pos = piece.position;
+            if (pos)
+                this.grid[pos.y][pos.x] = piece;
+        };
+        /**
+         * Removes a piece from the board.
+         * This method does not check legality or whether this action is part of a move in the game.
+         *
+         * @param piece - The piece to remove.
+         */
+        Board.prototype.removePiece = function (piece) {
+            if (piece) {
+                var pos = piece.position;
+                if (pos)
+                    this.grid[pos.y][pos.x] = null;
+            }
+        };
+        /**
+         * Updates the board instance based on the information contained within a provided Move instance.
+         *
+         * @param move - The Move instance containing the information needed to update the board.
+         */
+        Board.prototype.registerMove = function (move) {
+            var from = move.from;
+            var to = move.to;
+            var piece = this.grid[from.y][from.x];
+            this.grid[to.y][to.x] = piece;
+            this.grid[from.y][from.x] = null;
+        };
+        /**
+         * Updates the board instance based on the information contained within a provided Move instance that is known to make
+         * out a swap (used for castling moves).
+         *
+         * @param move - The Move instance containing the information needed to update the board.
+         */
+        Board.prototype.registerSwap = function (move) {
+            var from = move.from;
+            var to = move.to;
+            var pieceFrom = this.grid[from.y][from.x];
+            var pieceTo = this.grid[to.y][to.x];
+            this.grid[to.y][to.x] = pieceFrom;
+            this.grid[from.y][from.x] = pieceTo;
+        };
+        return Board;
+    }());
+
+    /**
+     * {Piece} King class.
+     */
+    var King = /** @class */ (function (_super) {
+        __extends(King, _super);
+        function King() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        /**
+         * Returns a Position array with all piece-specific move positions within bounds of the board.
+         */
+        King.prototype.getMovePositionsWithinBounds = function () {
+            var pos = this.position;
+            if (!pos)
+                return [];
+            return pos.getAllStraightAndDiagonal();
+        };
+        /**
+         * Returns whether a move to a target position is a castling move.
+         */
+        King.prototype.isCastleMove = function (target) {
+            var targetPiece = this.game.board.getPieceByPosition(target);
+            if (!targetPiece)
+                return false;
+            // it is not necessary to check whether the taget piece is an own piece since an enemy piece will never be in the
+            // designated position without having moved, which gets checked.
+            return (targetPiece.type === 'Rook' && !targetPiece.hasMoved && !this.hasMoved);
+        };
+        return King;
+    }(Piece));
+
+    /**
+     * {Piece} Knight class.
+     */
+    var Knight = /** @class */ (function (_super) {
+        __extends(Knight, _super);
+        function Knight() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        /**
+         * Returns a Position array with all piece-specific move positions within bounds of the board.
+         */
+        Knight.prototype.getMovePositionsWithinBounds = function () {
+            var pos = this.position;
+            return pos ? pos.getAllKnightMovePositions() : [];
+        };
+        return Knight;
+    }(Piece));
+
+    var Move = /** @class */ (function () {
+        function Move(piece, to, takes) {
+            if (takes === void 0) { takes = null; }
+            var pos = piece.position;
+            if (!pos) {
+                throw new Error('Cannot move a piece that is not on the board.');
+            }
+            this.piece = piece;
+            this.takes = takes;
+            this.from = pos.clone();
+            this.to = to.clone();
+        }
+        /**
+         * Stringifies the data necessary for completely reconstructing the Move instance.
+         */
+        Move.prototype.toJSON = function () {
+            return [this.from.x, this.from.y, this.to.x, this.to.y];
+        };
+        return Move;
+    }());
+
+    /**
+     * {Piece} Pawn class.
+     */
+    var Pawn = /** @class */ (function (_super) {
+        __extends(Pawn, _super);
+        function Pawn() {
+            return _super !== null && _super.apply(this, arguments) || this;
+        }
+        /**
+         * Returns a Position array with all piece-specific move positions within bounds of the board.
+         */
+        Pawn.prototype.getMovePositionsWithinBounds = function () {
+            var board = this.game.board;
+            var pos = this.position;
+            var res = [];
+            if (!pos) {
+                return [];
+            }
+            if (this.color === 'white') {
+                var upPos = pos.getUp();
+                if (upPos) {
+                    res.push(upPos);
+                }
+                var upUpPos = pos.getUpUp();
+                if (upUpPos && !this.hasMoved) {
+                    res.push(upUpPos);
+                }
+                var upLeftPos = pos.getUpLeft();
+                if (upLeftPos) {
+                    var diagLeftPiece = board.getPieceByPosition(upLeftPos);
+                    if (diagLeftPiece) {
+                        var diagLeftPos = diagLeftPiece.position;
+                        if (diagLeftPos && diagLeftPiece.color === 'black') {
+                            res.push(diagLeftPos.clone());
+                        }
+                    }
+                }
+                var upRightPos = pos.getUpRight();
+                if (upRightPos) {
+                    var diagRightPiece = board.getPieceByPosition(upRightPos);
+                    if (diagRightPiece) {
+                        var diagLeftPos = diagRightPiece.position;
+                        if (diagLeftPos && diagRightPiece.color === 'black') {
+                            res.push(diagLeftPos.clone());
+                        }
+                    }
+                }
+            }
+            else {
+                var downPos = pos.getDown();
+                if (downPos) {
+                    res.push(downPos);
+                }
+                var downDownPos = pos.getDownDown();
+                if (downDownPos && !this.hasMoved) {
+                    res.push(downDownPos);
+                }
+                var downLeftPos = pos.getDownLeft();
+                if (downLeftPos) {
+                    var diagLeftPiece = board.getPieceByPosition(downLeftPos);
+                    if (diagLeftPiece) {
+                        var diagLeftPos = diagLeftPiece.position;
+                        if (diagLeftPos && diagLeftPiece.color === 'white') {
+                            res.push(diagLeftPos.clone());
+                        }
+                    }
+                }
+                var downRightPos = pos.getDownRight();
+                if (downRightPos) {
+                    var diagRightPiece = board.getPieceByPosition(downRightPos);
+                    if (diagRightPiece) {
+                        var diagLeftPos = diagRightPiece.position;
+                        if (diagLeftPos && diagRightPiece.color === 'white') {
+                            res.push(diagLeftPos.clone());
+                        }
+                    }
+                }
+            }
+            return res;
+        };
+        return Pawn;
+    }(Piece));
 
     var Position = /** @class */ (function () {
         /**
@@ -280,12 +636,28 @@
             var xy = from_A1_to_XY(a1);
             return new Position(xy[0], xy[1]);
         };
+        /**
+         * Returns a new Position instance based on XY-coordinate array.
+         */
+        Position.fromXY = function (xy) {
+            return new Position(xy[0], xy[1]);
+        };
         Object.defineProperty(Position.prototype, "A1", {
             /**
              * Returns the board position in A1-notation.
              */
             get: function () {
                 return from_XY_to_A1([this.x, this.y]);
+            },
+            enumerable: false,
+            configurable: true
+        });
+        Object.defineProperty(Position.prototype, "XY", {
+            /**
+             * Returns the board position as an XY-coordinate array.
+             */
+            get: function () {
+                return [this.x, this.y];
             },
             enumerable: false,
             configurable: true
@@ -582,315 +954,9 @@
         return Position;
     }());
 
-    var A_CHAR_CODE = 'A'.charCodeAt(0);
     /**
-     * Converts the first value of an XY-coordinate to A1-notation.
+     * {Piece} Queen class.
      */
-    function from_X_to_A(x) {
-        return String.fromCharCode(x + A_CHAR_CODE);
-    }
-    /**
-     * Converts the second value of an XY-coordinate to A1-notation.
-     */
-    function from_Y_to_1(y) {
-        return (y + 1).toString();
-    }
-    /**
-     * Converts the first character of A1-notation to the first value of an XY-coordinate.
-     */
-    function from_A_to_X(a) {
-        return a.toUpperCase().charCodeAt(0) - A_CHAR_CODE;
-    }
-    /**
-     * Converts the second character of A1-notation to the second value of an XY-coordinate.
-     */
-    function from_1_to_Y(n) {
-        return Number(n.charAt(0)) - 1;
-    }
-    /**
-     * Converts a XY-coordinate-array to an A1-notation string.
-     */
-    function from_XY_to_A1(pos) {
-        return from_X_to_A(pos[0]) + from_Y_to_1(pos[1]);
-    }
-    /**
-     * Converts an A1-notation string to a XY-coordinate-array.
-     */
-    function from_A1_to_XY(a1) {
-        return [from_A_to_X(a1.charAt(0)), from_1_to_Y(a1.charAt(1))];
-    }
-    /**
-     * Converts an A1-notation string to a Position instance.
-     */
-    function from_A1_to_Position(a1) {
-        return new Position(from_A_to_X(a1.charAt(0)), from_1_to_Y(a1.charAt(1)));
-    }
-    /**
-     * Converts an A1-notation string to a Position instance.
-     */
-    function from_XY_to_Position(xy) {
-        return new Position(xy[0], xy[1]);
-    }
-    /**
-     * Returns whether the argument is a positive integer where 0 <= arg <= 7.
-     */
-    function isValidXYPoint(n) {
-        return n >= 0 && n <= 7;
-    }
-    /**
-     * Returns whether both points in an XY-coordinate is a positive integer where 0 <= arg <= 7.
-     */
-    function isValidXY(pos) {
-        return isValidXYPoint(pos[0]) && isValidXYPoint(pos[1]);
-    }
-    /**
-     * Returns whether a string is valid A1-notation.
-     */
-    function isValidA1(a1) {
-        return a1.length === 2 && isValidXY(from_A1_to_XY(a1));
-    }
-    /**
-     * Throws a TypeError if the argument is not a valid XY-coordinate point.
-     * @see isValidXYPoint
-     *
-     * @function assertValidXYPoint
-     * @throws {TypeError}
-     */
-    var assertValidXYPoint = createAssertFunction('a positive integer between 0 and 7', isValidXYPoint);
-    /**
-     * Throws a TypeError if the argument is not a valid XY-coordinate.
-     * @see isValidXY
-     *
-     * @function assertValidXY
-     * @throws {TypeError}
-     */
-    var assertValidXY = createAssertFunction('an array containing two positive integers between 0 and 7', isValidXY);
-    /**
-     * Throws a TypeError if the argument is not valid A1-notation.
-     * @see isValidA1
-     *
-     * @function assertValidA1
-     * @throws {TypeError}
-     */
-    var assertValidA1 = createAssertFunction('a valid A1-notation string', isValidA1);
-
-    var Board = /** @class */ (function () {
-        function Board(game) {
-            this.game = game;
-            this.grid = [];
-            var i = 0;
-            while (i < 8) {
-                this.grid.push(new Array(8).fill(null, 0, 7));
-                i++;
-            }
-        }
-        /**
-         * Returns the piece at the given XY-coordinates or null if no piece is found there.
-         */
-        Board.prototype.getPieceByXY = function (x, y) {
-            return this.grid[y][x];
-        };
-        /**
-         * Returns the piece at the given Position or null if no piece is found there.
-         */
-        Board.prototype.getPieceByPosition = function (position) {
-            return this.getPieceByXY(position.x, position.y);
-        };
-        /**
-         * Returns the piece at the given A1-notation-coordinates or null if no piece is found there.
-         */
-        Board.prototype.getPieceByA1 = function (a1) {
-            var _a = from_A1_to_XY(a1), x = _a[0], y = _a[1];
-            return this.getPieceByXY(x, y);
-        };
-        /**
-         * Sets a piece to the board.
-         */
-        Board.prototype.setPiece = function (piece) {
-            var pos = piece.position;
-            if (pos)
-                this.grid[pos.y][pos.x] = piece;
-        };
-        /**
-         * Removes a piece from the board.
-         * This method does not check legality or whether this action is part of a move in the game.
-         */
-        Board.prototype.removePiece = function (piece) {
-            if (piece) {
-                var pos = piece.position;
-                if (pos)
-                    this.grid[pos.y][pos.x] = null;
-            }
-        };
-        /**
-         * Updates the board instance based on the information contained within a provided Move instance.
-         */
-        Board.prototype.registerMove = function (move) {
-            var from = move.from;
-            var to = move.to;
-            var piece = this.grid[from.y][from.x];
-            this.grid[to.y][to.x] = piece;
-            this.grid[from.y][from.x] = null;
-        };
-        /**
-         * Updates the board instance based on the information contained within a provided Move instance that is known to make
-         * out a swap (used for castling moves).
-         */
-        Board.prototype.registerSwap = function (move) {
-            var from = move.from;
-            var to = move.to;
-            var pieceFrom = this.grid[from.y][from.x];
-            var pieceTo = this.grid[to.y][to.x];
-            this.grid[to.y][to.x] = pieceFrom;
-            this.grid[from.y][from.x] = pieceTo;
-        };
-        return Board;
-    }());
-
-    var King = /** @class */ (function (_super) {
-        __extends(King, _super);
-        function King() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        /**
-         * Returns a Position array with all piece-specific move positions within bounds of the board.
-         */
-        King.prototype.getMovePositionsWithinBounds = function () {
-            var pos = this.position;
-            if (!pos)
-                return [];
-            return pos.getAllStraightAndDiagonal();
-        };
-        /**
-         * Returns whether a move to a target position is a castling move.
-         */
-        King.prototype.isCastleMove = function (target) {
-            var targetPiece = this.game.board.getPieceByPosition(target);
-            if (!targetPiece)
-                return false;
-            // it is not necessary to check whether the taget piece is an own piece since an enemy piece will never be in the
-            // designated position without having moved, which gets checked.
-            return (targetPiece.type === 'Rook' && !targetPiece.hasMoved && !this.hasMoved);
-        };
-        return King;
-    }(Piece));
-
-    var Knight = /** @class */ (function (_super) {
-        __extends(Knight, _super);
-        function Knight() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        /**
-         * Returns a Position array with all piece-specific move positions within bounds of the board.
-         */
-        Knight.prototype.getMovePositionsWithinBounds = function () {
-            var pos = this.position;
-            return pos ? pos.getAllKnightMovePositions() : [];
-        };
-        return Knight;
-    }(Piece));
-
-    var Move = /** @class */ (function () {
-        function Move(piece, to, takes) {
-            if (takes === void 0) { takes = null; }
-            var pos = piece.position;
-            if (!pos) {
-                throw new Error('Cannot move a piece that is not on the board.');
-            }
-            this.piece = piece;
-            this.takes = takes;
-            this.from = pos.clone();
-            this.to = to.clone();
-        }
-        Move.prototype.toJSON = function () {
-            return [
-                [this.from.x, this.from.y],
-                [this.to.x, this.to.y],
-            ];
-        };
-        return Move;
-    }());
-
-    var Pawn = /** @class */ (function (_super) {
-        __extends(Pawn, _super);
-        function Pawn() {
-            return _super !== null && _super.apply(this, arguments) || this;
-        }
-        /**
-         * Returns a Position array with all piece-specific move positions within bounds of the board.
-         */
-        Pawn.prototype.getMovePositionsWithinBounds = function () {
-            var board = this.game.board;
-            var pos = this.position;
-            var res = [];
-            if (!pos) {
-                return [];
-            }
-            if (this.color === 'white') {
-                var upPos = pos.getUp();
-                if (upPos) {
-                    res.push(upPos);
-                }
-                var upUpPos = pos.getUpUp();
-                if (upUpPos && !this.hasMoved) {
-                    res.push(upUpPos);
-                }
-                var upLeftPos = pos.getUpLeft();
-                if (upLeftPos) {
-                    var diagLeftPiece = board.getPieceByPosition(upLeftPos);
-                    if (diagLeftPiece) {
-                        var diagLeftPos = diagLeftPiece.position;
-                        if (diagLeftPos && diagLeftPiece.color === 'black') {
-                            res.push(diagLeftPos.clone());
-                        }
-                    }
-                }
-                var upRightPos = pos.getUpRight();
-                if (upRightPos) {
-                    var diagRightPiece = board.getPieceByPosition(upRightPos);
-                    if (diagRightPiece) {
-                        var diagLeftPos = diagRightPiece.position;
-                        if (diagLeftPos && diagRightPiece.color === 'black') {
-                            res.push(diagLeftPos.clone());
-                        }
-                    }
-                }
-            }
-            else {
-                var downPos = pos.getDown();
-                if (downPos) {
-                    res.push(downPos);
-                }
-                var downDownPos = pos.getDownDown();
-                if (downDownPos && !this.hasMoved) {
-                    res.push(downDownPos);
-                }
-                var downLeftPos = pos.getDownLeft();
-                if (downLeftPos) {
-                    var diagLeftPiece = board.getPieceByPosition(downLeftPos);
-                    if (diagLeftPiece) {
-                        var diagLeftPos = diagLeftPiece.position;
-                        if (diagLeftPos && diagLeftPiece.color === 'white') {
-                            res.push(diagLeftPos.clone());
-                        }
-                    }
-                }
-                var downRightPos = pos.getDownRight();
-                if (downRightPos) {
-                    var diagRightPiece = board.getPieceByPosition(downRightPos);
-                    if (diagRightPiece) {
-                        var diagLeftPos = diagRightPiece.position;
-                        if (diagLeftPos && diagRightPiece.color === 'white') {
-                            res.push(diagLeftPos.clone());
-                        }
-                    }
-                }
-            }
-            return res;
-        };
-        return Pawn;
-    }(Piece));
-
     var Queen = /** @class */ (function (_super) {
         __extends(Queen, _super);
         function Queen() {
@@ -906,6 +972,9 @@
         return Queen;
     }(Piece));
 
+    /**
+     * {Piece} Rook class.
+     */
     var Rook = /** @class */ (function (_super) {
         __extends(Rook, _super);
         function Rook() {
@@ -985,9 +1054,12 @@
         return Player;
     }());
 
+    /**
+     * The default exported class from which the chess game is controlled.
+     */
     var Game = /** @class */ (function () {
         /**
-         * Returns an instance of Game
+         * Creates and initializes a new chess game.
          */
         function Game() {
             this.board = new Board(this);
@@ -996,21 +1068,72 @@
             this.moves = [];
         }
         /**
-         * Recreates a Game instance from a previously stringified Game instance.
-         * @throws {Error} on invalid JSON data
+         * Parse and optionally validate JSON data.
+         *
+         * @param data - A previously stringified Game instance.
+         * @param skipValidation - skips validation of the move's legality according to the rules of the game.
+         *
+         * @throws {TypeError} on invalid JSON data.
          */
-        Game.fromJSON = function (data) {
+        Game.parseJSON = function (data, skipValidation) {
+            var moves;
             try {
-                var game = new Game();
-                var moves = JSON.parse(data);
-                for (var i = 0; i < moves.length; i++) {
-                    game.makeMove(moves[i][0], moves[i][1]);
+                moves = JSON.parse(data);
+                if (!skipValidation) {
+                    if (!Number.isInteger(moves.length / 4)) {
+                        throw new TypeError('Invalid length.');
+                    }
+                    for (var i = 0; i < moves.length; i++) {
+                        if (!Number.isInteger(moves[i])) {
+                            throw new TypeError('Expected an array of integers only.');
+                        }
+                    }
                 }
-                return game;
             }
             catch (e) {
-                throw new Error('Invalid JSON data');
+                throw new TypeError('Invalid JSON data. ' + e.message);
             }
+            return moves;
+        };
+        /**
+         * Recreates a Game instance from a previously parsed stringified or serialized Game instance converted to array.
+         * Used internally by @see Game.fromJSON() and @see Game.deserialize()
+         *
+         * @param data - A previously stringified Game instance.
+         * @param skipValidation - skips validation of the move's legality according to the rules of the game.
+         */
+        Game.fromArray = function (data, skipValidation) {
+            var game = new Game();
+            for (var i = 0; i < data.length; i += 4) {
+                game.makeMove(new Position(data[i], data[i + 1]), new Position(data[i + 2], data[i + 3]), skipValidation);
+            }
+            return game;
+        };
+        /**
+         * Recreates a Game instance from a previously stringified Game instance.
+         * @see Game.prototype.toJSON()
+         *
+         * @param data - A previously stringified Game instance.
+         * @param skipValidation - skips validation of the move's legality according to the rules of the game as well as the data.
+      
+         * @throws {Error} on invalid JSON data.
+         */
+        Game.fromJSON = function (data, skipValidation) {
+            if (skipValidation === void 0) { skipValidation = false; }
+            return this.fromArray(this.parseJSON(data, skipValidation), skipValidation);
+        };
+        /**
+         * Recreates a Game instance from binary data.
+         * @see Game.prototype.serialize()
+         *
+         * @param data - A previously stringified Game instance.
+         * @param skipValidation - skips validation of the move's legality according to the rules of the game as well as the data.
+      
+         * @throws {Error} on invalid JSON data.
+         */
+        Game.deserialze = function (data, skipValidation) {
+            if (skipValidation === void 0) { skipValidation = false; }
+            return this.fromArray(uInt8ToBytes(data), skipValidation);
         };
         Object.defineProperty(Game.prototype, "isWhitesTurnToMove", {
             /**
@@ -1098,16 +1221,20 @@
         };
         /**
          * Ensures the argument is converted into a Position instance.
+         *
+         * @param from - a Position instance, A1-notation string or XY-coordinate-array.
          */
         Game.prototype.ensurePosition = function (from) {
             return from instanceof Position
                 ? from
                 : typeof from === 'string'
-                    ? from_A1_to_Position(from)
-                    : from_XY_to_Position(from);
+                    ? Position.fromA1(from)
+                    : Position.fromXY(from);
         };
         /**
          * Get a Piece instance from the board by either Position, an A1 string or XY-coordinates
+         *
+         * @param from - a Position instance, A1-notation string or XY-coordinate-array. If a Piece instance is passed, it is returned.
          */
         Game.prototype.getPiece = function (from) {
             return !from
@@ -1146,7 +1273,7 @@
          *
          * @param pieceOrCoordinate - The Piece to move, or where to find the piece which can be a Position instance, XY-array
          * or A1-notation string.
-         * @param to - The Position to move to.
+         * @param to - Where to move to.
          * @param skipValidation - skips validation of the move's legality according to the rules of the game. This is used
          * internally for performance reasons when cloning a game, which repeats the moves that were previously validated.
          *
@@ -1195,10 +1322,29 @@
             return game;
         };
         /**
-         * Stringifies the necessary data for reconstructing the game.
+         * Method used by JSON.stringify to return string-serialized data necessary for completely reconstructing the Game
+         * instance.
+         * @see Game.fromJSON()
          */
         Game.prototype.toJSON = function () {
-            return JSON.stringify(this.moves);
+            var moves = this.moves;
+            var l = moves.length;
+            var res = new Array(l * 4);
+            for (var move = void 0, i = 0; i < l; i++) {
+                move = moves[i];
+                res[i * 4 + 0] = move.from.x;
+                res[i * 4 + 1] = move.from.y;
+                res[i * 4 + 2] = move.to.x;
+                res[i * 4 + 3] = move.to.y;
+            }
+            return res;
+        };
+        /**
+         * Serializes the data necessary for completely reconstructing the Game instance to binary.
+         * @see Game.deserialize()
+         */
+        Game.prototype.serialize = function () {
+            return bytesToUint8Array(this.toJSON());
         };
         return Game;
     }());

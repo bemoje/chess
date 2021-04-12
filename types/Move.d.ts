@@ -6,6 +6,9 @@ export declare class Move {
     from: Position;
     to: Position;
     constructor(piece: Piece, to: Position, takes?: Piece | null);
-    toJSON(): Array<Array<number>>;
+    /**
+     * Stringifies the data necessary for completely reconstructing the Move instance.
+     */
+    toJSON(): Array<number>;
 }
 //# sourceMappingURL=Move.d.ts.map

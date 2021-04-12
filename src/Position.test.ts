@@ -37,6 +37,12 @@ describe('Position (class)', () => {
     });
   });
 
+  describe('(getter) XY', () => {
+    it('Returns the board position as an XY-coordinate array.', () => {
+      expect(new Position(2, 5).XY).toStrictEqual([2, 5]);
+    });
+  });
+
   describe('(method) compare', () => {
     it('Deep-equality-compares the Position instance to another Position instance.', () => {
       expect(new Position(2, 5).compare(new Position(2, 5))).toBe(true);

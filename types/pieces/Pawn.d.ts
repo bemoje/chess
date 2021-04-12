@@ -1,5 +1,8 @@
 import { Piece } from './AbstractPiece';
 import type { Position } from '../Position';
+/**
+ * {Piece} Pawn class.
+ */
 export declare class Pawn extends Piece {
     /**
      * Returns a Position array with all piece-specific move positions within bounds of the board.

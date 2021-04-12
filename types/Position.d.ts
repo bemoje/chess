@@ -1,10 +1,20 @@
 export declare class Position {
+    /**
+     * The X coordinate.
+     */
     x: number;
+    /**
+     * The Y coordinate.
+     */
     y: number;
     /**
      * Returns a new Position instance based on A1-notation input.
      */
     static fromA1(a1: string): Position;
+    /**
+     * Returns a new Position instance based on XY-coordinate array.
+     */
+    static fromXY(xy: Array<number>): Position;
     /**
      * @param x - a positive integer between 0 and 7 both inclusive.
      * @param y - a positive integer between 0 and 7 both inclusive.
@@ -14,6 +24,10 @@ export declare class Position {
      * Returns the board position in A1-notation.
      */
     get A1(): string;
+    /**
+     * Returns the board position as an XY-coordinate array.
+     */
+    get XY(): Array<number>;
     /**
      * Deep-equality-compares the Position instance to another Position instance.
      */

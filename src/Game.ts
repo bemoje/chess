@@ -4,7 +4,6 @@ import { Move } from './Move';
 import { isEven, uInt8ToBytes, bytesToUint8Array } from './util';
 import { Position } from './Position';
 import { Piece } from './pieces/AbstractPiece';
-import { from_A1_to_Position, from_XY_to_Position } from './coordinates';
 
 /**
  * The default exported class from which the chess game is controlled.
@@ -210,8 +209,8 @@ export class Game {
     return from instanceof Position
       ? from
       : typeof from === 'string'
-      ? from_A1_to_Position(from)
-      : from_XY_to_Position(from);
+      ? Position.fromA1(from)
+      : Position.fromXY(from);
   }
 
   /**
@@ -261,7 +260,7 @@ export class Game {
    *
    * @param pieceOrCoordinate - The Piece to move, or where to find the piece which can be a Position instance, XY-array
    * or A1-notation string.
-   * @param to - The Position to move to.
+   * @param to - Where to move to.
    * @param skipValidation - skips validation of the move's legality according to the rules of the game. This is used
    * internally for performance reasons when cloning a game, which repeats the moves that were previously validated.
    *
@@ -318,7 +317,8 @@ export class Game {
   }
 
   /**
-   * Stringifies the data necessary for completely reconstructing the Game instance.
+   * Method used by JSON.stringify to return string-serialized data necessary for completely reconstructing the Game
+   * instance.
    * @see Game.fromJSON()
    */
   public toJSON(): Array<number> {

@@ -1,5 +1,8 @@
 import { Piece } from './AbstractPiece';
 import type { Position } from '../Position';
+/**
+ * {Piece} Rook class.
+ */
 export declare class Rook extends Piece {
     /**
      * Returns a Position array with all piece-specific move positions within bounds of the board.

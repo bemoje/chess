@@ -2,13 +2,28 @@ import { from_A1_to_XY, from_XY_to_A1, assertValidXY } from './coordinates';
 import { arrClean } from './util';
 
 export class Position {
+  /**
+   * The X coordinate.
+   */
   public x: number;
+
+  /**
+   * The Y coordinate.
+   */
   public y: number;
+
   /**
    * Returns a new Position instance based on A1-notation input.
    */
   public static fromA1(a1: string): Position {
     const xy = from_A1_to_XY(a1);
+    return new Position(xy[0], xy[1]);
+  }
+
+  /**
+   * Returns a new Position instance based on XY-coordinate array.
+   */
+  public static fromXY(xy: Array<number>): Position {
     return new Position(xy[0], xy[1]);
   }
 
@@ -29,6 +44,13 @@ export class Position {
    */
   public get A1(): string {
     return from_XY_to_A1([this.x, this.y]);
+  }
+
+  /**
+   * Returns the board position as an XY-coordinate array.
+   */
+  public get XY(): Array<number> {
+    return [this.x, this.y];
   }
 
   /**

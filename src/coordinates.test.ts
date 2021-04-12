@@ -4,9 +4,7 @@ import {
   from_A_to_X,
   from_1_to_Y,
   from_XY_to_A1,
-  from_XY_to_Position,
   from_A1_to_XY,
-  from_A1_to_Position,
   isValidXYPoint,
   isValidXY,
   isValidA1,
@@ -14,7 +12,6 @@ import {
   assertValidXY,
   assertValidA1,
 } from './coordinates';
-import { Position } from './Position';
 
 describe('A1Notation', () => {
   describe('from_X_to_A', () => {
@@ -78,38 +75,12 @@ describe('A1Notation', () => {
     });
   });
 
-  describe('from_XY_to_Position', () => {
-    it('converts a XY-coordinate-array or a Position type (extends Array) to an A1-notation string', () => {
-      expect(from_XY_to_Position([0, 0]).compare(new Position(0, 0))).toBe(
-        true,
-      );
-      expect(from_XY_to_Position([1, 6]).compare(new Position(1, 6))).toBe(
-        true,
-      );
-      expect(from_XY_to_Position([5, 3]).compare(new Position(5, 3))).toBe(
-        true,
-      );
-      expect(from_XY_to_Position([7, 7]).compare(new Position(7, 7))).toBe(
-        true,
-      );
-    });
-  });
-
   describe('from_A1_to_XY', () => {
     it('converts an A1-notation string to a XY-coordinate-array', () => {
       expect(from_A1_to_XY('A1')).toStrictEqual([0, 0]);
       expect(from_A1_to_XY('B7')).toStrictEqual([1, 6]);
       expect(from_A1_to_XY('F4')).toStrictEqual([5, 3]);
       expect(from_A1_to_XY('H8')).toStrictEqual([7, 7]);
-    });
-  });
-
-  describe('from_A1_to_Position', () => {
-    it('converts an A1-notation string to a Position instance', () => {
-      expect(from_A1_to_Position('A1').compare(new Position(0, 0))).toBe(true);
-      expect(from_A1_to_Position('B7').compare(new Position(1, 6))).toBe(true);
-      expect(from_A1_to_Position('F4').compare(new Position(5, 3))).toBe(true);
-      expect(from_A1_to_Position('H8').compare(new Position(7, 7))).toBe(true);
     });
   });
 

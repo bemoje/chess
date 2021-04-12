@@ -3,30 +3,65 @@ import { Player } from './Player';
 import { Move } from './Move';
 import { Position } from './Position';
 import { Piece } from './pieces/AbstractPiece';
+/**
+ * The default exported class from which the chess game is controlled.
+ */
 export declare class Game {
     /**
-     * Recreates a Game instance from a previously stringified Game instance.
-     * @throws {Error} on invalid JSON data
+     * Parse and optionally validate JSON data.
+     *
+     * @param data - A previously stringified Game instance.
+     * @param skipValidation - skips validation of the move's legality according to the rules of the game.
+     *
+     * @throws {TypeError} on invalid JSON data.
      */
-    static fromJSON(data: string): Game;
+    private static parseJSON;
     /**
-     * The game board
+     * Recreates a Game instance from a previously parsed stringified or serialized Game instance converted to array.
+     * Used internally by @see Game.fromJSON() and @see Game.deserialize()
+     *
+     * @param data - A previously stringified Game instance.
+     * @param skipValidation - skips validation of the move's legality according to the rules of the game.
+     */
+    private static fromArray;
+    /**
+     * Recreates a Game instance from a previously stringified Game instance.
+     * @see Game.prototype.toJSON()
+     *
+     * @param data - A previously stringified Game instance.
+     * @param skipValidation - skips validation of the move's legality according to the rules of the game as well as the data.
+  
+     * @throws {Error} on invalid JSON data.
+     */
+    static fromJSON(data: string, skipValidation?: boolean): Game;
+    /**
+     * Recreates a Game instance from binary data.
+     * @see Game.prototype.serialize()
+     *
+     * @param data - A previously stringified Game instance.
+     * @param skipValidation - skips validation of the move's legality according to the rules of the game as well as the data.
+  
+     * @throws {Error} on invalid JSON data.
+     */
+    static deserialze(data: Uint8Array, skipValidation?: boolean): Game;
+    /**
+     * The game board.
      */
     board: Board;
     /**
-     * White player
+     * White player.
      */
     white: Player;
     /**
-     * Black player
+     * Black player.
      */
     black: Player;
     /**
-     * An array containing all moves made in the game
+     * An array containing all moves made in the game.
      */
     moves: Array<Move>;
     /**
-     * Returns an instance of Game
+     * Creates and initializes a new chess game.
      */
     constructor();
     /**
@@ -71,10 +106,14 @@ export declare class Game {
     forEachActivePlayerPiece(f: (piece?: Piece) => boolean | void): boolean | void;
     /**
      * Ensures the argument is converted into a Position instance.
+     *
+     * @param from - a Position instance, A1-notation string or XY-coordinate-array.
      */
     private ensurePosition;
     /**
      * Get a Piece instance from the board by either Position, an A1 string or XY-coordinates
+     *
+     * @param from - a Position instance, A1-notation string or XY-coordinate-array. If a Piece instance is passed, it is returned.
      */
     private getPiece;
     /**
@@ -92,7 +131,7 @@ export declare class Game {
      *
      * @param pieceOrCoordinate - The Piece to move, or where to find the piece which can be a Position instance, XY-array
      * or A1-notation string.
-     * @param to - The Position to move to.
+     * @param to - Where to move to.
      * @param skipValidation - skips validation of the move's legality according to the rules of the game. This is used
      * internally for performance reasons when cloning a game, which repeats the moves that were previously validated.
      *
@@ -104,8 +143,15 @@ export declare class Game {
      */
     clone(): Game;
     /**
-     * Stringifies the necessary data for reconstructing the game.
+     * Method used by JSON.stringify to return string-serialized data necessary for completely reconstructing the Game
+     * instance.
+     * @see Game.fromJSON()
      */
-    toJSON(): string;
+    toJSON(): Array<number>;
+    /**
+     * Serializes the data necessary for completely reconstructing the Game instance to binary.
+     * @see Game.deserialize()
+     */
+    serialize(): Uint8Array;
 }
 //# sourceMappingURL=Game.d.ts.map

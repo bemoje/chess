@@ -1,5 +1,8 @@
 import { Piece } from './AbstractPiece';
 import type { Position } from '../Position';
+/**
+ * {Piece} King class.
+ */
 export declare class King extends Piece {
     /**
      * Returns a Position array with all piece-specific move positions within bounds of the board.
