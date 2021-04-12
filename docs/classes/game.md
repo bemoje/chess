@@ -51,7 +51,7 @@ Creates and initializes a new chess game.
 
 **Returns:** [*Game*](game.md)
 
-Defined in: [Game.ts:106](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L106)
+Defined in: [Game.ts:103](https://github.com/bemoje/chess/blob/3d08551/src/Game.ts#L103)
 
 ## Properties
 
@@ -61,7 +61,7 @@ Defined in: [Game.ts:106](https://github.com/bemoje/chess/blob/7af4530/src/Game.
 
 Black player.
 
-Defined in: [Game.ts:101](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L101)
+Defined in: [Game.ts:98](https://github.com/bemoje/chess/blob/3d08551/src/Game.ts#L98)
 
 ___
 
@@ -71,7 +71,7 @@ ___
 
 The game board.
 
-Defined in: [Game.ts:91](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L91)
+Defined in: [Game.ts:88](https://github.com/bemoje/chess/blob/3d08551/src/Game.ts#L88)
 
 ___
 
@@ -81,7 +81,7 @@ ___
 
 An array containing all moves made in the game.
 
-Defined in: [Game.ts:106](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L106)
+Defined in: [Game.ts:103](https://github.com/bemoje/chess/blob/3d08551/src/Game.ts#L103)
 
 ___
 
@@ -91,7 +91,7 @@ ___
 
 White player.
 
-Defined in: [Game.ts:96](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L96)
+Defined in: [Game.ts:93](https://github.com/bemoje/chess/blob/3d08551/src/Game.ts#L93)
 
 ## Accessors
 
@@ -103,7 +103,7 @@ Returns whether it is black player's turn to move.
 
 **Returns:** [*Player*](player.md)
 
-Defined in: [Game.ts:135](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L135)
+Defined in: [Game.ts:132](https://github.com/bemoje/chess/blob/3d08551/src/Game.ts#L132)
 
 ___
 
@@ -115,7 +115,7 @@ Returns whether it is black player's turn to move.
 
 **Returns:** *boolean*
 
-Defined in: [Game.ts:128](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L128)
+Defined in: [Game.ts:125](https://github.com/bemoje/chess/blob/3d08551/src/Game.ts#L125)
 
 ___
 
@@ -127,7 +127,7 @@ Returns whether it is white player's turn to move.
 
 **Returns:** *boolean*
 
-Defined in: [Game.ts:121](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L121)
+Defined in: [Game.ts:118](https://github.com/bemoje/chess/blob/3d08551/src/Game.ts#L118)
 
 ## Methods
 
@@ -139,7 +139,7 @@ Returns a deep clone of the game instance.
 
 **Returns:** [*Game*](game.md)
 
-Defined in: [Game.ts:306](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L306)
+Defined in: [Game.ts:302](https://github.com/bemoje/chess/blob/3d08551/src/Game.ts#L302)
 
 ___
 
@@ -157,7 +157,7 @@ Name | Type | Description |
 
 **Returns:** *null* \| *Piece*
 
-Defined in: [Game.ts:223](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L223)
+Defined in: [Game.ts:220](https://github.com/bemoje/chess/blob/3d08551/src/Game.ts#L220)
 
 ___
 
@@ -175,7 +175,7 @@ Name | Type | Description |
 
 **Returns:** [*Position*](position.md)
 
-Defined in: [Game.ts:210](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L210)
+Defined in: [Game.ts:207](https://github.com/bemoje/chess/blob/3d08551/src/Game.ts#L207)
 
 ___
 
@@ -195,7 +195,7 @@ Name | Type | Description |
 
 true if iteration was ended before completion.
 
-Defined in: [Game.ts:180](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L180)
+Defined in: [Game.ts:177](https://github.com/bemoje/chess/blob/3d08551/src/Game.ts#L177)
 
 ___
 
@@ -215,7 +215,7 @@ Name | Type | Description |
 
 true if iteration was ended before completion.
 
-Defined in: [Game.ts:145](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L145)
+Defined in: [Game.ts:142](https://github.com/bemoje/chess/blob/3d08551/src/Game.ts#L142)
 
 ___
 
@@ -235,7 +235,7 @@ Name | Type | Description |
 
 true if iteration was ended before completion.
 
-Defined in: [Game.ts:163](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L163)
+Defined in: [Game.ts:160](https://github.com/bemoje/chess/blob/3d08551/src/Game.ts#L160)
 
 ___
 
@@ -255,7 +255,7 @@ Name | Type | Description |
 
 true if iteration was ended before completion.
 
-Defined in: [Game.ts:197](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L197)
+Defined in: [Game.ts:194](https://github.com/bemoje/chess/blob/3d08551/src/Game.ts#L194)
 
 ___
 
@@ -276,7 +276,7 @@ Name | Type | Description |
 
 true if iteration was ended before completion.
 
-Defined in: [Game.ts:241](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L241)
+Defined in: [Game.ts:238](https://github.com/bemoje/chess/blob/3d08551/src/Game.ts#L238)
 
 ___
 
@@ -295,13 +295,13 @@ Name | Type | Description |
 :------ | :------ | :------ |
 `pieceOrCoordinate` | *Piece* \| [*Position*](position.md) | The Piece to move, or where to find the piece which can be a Position instance, XY-array or A1-notation string.   |
 `to` | *string* \| [*Position*](position.md) \| *number*[] | Where to move to.   |
-`skipValidation?` | *boolean* | skips validation of the move's legality according to the rules of the game. This is used internally for performance reasons when cloning a game, which repeats the moves that were previously validated.    |
+`skipValidation?` | *boolean* | skips validation of the move's legality according to the rules of the game. This is used internally for performance reasons when cloning a game, which repeats the moves that were previously validated.   |
 
 **Returns:** [*Game*](game.md)
 
 self - is chainable.
 
-Defined in: [Game.ts:272](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L272)
+Defined in: [Game.ts:268](https://github.com/bemoje/chess/blob/3d08551/src/Game.ts#L268)
 
 ___
 
@@ -315,7 +315,7 @@ Serializes the data necessary for completely reconstructing the Game instance to
 
 **Returns:** *Uint8Array*
 
-Defined in: [Game.ts:345](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L345)
+Defined in: [Game.ts:341](https://github.com/bemoje/chess/blob/3d08551/src/Game.ts#L341)
 
 ___
 
@@ -330,7 +330,7 @@ instance.
 
 **Returns:** *number*[]
 
-Defined in: [Game.ts:327](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L327)
+Defined in: [Game.ts:323](https://github.com/bemoje/chess/blob/3d08551/src/Game.ts#L323)
 
 ___
 
@@ -349,11 +349,11 @@ Recreates a Game instance from binary data.
 Name | Type | Default value | Description |
 :------ | :------ | :------ | :------ |
 `data` | *Uint8Array* | - | A previously stringified Game instance.   |
-`skipValidation` | *boolean* | false | skips validation of the move's legality according to the rules of the game as well as the data.    |
+`skipValidation` | *boolean* | false | skips validation of the move's legality according to the rules of the game as well as the data.   |
 
 **Returns:** [*Game*](game.md)
 
-Defined in: [Game.ts:84](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L84)
+Defined in: [Game.ts:81](https://github.com/bemoje/chess/blob/3d08551/src/Game.ts#L81)
 
 ___
 
@@ -373,7 +373,7 @@ Name | Type | Description |
 
 **Returns:** [*Game*](game.md)
 
-Defined in: [Game.ts:50](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L50)
+Defined in: [Game.ts:49](https://github.com/bemoje/chess/blob/3d08551/src/Game.ts#L49)
 
 ___
 
@@ -392,11 +392,11 @@ Recreates a Game instance from a previously stringified Game instance.
 Name | Type | Default value | Description |
 :------ | :------ | :------ | :------ |
 `data` | *string* | - | A previously stringified Game instance.   |
-`skipValidation` | *boolean* | false | skips validation of the move's legality according to the rules of the game as well as the data.    |
+`skipValidation` | *boolean* | false | skips validation of the move's legality according to the rules of the game as well as the data.   |
 
 **Returns:** [*Game*](game.md)
 
-Defined in: [Game.ts:71](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L71)
+Defined in: [Game.ts:69](https://github.com/bemoje/chess/blob/3d08551/src/Game.ts#L69)
 
 ___
 
@@ -413,8 +413,8 @@ Parse and optionally validate JSON data.
 Name | Type | Description |
 :------ | :------ | :------ |
 `data` | *string* | A previously stringified Game instance.   |
-`skipValidation` | *boolean* | skips validation of the move's legality according to the rules of the game.    |
+`skipValidation` | *boolean* | skips validation of the move's legality according to the rules of the game.   |
 
 **Returns:** *number*[]
 
-Defined in: [Game.ts:20](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L20)
+Defined in: [Game.ts:19](https://github.com/bemoje/chess/blob/3d08551/src/Game.ts#L19)

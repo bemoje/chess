@@ -22,6 +22,14 @@ export {
   assertValidXY,
   assertValidA1,
 } from './coordinates';
+export {
+  arrClean,
+  numericDifference,
+  createAssertFunction,
+  isEven,
+  uInt8ToBytes,
+  bytesToUint8Array,
+} from './util';
 
 import { Game } from './Game';
 export { Game };

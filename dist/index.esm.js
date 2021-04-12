@@ -223,6 +223,8 @@ var Bishop = /** @class */ (function (_super) {
 
 /**
  * Removes elements of a given array if they do not evaluate to true.
+ *
+ * @param arr - The array containing null values or Position instances to clean.
  */
 function arrClean(arr) {
     var res = [];
@@ -236,7 +238,20 @@ function arrClean(arr) {
     return res;
 }
 /**
+ * Returns the numeric difference between to numbers.
+ *
+ * @param n1 - A number
+ * @param n2 - A number
+ */
+function numericDifference(n1, n2) {
+    var dist = n1 - n2;
+    return dist < 0 ? dist * -1 : dist;
+}
+/**
  * Returns an assertion function that expects [string] 'expectedToBe' evaluated by [Function] 'validate'
+ *
+ * @param expectedToBe - A string that describes the assertion.
+ * @param validate - A callback function that validates an argument.
  */
 function createAssertFunction(expectedToBe, validate) {
     var f = function (arg, name) {
@@ -252,6 +267,8 @@ function createAssertFunction(expectedToBe, validate) {
 }
 /**
  * Returns whether a number is an even number.
+ *
+ * @param n - An integer
  */
 function isEven(n) {
     return n % 2 == 0;
@@ -286,54 +303,72 @@ function bytesToUint8Array(arr) {
 var A_CHAR_CODE = 'A'.charCodeAt(0);
 /**
  * Converts the first value of an XY-coordinate to A1-notation.
+ *
+ * @param x - An integer where 0 <= x <= 7
  */
 function from_X_to_A(x) {
     return String.fromCharCode(x + A_CHAR_CODE);
 }
 /**
  * Converts the second value of an XY-coordinate to A1-notation.
+ *
+ * @param y - An integer where 0 <= y <= 7
  */
 function from_Y_to_1(y) {
     return (y + 1).toString();
 }
 /**
  * Converts the first character of A1-notation to the first value of an XY-coordinate.
+ *
+ * @param a - The first character of an A1-notation string.
  */
 function from_A_to_X(a) {
     return a.toUpperCase().charCodeAt(0) - A_CHAR_CODE;
 }
 /**
  * Converts the second character of A1-notation to the second value of an XY-coordinate.
+ *
+ * @param n - The second character of an A1-notation string.
  */
 function from_1_to_Y(n) {
     return Number(n.charAt(0)) - 1;
 }
 /**
  * Converts a XY-coordinate-array to an A1-notation string.
+ *
+ * @param xy - An XY-coordinate array where x and y are integers and 0 <= x <= 7 and 0 <= y <= 7
  */
-function from_XY_to_A1(pos) {
-    return from_X_to_A(pos[0]) + from_Y_to_1(pos[1]);
+function from_XY_to_A1(xy) {
+    return from_X_to_A(xy[0]) + from_Y_to_1(xy[1]);
 }
 /**
  * Converts an A1-notation string to a XY-coordinate-array.
+ *
+ * @param a1 - An A1-notation string.
  */
 function from_A1_to_XY(a1) {
     return [from_A_to_X(a1.charAt(0)), from_1_to_Y(a1.charAt(1))];
 }
 /**
  * Returns whether the argument is a positive integer where 0 <= arg <= 7.
+ *
+ * @param n - The second character of an A1-notation string.
  */
 function isValidXYPoint(n) {
     return n >= 0 && n <= 7;
 }
 /**
  * Returns whether both points in an XY-coordinate is a positive integer where 0 <= arg <= 7.
+ *
+ * @param xy - An XY-coordinate array where x and y are integers and 0 <= x <= 7 and 0 <= y <= 7
  */
-function isValidXY(pos) {
-    return isValidXYPoint(pos[0]) && isValidXYPoint(pos[1]);
+function isValidXY(xy) {
+    return isValidXYPoint(xy[0]) && isValidXYPoint(xy[1]);
 }
 /**
  * Returns whether a string is valid A1-notation.
+ *
+ * @param a1 - An A1-notation string.
  */
 function isValidA1(a1) {
     return a1.length === 2 && isValidXY(from_A1_to_XY(a1));
@@ -506,7 +541,15 @@ var Knight = /** @class */ (function (_super) {
     return Knight;
 }(Piece));
 
+/**
+ * A class that represents a move in a chess Game.
+ */
 var Move = /** @class */ (function () {
+    /**
+     * @param piece - The Piece that made the move.
+     * @param to - The Position where the Piece was moved to.
+     * @param takes - The Piece that was taken out by the move, if any.
+     */
     function Move(piece, to, takes) {
         if (takes === void 0) { takes = null; }
         var pos = piece.position;
@@ -610,6 +653,9 @@ var Pawn = /** @class */ (function (_super) {
     return Pawn;
 }(Piece));
 
+/**
+ * A class that represents a XY-coordinate position on the Board of a chess Game.
+ */
 var Position = /** @class */ (function () {
     /**
      * @param x - a positive integer between 0 and 7 both inclusive.
@@ -624,14 +670,14 @@ var Position = /** @class */ (function () {
         this.y = y;
     }
     /**
-     * Returns a new Position instance based on A1-notation input.
+     * Modulates the Position and returns a new Position instance based on A1-notation input.
      */
     Position.fromA1 = function (a1) {
         var xy = from_A1_to_XY(a1);
         return new Position(xy[0], xy[1]);
     };
     /**
-     * Returns a new Position instance based on XY-coordinate array.
+     * Modulates the Position and returns a new Position instance based on XY-coordinate array.
      */
     Position.fromXY = function (xy) {
         return new Position(xy[0], xy[1]);
@@ -658,13 +704,14 @@ var Position = /** @class */ (function () {
     });
     /**
      * Deep-equality-compares the Position instance to another Position instance.
+     *
+     * @param position - The Position instance to compare.
      */
     Position.prototype.compare = function (position) {
         return this.x === position.x && this.y === position.y;
     };
     /**
      * Returns a clone of the instance.
-     * Out of bounds -validation is skipped.
      */
     Position.prototype.clone = function () {
         return new Position(this.x, this.y, true);
@@ -678,6 +725,10 @@ var Position = /** @class */ (function () {
     /**
      * Modulates the XY-position coordinate and returns a new Position instance equivalent to it, or null if that position
      * is out of bounds of the board.
+     *
+     * @param xBy - The number of chess grid units to module by on the x-axis.
+     * @param yBy - The number of chess grid units to module by on the y-axis.
+     * @returns `null` if the resulting position is out of bounds.
      */
     Position.prototype.getModulation = function (xBy, yBy) {
         try {
@@ -688,109 +739,127 @@ var Position = /** @class */ (function () {
         }
     };
     /**
-     * Returns a new Position instance that is moved up by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved up by 1 from the position on the board
+     * that this instance describes.
      */
     Position.prototype.getUp = function () {
         return this.getModulation(0, 1);
     };
     /**
-     * Returns a new Position instance that is moved down by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved down by 1 from the position on the board
+     * that this instance describes.
      */
     Position.prototype.getDown = function () {
         return this.getModulation(0, -1);
     };
     /**
-     * Returns a new Position instance that is moved left by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved left by 1 from the position on the board
+     * that this instance describes.
      */
     Position.prototype.getLeft = function () {
         return this.getModulation(-1, 0);
     };
     /**
-     * Returns a new Position instance that is moved right by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved right by 1 from the position on the board
+     * that this instance describes.
      */
     Position.prototype.getRight = function () {
         return this.getModulation(1, 0);
     };
     /**
-     * Returns a new Position instance that is moved up by 1 and left by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved up by 1 and left by 1 from the position on
+     * the board that this instance describes.
      */
     Position.prototype.getUpLeft = function () {
         return this.getModulation(-1, 1);
     };
     /**
-     * Returns a new Position instance that is moved up by 1 and right by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved up by 1 and right by 1 from the position
+     * on the board that this instance describes.
      */
     Position.prototype.getUpRight = function () {
         return this.getModulation(1, 1);
     };
     /**
-     * Returns a new Position instance that is moved down by 1 and left by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved down by 1 and left by 1 from the position
+     * on the board that this instance describes.
      */
     Position.prototype.getDownLeft = function () {
         return this.getModulation(-1, -1);
     };
     /**
-     * Returns a new Position instance that is moved down by 1 and right by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved down by 1 and right by 1 from the position
+     * on the board that this instance describes.
      */
     Position.prototype.getDownRight = function () {
         return this.getModulation(1, -1);
     };
     /**
-     * Returns a new Position instance that is moved up by 2 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved up by 2 from the position on the board
+     * that this instance describes.
      */
     Position.prototype.getUpUp = function () {
         return this.getModulation(0, 2);
     };
     /**
-     * Returns a new Position instance that is moved down by 2 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved down by 2 from the position on the board
+     * that this instance describes.
      */
     Position.prototype.getDownDown = function () {
         return this.getModulation(0, -2);
     };
     /**
-     * Returns a new Position instance that is moved up by 2 and left by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved up by 2 and left by 1 from the position on
+     * the board that this instance describes.
      */
     Position.prototype.getUpUpLeft = function () {
         return this.getModulation(-1, 2);
     };
     /**
-     * Returns a new Position instance that is moved up by 2 and right by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved up by 2 and right by 1 from the position
+     * on the board that this instance describes.
      */
     Position.prototype.getUpUpRight = function () {
         return this.getModulation(1, 2);
     };
     /**
-     * Returns a new Position instance that is moved down by 2 and left by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved down by 2 and left by 1 from the position
+     * on the board that this instance describes.
      */
     Position.prototype.getDownDownLeft = function () {
         return this.getModulation(-1, -2);
     };
     /**
-     * Returns a new Position instance that is moved down by 2 and right by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved down by 2 and right by 1 from the position
+     * on the board that this instance describes.
      */
     Position.prototype.getDownDownRight = function () {
         return this.getModulation(1, -2);
     };
     /**
-     * Returns a new Position instance that is moved left by 2 and up by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved left by 2 and up by 1 from the position on
+     * the board that this instance describes.
      */
     Position.prototype.getLeftLeftUp = function () {
         return this.getModulation(-2, 1);
     };
     /**
-     * Returns a new Position instance that is moved left by 2 and up by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved left by 2 and up by 1 from the position on
+     * the board that this instance describes.
      */
     Position.prototype.getLeftLeftDown = function () {
         return this.getModulation(-2, -1);
     };
     /**
-     * Returns a new Position instance that is moved right by 2 and up by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved right by 2 and up by 1 from the position
+     * on the board that this instance describes.
      */
     Position.prototype.getRightRightUp = function () {
         return this.getModulation(2, 1);
     };
     /**
-     * Returns a new Position instance that is moved right by 2 and down by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved right by 2 and down by 1 from the position
+     * on the board that this instance describes.
      */
     Position.prototype.getRightRightDown = function () {
         return this.getModulation(2, -1);
@@ -818,7 +887,8 @@ var Position = /** @class */ (function () {
         ]);
     };
     /**
-     * Returns an array of new Position instances that are moved by 1 in all straight (horizontal and vertical) and diagonal directions.
+     * Returns an array of new Position instances that are moved by 1 in all straight (horizontal and vertical) and
+     * diagonal directions.
      */
     Position.prototype.getAllStraightAndDiagonal = function () {
         return __spreadArrays(this.getAllStraight(), this.getAllDiagonal());
@@ -841,6 +911,8 @@ var Position = /** @class */ (function () {
     /**
      * Returns an array of new Position instances that are moved by a provided modulator function recursively until the
      * modulator's returned Position instance becomes out of bounds of the board.
+     *
+     * @param modulator - The modulator method to use for recursion.
      */
     Position.prototype.getRecursive = function (modulator) {
         var res = [];
@@ -997,7 +1069,15 @@ var Rook = /** @class */ (function (_super) {
     return Rook;
 }(Piece));
 
+/**
+ * A class that represents a player in a chess Game.
+ */
 var Player = /** @class */ (function () {
+    /**
+     * @param game - The game that this Player instance belongs to.
+     * @param color - The color of the player. Can be `white` or `black`.
+     * @throws {Error} on invalid color.
+     */
     function Player(game, color) {
         this.game = game;
         this.color = color;
@@ -1034,7 +1114,7 @@ var Player = /** @class */ (function () {
     }
     Object.defineProperty(Player.prototype, "moves", {
         /**
-         * Returns an array of Move instances that describe moves of this Piece.
+         * Returns an array of Moves that the player has made.
          */
         get: function () {
             var _this = this;
@@ -1066,7 +1146,6 @@ var Game = /** @class */ (function () {
      *
      * @param data - A previously stringified Game instance.
      * @param skipValidation - skips validation of the move's legality according to the rules of the game.
-     *
      * @throws {TypeError} on invalid JSON data.
      */
     Game.parseJSON = function (data, skipValidation) {
@@ -1109,7 +1188,6 @@ var Game = /** @class */ (function () {
      *
      * @param data - A previously stringified Game instance.
      * @param skipValidation - skips validation of the move's legality according to the rules of the game as well as the data.
-  
      * @throws {Error} on invalid JSON data.
      */
     Game.fromJSON = function (data, skipValidation) {
@@ -1122,7 +1200,6 @@ var Game = /** @class */ (function () {
      *
      * @param data - A previously stringified Game instance.
      * @param skipValidation - skips validation of the move's legality according to the rules of the game as well as the data.
-  
      * @throws {Error} on invalid JSON data.
      */
     Game.deserialze = function (data, skipValidation) {
@@ -1270,7 +1347,6 @@ var Game = /** @class */ (function () {
      * @param to - Where to move to.
      * @param skipValidation - skips validation of the move's legality according to the rules of the game. This is used
      * internally for performance reasons when cloning a game, which repeats the moves that were previously validated.
-     *
      * @throws {Error} on invalid move, unless `skipValidation` is true.
      * @returns self - is chainable.
      */
@@ -1345,5 +1421,5 @@ var Game = /** @class */ (function () {
 }());
 
 export default Game;
-export { Bishop, Board, Game, King, Knight, Move, Pawn, Player, Position, Queen, Rook, assertValidA1, assertValidXY, assertValidXYPoint, from_1_to_Y, from_A1_to_XY, from_A_to_X, from_XY_to_A1, from_X_to_A, from_Y_to_1, isValidA1, isValidXY, isValidXYPoint };
+export { Bishop, Board, Game, King, Knight, Move, Pawn, Player, Position, Queen, Rook, arrClean, assertValidA1, assertValidXY, assertValidXYPoint, bytesToUint8Array, createAssertFunction, from_1_to_Y, from_A1_to_XY, from_A_to_X, from_XY_to_A1, from_X_to_A, from_Y_to_1, isEven, isValidA1, isValidXY, isValidXYPoint, numericDifference, uInt8ToBytes };
 //# sourceMappingURL=index.esm.js.map

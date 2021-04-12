@@ -2,6 +2,8 @@
 
 # Class: Move
 
+A class that represents a move in a chess Game.
+
 ## Table of contents
 
 ### Constructors
@@ -27,15 +29,15 @@
 
 #### Parameters:
 
-Name | Type | Default value |
-:------ | :------ | :------ |
-`piece` | *Piece* | - |
-`to` | [*Position*](position.md) | - |
-`takes` | *null* \| *Piece* | null |
+Name | Type | Default value | Description |
+:------ | :------ | :------ | :------ |
+`piece` | *Piece* | - | The Piece that made the move.   |
+`to` | [*Position*](position.md) | - | The Position where the Piece was moved to.   |
+`takes` | *null* \| *Piece* | null | The Piece that was taken out by the move, if any.    |
 
 **Returns:** [*Move*](move.md)
 
-Defined in: [Move.ts:8](https://github.com/bemoje/chess/blob/7af4530/src/Move.ts#L8)
+Defined in: [Move.ts:26](https://github.com/bemoje/chess/blob/3d08551/src/Move.ts#L26)
 
 ## Properties
 
@@ -43,7 +45,9 @@ Defined in: [Move.ts:8](https://github.com/bemoje/chess/blob/7af4530/src/Move.ts
 
 • **from**: [*Position*](position.md)
 
-Defined in: [Move.ts:7](https://github.com/bemoje/chess/blob/7af4530/src/Move.ts#L7)
+The Position where the Piece was move was from.
+
+Defined in: [Move.ts:21](https://github.com/bemoje/chess/blob/3d08551/src/Move.ts#L21)
 
 ___
 
@@ -51,7 +55,9 @@ ___
 
 • **piece**: *Piece*
 
-Defined in: [Move.ts:5](https://github.com/bemoje/chess/blob/7af4530/src/Move.ts#L5)
+The Piece that made the move.
+
+Defined in: [Move.ts:11](https://github.com/bemoje/chess/blob/3d08551/src/Move.ts#L11)
 
 ___
 
@@ -59,7 +65,9 @@ ___
 
 • **takes**: *null* \| *Piece*
 
-Defined in: [Move.ts:6](https://github.com/bemoje/chess/blob/7af4530/src/Move.ts#L6)
+The Piece that was taken out by the move, if any.
+
+Defined in: [Move.ts:16](https://github.com/bemoje/chess/blob/3d08551/src/Move.ts#L16)
 
 ___
 
@@ -67,7 +75,9 @@ ___
 
 • **to**: [*Position*](position.md)
 
-Defined in: [Move.ts:8](https://github.com/bemoje/chess/blob/7af4530/src/Move.ts#L8)
+The Position where the Piece was move was to.
+
+Defined in: [Move.ts:26](https://github.com/bemoje/chess/blob/3d08551/src/Move.ts#L26)
 
 ## Methods
 
@@ -79,4 +89,4 @@ Stringifies the data necessary for completely reconstructing the Move instance.
 
 **Returns:** *number*[]
 
-Defined in: [Move.ts:25](https://github.com/bemoje/chess/blob/7af4530/src/Move.ts#L25)
+Defined in: [Move.ts:48](https://github.com/bemoje/chess/blob/3d08551/src/Move.ts#L48)

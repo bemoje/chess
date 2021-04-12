@@ -1,6 +1,9 @@
 import { from_A1_to_XY, from_XY_to_A1, assertValidXY } from './coordinates';
 import { arrClean } from './util';
 
+/**
+ * A class that represents a XY-coordinate position on the Board of a chess Game.
+ */
 export class Position {
   /**
    * The X coordinate.
@@ -13,7 +16,7 @@ export class Position {
   public y: number;
 
   /**
-   * Returns a new Position instance based on A1-notation input.
+   * Modulates the Position and returns a new Position instance based on A1-notation input.
    */
   public static fromA1(a1: string): Position {
     const xy = from_A1_to_XY(a1);
@@ -21,7 +24,7 @@ export class Position {
   }
 
   /**
-   * Returns a new Position instance based on XY-coordinate array.
+   * Modulates the Position and returns a new Position instance based on XY-coordinate array.
    */
   public static fromXY(xy: Array<number>): Position {
     return new Position(xy[0], xy[1]);
@@ -55,6 +58,8 @@ export class Position {
 
   /**
    * Deep-equality-compares the Position instance to another Position instance.
+   *
+   * @param position - The Position instance to compare.
    */
   public compare(position: Position): boolean {
     return this.x === position.x && this.y === position.y;
@@ -62,7 +67,6 @@ export class Position {
 
   /**
    * Returns a clone of the instance.
-   * Out of bounds -validation is skipped.
    */
   public clone(): Position {
     return new Position(this.x, this.y, true);
@@ -78,6 +82,10 @@ export class Position {
   /**
    * Modulates the XY-position coordinate and returns a new Position instance equivalent to it, or null if that position
    * is out of bounds of the board.
+   *
+   * @param xBy - The number of chess grid units to module by on the x-axis.
+   * @param yBy - The number of chess grid units to module by on the y-axis.
+   * @returns `null` if the resulting position is out of bounds.
    */
   private getModulation(xBy: number, yBy: number): Position | null {
     try {
@@ -88,126 +96,144 @@ export class Position {
   }
 
   /**
-   * Returns a new Position instance that is moved up by 1 from the position on the board that this instance describes.
+   * Modulates the Position and returns a new Position instance that is moved up by 1 from the position on the board
+   * that this instance describes.
    */
   public getUp(): Position | null {
     return this.getModulation(0, 1);
   }
 
   /**
-   * Returns a new Position instance that is moved down by 1 from the position on the board that this instance describes.
+   * Modulates the Position and returns a new Position instance that is moved down by 1 from the position on the board
+   * that this instance describes.
    */
   public getDown(): Position | null {
     return this.getModulation(0, -1);
   }
 
   /**
-   * Returns a new Position instance that is moved left by 1 from the position on the board that this instance describes.
+   * Modulates the Position and returns a new Position instance that is moved left by 1 from the position on the board
+   * that this instance describes.
    */
   public getLeft(): Position | null {
     return this.getModulation(-1, 0);
   }
 
   /**
-   * Returns a new Position instance that is moved right by 1 from the position on the board that this instance describes.
+   * Modulates the Position and returns a new Position instance that is moved right by 1 from the position on the board
+   * that this instance describes.
    */
   public getRight(): Position | null {
     return this.getModulation(1, 0);
   }
 
   /**
-   * Returns a new Position instance that is moved up by 1 and left by 1 from the position on the board that this instance describes.
+   * Modulates the Position and returns a new Position instance that is moved up by 1 and left by 1 from the position on
+   * the board that this instance describes.
    */
   public getUpLeft(): Position | null {
     return this.getModulation(-1, 1);
   }
 
   /**
-   * Returns a new Position instance that is moved up by 1 and right by 1 from the position on the board that this instance describes.
+   * Modulates the Position and returns a new Position instance that is moved up by 1 and right by 1 from the position
+   * on the board that this instance describes.
    */
   public getUpRight(): Position | null {
     return this.getModulation(1, 1);
   }
 
   /**
-   * Returns a new Position instance that is moved down by 1 and left by 1 from the position on the board that this instance describes.
+   * Modulates the Position and returns a new Position instance that is moved down by 1 and left by 1 from the position
+   * on the board that this instance describes.
    */
   public getDownLeft(): Position | null {
     return this.getModulation(-1, -1);
   }
 
   /**
-   * Returns a new Position instance that is moved down by 1 and right by 1 from the position on the board that this instance describes.
+   * Modulates the Position and returns a new Position instance that is moved down by 1 and right by 1 from the position
+   * on the board that this instance describes.
    */
   public getDownRight(): Position | null {
     return this.getModulation(1, -1);
   }
 
   /**
-   * Returns a new Position instance that is moved up by 2 from the position on the board that this instance describes.
+   * Modulates the Position and returns a new Position instance that is moved up by 2 from the position on the board
+   * that this instance describes.
    */
   public getUpUp(): Position | null {
     return this.getModulation(0, 2);
   }
 
   /**
-   * Returns a new Position instance that is moved down by 2 from the position on the board that this instance describes.
+   * Modulates the Position and returns a new Position instance that is moved down by 2 from the position on the board
+   * that this instance describes.
    */
   public getDownDown(): Position | null {
     return this.getModulation(0, -2);
   }
 
   /**
-   * Returns a new Position instance that is moved up by 2 and left by 1 from the position on the board that this instance describes.
+   * Modulates the Position and returns a new Position instance that is moved up by 2 and left by 1 from the position on
+   * the board that this instance describes.
    */
   public getUpUpLeft(): Position | null {
     return this.getModulation(-1, 2);
   }
 
   /**
-   * Returns a new Position instance that is moved up by 2 and right by 1 from the position on the board that this instance describes.
+   * Modulates the Position and returns a new Position instance that is moved up by 2 and right by 1 from the position
+   * on the board that this instance describes.
    */
   public getUpUpRight(): Position | null {
     return this.getModulation(1, 2);
   }
 
   /**
-   * Returns a new Position instance that is moved down by 2 and left by 1 from the position on the board that this instance describes.
+   * Modulates the Position and returns a new Position instance that is moved down by 2 and left by 1 from the position
+   * on the board that this instance describes.
    */
   public getDownDownLeft(): Position | null {
     return this.getModulation(-1, -2);
   }
 
   /**
-   * Returns a new Position instance that is moved down by 2 and right by 1 from the position on the board that this instance describes.
+   * Modulates the Position and returns a new Position instance that is moved down by 2 and right by 1 from the position
+   * on the board that this instance describes.
    */
   public getDownDownRight(): Position | null {
     return this.getModulation(1, -2);
   }
 
   /**
-   * Returns a new Position instance that is moved left by 2 and up by 1 from the position on the board that this instance describes.
+   * Modulates the Position and returns a new Position instance that is moved left by 2 and up by 1 from the position on
+   * the board that this instance describes.
    */
   public getLeftLeftUp(): Position | null {
     return this.getModulation(-2, 1);
   }
 
   /**
-   * Returns a new Position instance that is moved left by 2 and up by 1 from the position on the board that this instance describes.
+   * Modulates the Position and returns a new Position instance that is moved left by 2 and up by 1 from the position on
+   * the board that this instance describes.
    */
   public getLeftLeftDown(): Position | null {
     return this.getModulation(-2, -1);
   }
 
   /**
-   * Returns a new Position instance that is moved right by 2 and up by 1 from the position on the board that this instance describes.
+   * Modulates the Position and returns a new Position instance that is moved right by 2 and up by 1 from the position
+   * on the board that this instance describes.
    */
   public getRightRightUp(): Position | null {
     return this.getModulation(2, 1);
   }
 
   /**
-   * Returns a new Position instance that is moved right by 2 and down by 1 from the position on the board that this instance describes.
+   * Modulates the Position and returns a new Position instance that is moved right by 2 and down by 1 from the position
+   * on the board that this instance describes.
    */
   public getRightRightDown(): Position | null {
     return this.getModulation(2, -1);
@@ -238,7 +264,8 @@ export class Position {
   }
 
   /**
-   * Returns an array of new Position instances that are moved by 1 in all straight (horizontal and vertical) and diagonal directions.
+   * Returns an array of new Position instances that are moved by 1 in all straight (horizontal and vertical) and
+   * diagonal directions.
    */
   public getAllStraightAndDiagonal(): Array<Position> {
     return [...this.getAllStraight(), ...this.getAllDiagonal()];
@@ -263,6 +290,8 @@ export class Position {
   /**
    * Returns an array of new Position instances that are moved by a provided modulator function recursively until the
    * modulator's returned Position instance becomes out of bounds of the board.
+   *
+   * @param modulator - The modulator method to use for recursion.
    */
   private getRecursive(modulator: () => Position | null): Array<Position> {
     const res = [];

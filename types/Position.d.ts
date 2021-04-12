@@ -1,3 +1,6 @@
+/**
+ * A class that represents a XY-coordinate position on the Board of a chess Game.
+ */
 export declare class Position {
     /**
      * The X coordinate.
@@ -8,11 +11,11 @@ export declare class Position {
      */
     y: number;
     /**
-     * Returns a new Position instance based on A1-notation input.
+     * Modulates the Position and returns a new Position instance based on A1-notation input.
      */
     static fromA1(a1: string): Position;
     /**
-     * Returns a new Position instance based on XY-coordinate array.
+     * Modulates the Position and returns a new Position instance based on XY-coordinate array.
      */
     static fromXY(xy: Array<number>): Position;
     /**
@@ -30,11 +33,12 @@ export declare class Position {
     get XY(): Array<number>;
     /**
      * Deep-equality-compares the Position instance to another Position instance.
+     *
+     * @param position - The Position instance to compare.
      */
     compare(position: Position): boolean;
     /**
      * Returns a clone of the instance.
-     * Out of bounds -validation is skipped.
      */
     clone(): Position;
     /**
@@ -44,78 +48,100 @@ export declare class Position {
     /**
      * Modulates the XY-position coordinate and returns a new Position instance equivalent to it, or null if that position
      * is out of bounds of the board.
+     *
+     * @param xBy - The number of chess grid units to module by on the x-axis.
+     * @param yBy - The number of chess grid units to module by on the y-axis.
+     * @returns `null` if the resulting position is out of bounds.
      */
     private getModulation;
     /**
-     * Returns a new Position instance that is moved up by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved up by 1 from the position on the board
+     * that this instance describes.
      */
     getUp(): Position | null;
     /**
-     * Returns a new Position instance that is moved down by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved down by 1 from the position on the board
+     * that this instance describes.
      */
     getDown(): Position | null;
     /**
-     * Returns a new Position instance that is moved left by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved left by 1 from the position on the board
+     * that this instance describes.
      */
     getLeft(): Position | null;
     /**
-     * Returns a new Position instance that is moved right by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved right by 1 from the position on the board
+     * that this instance describes.
      */
     getRight(): Position | null;
     /**
-     * Returns a new Position instance that is moved up by 1 and left by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved up by 1 and left by 1 from the position on
+     * the board that this instance describes.
      */
     getUpLeft(): Position | null;
     /**
-     * Returns a new Position instance that is moved up by 1 and right by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved up by 1 and right by 1 from the position
+     * on the board that this instance describes.
      */
     getUpRight(): Position | null;
     /**
-     * Returns a new Position instance that is moved down by 1 and left by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved down by 1 and left by 1 from the position
+     * on the board that this instance describes.
      */
     getDownLeft(): Position | null;
     /**
-     * Returns a new Position instance that is moved down by 1 and right by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved down by 1 and right by 1 from the position
+     * on the board that this instance describes.
      */
     getDownRight(): Position | null;
     /**
-     * Returns a new Position instance that is moved up by 2 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved up by 2 from the position on the board
+     * that this instance describes.
      */
     getUpUp(): Position | null;
     /**
-     * Returns a new Position instance that is moved down by 2 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved down by 2 from the position on the board
+     * that this instance describes.
      */
     getDownDown(): Position | null;
     /**
-     * Returns a new Position instance that is moved up by 2 and left by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved up by 2 and left by 1 from the position on
+     * the board that this instance describes.
      */
     getUpUpLeft(): Position | null;
     /**
-     * Returns a new Position instance that is moved up by 2 and right by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved up by 2 and right by 1 from the position
+     * on the board that this instance describes.
      */
     getUpUpRight(): Position | null;
     /**
-     * Returns a new Position instance that is moved down by 2 and left by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved down by 2 and left by 1 from the position
+     * on the board that this instance describes.
      */
     getDownDownLeft(): Position | null;
     /**
-     * Returns a new Position instance that is moved down by 2 and right by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved down by 2 and right by 1 from the position
+     * on the board that this instance describes.
      */
     getDownDownRight(): Position | null;
     /**
-     * Returns a new Position instance that is moved left by 2 and up by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved left by 2 and up by 1 from the position on
+     * the board that this instance describes.
      */
     getLeftLeftUp(): Position | null;
     /**
-     * Returns a new Position instance that is moved left by 2 and up by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved left by 2 and up by 1 from the position on
+     * the board that this instance describes.
      */
     getLeftLeftDown(): Position | null;
     /**
-     * Returns a new Position instance that is moved right by 2 and up by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved right by 2 and up by 1 from the position
+     * on the board that this instance describes.
      */
     getRightRightUp(): Position | null;
     /**
-     * Returns a new Position instance that is moved right by 2 and down by 1 from the position on the board that this instance describes.
+     * Modulates the Position and returns a new Position instance that is moved right by 2 and down by 1 from the position
+     * on the board that this instance describes.
      */
     getRightRightDown(): Position | null;
     /**
@@ -127,7 +153,8 @@ export declare class Position {
      */
     getAllDiagonal(): Array<Position>;
     /**
-     * Returns an array of new Position instances that are moved by 1 in all straight (horizontal and vertical) and diagonal directions.
+     * Returns an array of new Position instances that are moved by 1 in all straight (horizontal and vertical) and
+     * diagonal directions.
      */
     getAllStraightAndDiagonal(): Array<Position>;
     /**
@@ -137,6 +164,8 @@ export declare class Position {
     /**
      * Returns an array of new Position instances that are moved by a provided modulator function recursively until the
      * modulator's returned Position instance becomes out of bounds of the board.
+     *
+     * @param modulator - The modulator method to use for recursion.
      */
     private getRecursive;
     /**

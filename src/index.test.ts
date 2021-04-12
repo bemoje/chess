@@ -23,6 +23,12 @@ import {
   assertValidXYPoint,
   assertValidXY,
   assertValidA1,
+  arrClean,
+  numericDifference,
+  createAssertFunction,
+  isEven,
+  uInt8ToBytes,
+  bytesToUint8Array,
 } from './';
 
 describe('Exports', () => {
@@ -30,10 +36,10 @@ describe('Exports', () => {
     expect(defExport).toBe(Game);
   });
 
-  it('exports all classes.', () => {
+  it('exports the Game class.', () => {
+    expect(Game.constructor).toBe(Function);
     expect(Bishop.constructor).toBe(Function);
     expect(Board.constructor).toBe(Function);
-    expect(Game.constructor).toBe(Function);
     expect(King.constructor).toBe(Function);
     expect(Knight.constructor).toBe(Function);
     expect(Move.constructor).toBe(Function);
@@ -44,7 +50,7 @@ describe('Exports', () => {
     expect(Rook.constructor).toBe(Function);
   });
 
-  it('exports all coordinate-related functions.', () => {
+  it('exports coordinate-related functions.', () => {
     expect(from_X_to_A.constructor).toBe(Function);
     expect(from_Y_to_1.constructor).toBe(Function);
     expect(from_A_to_X.constructor).toBe(Function);
@@ -57,5 +63,14 @@ describe('Exports', () => {
     expect(assertValidXYPoint.constructor).toBe(Function);
     expect(assertValidXY.constructor).toBe(Function);
     expect(assertValidA1.constructor).toBe(Function);
+  });
+
+  it('exports utility functions.', () => {
+    expect(arrClean.constructor).toBe(Function);
+    expect(numericDifference.constructor).toBe(Function);
+    expect(createAssertFunction.constructor).toBe(Function);
+    expect(isEven.constructor).toBe(Function);
+    expect(uInt8ToBytes.constructor).toBe(Function);
+    expect(bytesToUint8Array.constructor).toBe(Function);
   });
 });

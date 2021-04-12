@@ -9,11 +9,30 @@ import type { Piece } from './pieces/AbstractPiece';
 import type { Game } from './Game';
 import type { Move } from './Move';
 
+/**
+ * A class that represents a player in a chess Game.
+ */
 export class Player {
+  /**
+   * The game that this Player instance belongs to.
+   */
   public game: Game;
+
+  /**
+   * The color of the player. Can be `white` or `black`.
+   */
   public color: string;
+
+  /**
+   * An array containing the board Pieces that the player has.
+   */
   public pieces: Piece[];
 
+  /**
+   * @param game - The game that this Player instance belongs to.
+   * @param color - The color of the player. Can be `white` or `black`.
+   * @throws {Error} on invalid color.
+   */
   public constructor(game: Game, color: string) {
     this.game = game;
     this.color = color;
@@ -50,7 +69,7 @@ export class Player {
   }
 
   /**
-   * Returns an array of Move instances that describe moves of this Piece.
+   * Returns an array of Moves that the player has made.
    */
   public get moves(): Move[] {
     return this.game.moves.filter((move) => {

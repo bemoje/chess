@@ -2,6 +2,8 @@ import type { Position } from './Position';
 
 /**
  * Removes elements of a given array if they do not evaluate to true.
+ *
+ * @param arr - The array containing null values or Position instances to clean.
  */
 export function arrClean(arr: Array<Position | null>): Array<Position> {
   const res = [];
@@ -17,6 +19,9 @@ export function arrClean(arr: Array<Position | null>): Array<Position> {
 
 /**
  * Returns the numeric difference between to numbers.
+ *
+ * @param n1 - A number
+ * @param n2 - A number
  */
 export function numericDifference(n1: number, n2: number): number {
   const dist = n1 - n2;
@@ -25,6 +30,9 @@ export function numericDifference(n1: number, n2: number): number {
 
 /**
  * Returns an assertion function that expects [string] 'expectedToBe' evaluated by [Function] 'validate'
+ *
+ * @param expectedToBe - A string that describes the assertion.
+ * @param validate - A callback function that validates an argument.
  */
 export function createAssertFunction<T>(
   expectedToBe: string,
@@ -45,6 +53,8 @@ export function createAssertFunction<T>(
 
 /**
  * Returns whether a number is an even number.
+ *
+ * @param n - An integer
  */
 export function isEven(n: number): boolean {
   return n % 2 == 0;

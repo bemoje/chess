@@ -12,7 +12,6 @@ export declare class Game {
      *
      * @param data - A previously stringified Game instance.
      * @param skipValidation - skips validation of the move's legality according to the rules of the game.
-     *
      * @throws {TypeError} on invalid JSON data.
      */
     private static parseJSON;
@@ -30,7 +29,6 @@ export declare class Game {
      *
      * @param data - A previously stringified Game instance.
      * @param skipValidation - skips validation of the move's legality according to the rules of the game as well as the data.
-  
      * @throws {Error} on invalid JSON data.
      */
     static fromJSON(data: string, skipValidation?: boolean): Game;
@@ -40,7 +38,6 @@ export declare class Game {
      *
      * @param data - A previously stringified Game instance.
      * @param skipValidation - skips validation of the move's legality according to the rules of the game as well as the data.
-  
      * @throws {Error} on invalid JSON data.
      */
     static deserialze(data: Uint8Array, skipValidation?: boolean): Game;
@@ -134,7 +131,6 @@ export declare class Game {
      * @param to - Where to move to.
      * @param skipValidation - skips validation of the move's legality according to the rules of the game. This is used
      * internally for performance reasons when cloning a game, which repeats the moves that were previously validated.
-     *
      * @throws {Error} on invalid move, unless `skipValidation` is true.
      * @returns self - is chainable.
      */
