@@ -27,7 +27,7 @@ describe('(class) Move', () => {
       const piece = board.getPieceByPosition(from);
       const targetPiece = board.getPieceByPosition(to);
       if (piece && targetPiece) {
-        game.makeMove(piece, to, true);
+        game.move(piece, to, true);
         expect(targetPiece.position).toBe(null);
       } else throw new Error('piece or targetPiece is null');
     });

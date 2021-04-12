@@ -50,7 +50,7 @@ export class Game {
   private static fromArray(data: Array<number>, skipValidation: boolean) {
     const game = new Game();
     for (let i = 0; i < data.length; i += 4) {
-      game.makeMove(
+      game.move(
         new Position(data[i], data[i + 1]),
         new Position(data[i + 2], data[i + 3]),
         skipValidation,
@@ -142,11 +142,13 @@ export class Game {
    * @param f - a callback function to invoke for each Piece. If it returns true, iteration ends.
    * @returns true if iteration was ended before completion.
    */
-  public forEachPiece(f: (piece?: Piece) => boolean | void): boolean | void {
+  public forEachActivePiece(
+    f: (piece?: Piece) => boolean | void,
+  ): boolean | void {
     const w = this.white.pieces;
     const b = this.black.pieces;
     for (let i = 0; i < 16; i++) {
-      if (f(w[i]) || f(b[i])) {
+      if ((!w[i].isTaken && f(w[i])) || (!b[i].isTaken && f(b[i]))) {
         return true;
       }
     }
@@ -158,12 +160,12 @@ export class Game {
    * @param f - a callback function to invoke for each Piece. If it returns true, iteration ends.
    * @returns true if iteration was ended before completion.
    */
-  public forEachWhitePiece(
+  private forEachActiveWhitePiece(
     f: (piece?: Piece) => boolean | void,
   ): boolean | void {
     const w = this.white.pieces;
     for (let i = 0; i < 16; i++) {
-      if (f(w[i])) {
+      if (!w[i].isTaken && f(w[i])) {
         return true;
       }
     }
@@ -175,12 +177,12 @@ export class Game {
    * @param f - a callback function to invoke for each Piece. If it returns true, iteration ends.
    * @returns true if iteration was ended before completion.
    */
-  public forEachBlackPiece(
+  private forEachActiveBlackPiece(
     f: (piece?: Piece) => boolean | void,
   ): boolean | void {
     const b = this.black.pieces;
     for (let i = 0; i < 16; i++) {
-      if (f(b[i])) {
+      if (!b[i].isTaken && f(b[i])) {
         return true;
       }
     }
@@ -192,12 +194,12 @@ export class Game {
    * @param f - a callback function to invoke for each Piece. If it returns true, iteration ends.
    * @returns true if iteration was ended before completion.
    */
-  public forEachActivePlayerPiece(
+  public forEachCurrentPlayerActivePiece(
     f: (piece?: Piece) => boolean | void,
   ): boolean | void {
     return this.isWhitesTurnToMove
-      ? this.forEachWhitePiece(f)
-      : this.forEachBlackPiece(f);
+      ? this.forEachActiveWhitePiece(f)
+      : this.forEachActiveBlackPiece(f);
   }
 
   /**
@@ -218,7 +220,7 @@ export class Game {
    *
    * @param from - a Position instance, A1-notation string or XY-coordinate-array. If a Piece instance is passed, it is returned.
    */
-  private getPiece(
+  private ensurePiece(
     from?: Position | string | Array<number> | Piece,
   ): Piece | null {
     return !from
@@ -240,12 +242,12 @@ export class Game {
     f: (position?: Position, piece?: Piece) => boolean | void,
     pieceOrCoordinate?: Piece | Position | string | Array<number>,
   ): boolean | void {
-    const piece = this.getPiece(pieceOrCoordinate);
+    const piece = this.ensurePiece(pieceOrCoordinate);
     return piece
       ? piece.forEachValidMovePosition((pos) => {
           return f(pos, piece);
         })
-      : this.forEachActivePlayerPiece((piece) => {
+      : this.forEachCurrentPlayerActivePiece((piece) => {
           if (piece) {
             return piece.forEachValidMovePosition((pos) => {
               return f(pos, piece);
@@ -265,14 +267,15 @@ export class Game {
    * internally for performance reasons when cloning a game, which repeats the moves that were previously validated.
    *
    * @throws {Error} on invalid move, unless `skipValidation` is true.
+   * @returns self - is chainable.
    */
-  public makeMove(
+  public move(
     pieceOrCoordinate: Piece | Position,
     to: Position | string | Array<number>,
     skipValidation?: boolean,
   ): Game {
     to = this.ensurePosition(to);
-    const piece = this.getPiece(pieceOrCoordinate);
+    const piece = this.ensurePiece(pieceOrCoordinate);
     if (piece && (skipValidation || piece.isValidMove(to))) {
       const targetPiece = piece.game.board.getPieceByPosition(to);
       let move;
@@ -307,7 +310,7 @@ export class Game {
     const moves = this.moves;
     for (let i = 0; i < moves.length; i++) {
       const piece = moves[i].piece;
-      game.makeMove(
+      game.move(
         (piece.color === 'white' ? w : b)[piece.index],
         moves[i].to.clone(),
         true,

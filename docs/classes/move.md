@@ -35,7 +35,7 @@ Name | Type | Default value |
 
 **Returns:** [*Move*](move.md)
 
-Defined in: [Move.ts:8](https://github.com/bemoje/chess/blob/a1ccdde/src/Move.ts#L8)
+Defined in: [Move.ts:8](https://github.com/bemoje/chess/blob/7af4530/src/Move.ts#L8)
 
 ## Properties
 
@@ -43,7 +43,7 @@ Defined in: [Move.ts:8](https://github.com/bemoje/chess/blob/a1ccdde/src/Move.ts
 
 • **from**: [*Position*](position.md)
 
-Defined in: [Move.ts:7](https://github.com/bemoje/chess/blob/a1ccdde/src/Move.ts#L7)
+Defined in: [Move.ts:7](https://github.com/bemoje/chess/blob/7af4530/src/Move.ts#L7)
 
 ___
 
@@ -51,7 +51,7 @@ ___
 
 • **piece**: *Piece*
 
-Defined in: [Move.ts:5](https://github.com/bemoje/chess/blob/a1ccdde/src/Move.ts#L5)
+Defined in: [Move.ts:5](https://github.com/bemoje/chess/blob/7af4530/src/Move.ts#L5)
 
 ___
 
@@ -59,7 +59,7 @@ ___
 
 • **takes**: *null* \| *Piece*
 
-Defined in: [Move.ts:6](https://github.com/bemoje/chess/blob/a1ccdde/src/Move.ts#L6)
+Defined in: [Move.ts:6](https://github.com/bemoje/chess/blob/7af4530/src/Move.ts#L6)
 
 ___
 
@@ -67,7 +67,7 @@ ___
 
 • **to**: [*Position*](position.md)
 
-Defined in: [Move.ts:8](https://github.com/bemoje/chess/blob/a1ccdde/src/Move.ts#L8)
+Defined in: [Move.ts:8](https://github.com/bemoje/chess/blob/7af4530/src/Move.ts#L8)
 
 ## Methods
 
@@ -79,4 +79,4 @@ Stringifies the data necessary for completely reconstructing the Move instance.
 
 **Returns:** *number*[]
 
-Defined in: [Move.ts:25](https://github.com/bemoje/chess/blob/a1ccdde/src/Move.ts#L25)
+Defined in: [Move.ts:25](https://github.com/bemoje/chess/blob/7af4530/src/Move.ts#L25)

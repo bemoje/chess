@@ -26,14 +26,14 @@ The default exported class from which the chess game is controlled.
 ### Methods
 
 - [clone](game.md#clone)
+- [ensurePiece](game.md#ensurepiece)
 - [ensurePosition](game.md#ensureposition)
-- [forEachActivePlayerPiece](game.md#foreachactiveplayerpiece)
-- [forEachBlackPiece](game.md#foreachblackpiece)
-- [forEachPiece](game.md#foreachpiece)
+- [forEachActiveBlackPiece](game.md#foreachactiveblackpiece)
+- [forEachActivePiece](game.md#foreachactivepiece)
+- [forEachActiveWhitePiece](game.md#foreachactivewhitepiece)
+- [forEachCurrentPlayerActivePiece](game.md#foreachcurrentplayeractivepiece)
 - [forEachValidMove](game.md#foreachvalidmove)
-- [forEachWhitePiece](game.md#foreachwhitepiece)
-- [getPiece](game.md#getpiece)
-- [makeMove](game.md#makemove)
+- [move](game.md#move)
 - [serialize](game.md#serialize)
 - [toJSON](game.md#tojson)
 - [deserialze](game.md#deserialze)
@@ -51,7 +51,7 @@ Creates and initializes a new chess game.
 
 **Returns:** [*Game*](game.md)
 
-Defined in: [Game.ts:106](https://github.com/bemoje/chess/blob/a1ccdde/src/Game.ts#L106)
+Defined in: [Game.ts:106](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L106)
 
 ## Properties
 
@@ -61,7 +61,7 @@ Defined in: [Game.ts:106](https://github.com/bemoje/chess/blob/a1ccdde/src/Game.
 
 Black player.
 
-Defined in: [Game.ts:101](https://github.com/bemoje/chess/blob/a1ccdde/src/Game.ts#L101)
+Defined in: [Game.ts:101](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L101)
 
 ___
 
@@ -71,7 +71,7 @@ ___
 
 The game board.
 
-Defined in: [Game.ts:91](https://github.com/bemoje/chess/blob/a1ccdde/src/Game.ts#L91)
+Defined in: [Game.ts:91](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L91)
 
 ___
 
@@ -81,7 +81,7 @@ ___
 
 An array containing all moves made in the game.
 
-Defined in: [Game.ts:106](https://github.com/bemoje/chess/blob/a1ccdde/src/Game.ts#L106)
+Defined in: [Game.ts:106](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L106)
 
 ___
 
@@ -91,7 +91,7 @@ ___
 
 White player.
 
-Defined in: [Game.ts:96](https://github.com/bemoje/chess/blob/a1ccdde/src/Game.ts#L96)
+Defined in: [Game.ts:96](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L96)
 
 ## Accessors
 
@@ -103,7 +103,7 @@ Returns whether it is black player's turn to move.
 
 **Returns:** [*Player*](player.md)
 
-Defined in: [Game.ts:135](https://github.com/bemoje/chess/blob/a1ccdde/src/Game.ts#L135)
+Defined in: [Game.ts:135](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L135)
 
 ___
 
@@ -115,7 +115,7 @@ Returns whether it is black player's turn to move.
 
 **Returns:** *boolean*
 
-Defined in: [Game.ts:128](https://github.com/bemoje/chess/blob/a1ccdde/src/Game.ts#L128)
+Defined in: [Game.ts:128](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L128)
 
 ___
 
@@ -127,7 +127,7 @@ Returns whether it is white player's turn to move.
 
 **Returns:** *boolean*
 
-Defined in: [Game.ts:121](https://github.com/bemoje/chess/blob/a1ccdde/src/Game.ts#L121)
+Defined in: [Game.ts:121](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L121)
 
 ## Methods
 
@@ -139,7 +139,25 @@ Returns a deep clone of the game instance.
 
 **Returns:** [*Game*](game.md)
 
-Defined in: [Game.ts:303](https://github.com/bemoje/chess/blob/a1ccdde/src/Game.ts#L303)
+Defined in: [Game.ts:306](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L306)
+
+___
+
+### ensurePiece
+
+▸ `Private`**ensurePiece**(`from?`: *string* \| *Piece* \| [*Position*](position.md) \| *number*[]): *null* \| *Piece*
+
+Get a Piece instance from the board by either Position, an A1 string or XY-coordinates
+
+#### Parameters:
+
+Name | Type | Description |
+:------ | :------ | :------ |
+`from?` | *string* \| *Piece* \| [*Position*](position.md) \| *number*[] | a Position instance, A1-notation string or XY-coordinate-array. If a Piece instance is passed, it is returned.    |
+
+**Returns:** *null* \| *Piece*
+
+Defined in: [Game.ts:223](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L223)
 
 ___
 
@@ -157,33 +175,13 @@ Name | Type | Description |
 
 **Returns:** [*Position*](position.md)
 
-Defined in: [Game.ts:208](https://github.com/bemoje/chess/blob/a1ccdde/src/Game.ts#L208)
+Defined in: [Game.ts:210](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L210)
 
 ___
 
-### forEachActivePlayerPiece
+### forEachActiveBlackPiece
 
-▸ **forEachActivePlayerPiece**(`f`: (`piece?`: *Piece*) => *boolean* \| *void*): *boolean* \| *void*
-
-Iterate each piece on the board belonging to the player whose turn it is to move.
-
-#### Parameters:
-
-Name | Type | Description |
-:------ | :------ | :------ |
-`f` | (`piece?`: *Piece*) => *boolean* \| *void* | a callback function to invoke for each Piece. If it returns true, iteration ends.   |
-
-**Returns:** *boolean* \| *void*
-
-true if iteration was ended before completion.
-
-Defined in: [Game.ts:195](https://github.com/bemoje/chess/blob/a1ccdde/src/Game.ts#L195)
-
-___
-
-### forEachBlackPiece
-
-▸ **forEachBlackPiece**(`f`: (`piece?`: *Piece*) => *boolean* \| *void*): *boolean* \| *void*
+▸ `Private`**forEachActiveBlackPiece**(`f`: (`piece?`: *Piece*) => *boolean* \| *void*): *boolean* \| *void*
 
 Iterate each black piece on the board.
 
@@ -197,13 +195,13 @@ Name | Type | Description |
 
 true if iteration was ended before completion.
 
-Defined in: [Game.ts:178](https://github.com/bemoje/chess/blob/a1ccdde/src/Game.ts#L178)
+Defined in: [Game.ts:180](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L180)
 
 ___
 
-### forEachPiece
+### forEachActivePiece
 
-▸ **forEachPiece**(`f`: (`piece?`: *Piece*) => *boolean* \| *void*): *boolean* \| *void*
+▸ **forEachActivePiece**(`f`: (`piece?`: *Piece*) => *boolean* \| *void*): *boolean* \| *void*
 
 Iterate each piece on the board.
 
@@ -217,7 +215,47 @@ Name | Type | Description |
 
 true if iteration was ended before completion.
 
-Defined in: [Game.ts:145](https://github.com/bemoje/chess/blob/a1ccdde/src/Game.ts#L145)
+Defined in: [Game.ts:145](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L145)
+
+___
+
+### forEachActiveWhitePiece
+
+▸ `Private`**forEachActiveWhitePiece**(`f`: (`piece?`: *Piece*) => *boolean* \| *void*): *boolean* \| *void*
+
+Iterate each white piece on the board.
+
+#### Parameters:
+
+Name | Type | Description |
+:------ | :------ | :------ |
+`f` | (`piece?`: *Piece*) => *boolean* \| *void* | a callback function to invoke for each Piece. If it returns true, iteration ends.   |
+
+**Returns:** *boolean* \| *void*
+
+true if iteration was ended before completion.
+
+Defined in: [Game.ts:163](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L163)
+
+___
+
+### forEachCurrentPlayerActivePiece
+
+▸ **forEachCurrentPlayerActivePiece**(`f`: (`piece?`: *Piece*) => *boolean* \| *void*): *boolean* \| *void*
+
+Iterate each piece on the board belonging to the player whose turn it is to move.
+
+#### Parameters:
+
+Name | Type | Description |
+:------ | :------ | :------ |
+`f` | (`piece?`: *Piece*) => *boolean* \| *void* | a callback function to invoke for each Piece. If it returns true, iteration ends.   |
+
+**Returns:** *boolean* \| *void*
+
+true if iteration was ended before completion.
+
+Defined in: [Game.ts:197](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L197)
 
 ___
 
@@ -238,51 +276,13 @@ Name | Type | Description |
 
 true if iteration was ended before completion.
 
-Defined in: [Game.ts:239](https://github.com/bemoje/chess/blob/a1ccdde/src/Game.ts#L239)
+Defined in: [Game.ts:241](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L241)
 
 ___
 
-### forEachWhitePiece
+### move
 
-▸ **forEachWhitePiece**(`f`: (`piece?`: *Piece*) => *boolean* \| *void*): *boolean* \| *void*
-
-Iterate each white piece on the board.
-
-#### Parameters:
-
-Name | Type | Description |
-:------ | :------ | :------ |
-`f` | (`piece?`: *Piece*) => *boolean* \| *void* | a callback function to invoke for each Piece. If it returns true, iteration ends.   |
-
-**Returns:** *boolean* \| *void*
-
-true if iteration was ended before completion.
-
-Defined in: [Game.ts:161](https://github.com/bemoje/chess/blob/a1ccdde/src/Game.ts#L161)
-
-___
-
-### getPiece
-
-▸ `Private`**getPiece**(`from?`: *string* \| *Piece* \| [*Position*](position.md) \| *number*[]): *null* \| *Piece*
-
-Get a Piece instance from the board by either Position, an A1 string or XY-coordinates
-
-#### Parameters:
-
-Name | Type | Description |
-:------ | :------ | :------ |
-`from?` | *string* \| *Piece* \| [*Position*](position.md) \| *number*[] | a Position instance, A1-notation string or XY-coordinate-array. If a Piece instance is passed, it is returned.    |
-
-**Returns:** *null* \| *Piece*
-
-Defined in: [Game.ts:221](https://github.com/bemoje/chess/blob/a1ccdde/src/Game.ts#L221)
-
-___
-
-### makeMove
-
-▸ **makeMove**(`pieceOrCoordinate`: *Piece* \| [*Position*](position.md), `to`: *string* \| [*Position*](position.md) \| *number*[], `skipValidation?`: *boolean*): [*Game*](game.md)
+▸ **move**(`pieceOrCoordinate`: *Piece* \| [*Position*](position.md), `to`: *string* \| [*Position*](position.md) \| *number*[], `skipValidation?`: *boolean*): [*Game*](game.md)
 
 Moves a piece on the board.
 If the target position already has a piece belonging to the opposing player, it is removed from the board.
@@ -299,7 +299,9 @@ Name | Type | Description |
 
 **Returns:** [*Game*](game.md)
 
-Defined in: [Game.ts:269](https://github.com/bemoje/chess/blob/a1ccdde/src/Game.ts#L269)
+self - is chainable.
+
+Defined in: [Game.ts:272](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L272)
 
 ___
 
@@ -313,7 +315,7 @@ Serializes the data necessary for completely reconstructing the Game instance to
 
 **Returns:** *Uint8Array*
 
-Defined in: [Game.ts:342](https://github.com/bemoje/chess/blob/a1ccdde/src/Game.ts#L342)
+Defined in: [Game.ts:345](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L345)
 
 ___
 
@@ -328,7 +330,7 @@ instance.
 
 **Returns:** *number*[]
 
-Defined in: [Game.ts:324](https://github.com/bemoje/chess/blob/a1ccdde/src/Game.ts#L324)
+Defined in: [Game.ts:327](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L327)
 
 ___
 
@@ -351,7 +353,7 @@ Name | Type | Default value | Description |
 
 **Returns:** [*Game*](game.md)
 
-Defined in: [Game.ts:84](https://github.com/bemoje/chess/blob/a1ccdde/src/Game.ts#L84)
+Defined in: [Game.ts:84](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L84)
 
 ___
 
@@ -371,7 +373,7 @@ Name | Type | Description |
 
 **Returns:** [*Game*](game.md)
 
-Defined in: [Game.ts:50](https://github.com/bemoje/chess/blob/a1ccdde/src/Game.ts#L50)
+Defined in: [Game.ts:50](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L50)
 
 ___
 
@@ -394,7 +396,7 @@ Name | Type | Default value | Description |
 
 **Returns:** [*Game*](game.md)
 
-Defined in: [Game.ts:71](https://github.com/bemoje/chess/blob/a1ccdde/src/Game.ts#L71)
+Defined in: [Game.ts:71](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L71)
 
 ___
 
@@ -415,4 +417,4 @@ Name | Type | Description |
 
 **Returns:** *number*[]
 
-Defined in: [Game.ts:20](https://github.com/bemoje/chess/blob/a1ccdde/src/Game.ts#L20)
+Defined in: [Game.ts:20](https://github.com/bemoje/chess/blob/7af4530/src/Game.ts#L20)

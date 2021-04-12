@@ -82,28 +82,28 @@ export declare class Game {
      * @param f - a callback function to invoke for each Piece. If it returns true, iteration ends.
      * @returns true if iteration was ended before completion.
      */
-    forEachPiece(f: (piece?: Piece) => boolean | void): boolean | void;
+    forEachActivePiece(f: (piece?: Piece) => boolean | void): boolean | void;
     /**
      * Iterate each white piece on the board.
      *
      * @param f - a callback function to invoke for each Piece. If it returns true, iteration ends.
      * @returns true if iteration was ended before completion.
      */
-    forEachWhitePiece(f: (piece?: Piece) => boolean | void): boolean | void;
+    private forEachActiveWhitePiece;
     /**
      * Iterate each black piece on the board.
      *
      * @param f - a callback function to invoke for each Piece. If it returns true, iteration ends.
      * @returns true if iteration was ended before completion.
      */
-    forEachBlackPiece(f: (piece?: Piece) => boolean | void): boolean | void;
+    private forEachActiveBlackPiece;
     /**
      * Iterate each piece on the board belonging to the player whose turn it is to move.
      *
      * @param f - a callback function to invoke for each Piece. If it returns true, iteration ends.
      * @returns true if iteration was ended before completion.
      */
-    forEachActivePlayerPiece(f: (piece?: Piece) => boolean | void): boolean | void;
+    forEachCurrentPlayerActivePiece(f: (piece?: Piece) => boolean | void): boolean | void;
     /**
      * Ensures the argument is converted into a Position instance.
      *
@@ -115,7 +115,7 @@ export declare class Game {
      *
      * @param from - a Position instance, A1-notation string or XY-coordinate-array. If a Piece instance is passed, it is returned.
      */
-    private getPiece;
+    private ensurePiece;
     /**
      * Iterate each valid move position for either all active player pieces or a given piece.
      *
@@ -136,8 +136,9 @@ export declare class Game {
      * internally for performance reasons when cloning a game, which repeats the moves that were previously validated.
      *
      * @throws {Error} on invalid move, unless `skipValidation` is true.
+     * @returns self - is chainable.
      */
-    makeMove(pieceOrCoordinate: Piece | Position, to: Position | string | Array<number>, skipValidation?: boolean): Game;
+    move(pieceOrCoordinate: Piece | Position, to: Position | string | Array<number>, skipValidation?: boolean): Game;
     /**
      * Returns a deep clone of the game instance.
      */

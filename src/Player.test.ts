@@ -65,9 +65,9 @@ describe('(class) Board', () => {
       const piece = game.board.getPieceByPosition(from);
       if (piece) {
         expect(white.moves.length).toBe(0);
-        game.makeMove(piece, to1, true);
+        game.move(piece, to1, true);
         expect(white.moves.length).toBe(1);
-        game.makeMove(piece, to2, true);
+        game.move(piece, to2, true);
         expect(white.moves.length).toBe(2);
         // the piece moved was white so black made no moves
         expect(black.moves.length).toBe(0);

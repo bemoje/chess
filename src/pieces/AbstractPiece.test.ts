@@ -39,7 +39,7 @@ describe('(class) AbstractPiece', () => {
   it('(getter) hasMoved', () => {
     if (pawn) {
       expect(pawn.hasMoved).toStrictEqual(false);
-      game.makeMove(pawn, new Position(0, 2), true);
+      game.move(pawn, new Position(0, 2), true);
       expect(pawn.hasMoved).toStrictEqual(true);
     } else throw new Error('pawn is null');
   });
@@ -53,10 +53,10 @@ describe('(class) AbstractPiece', () => {
   it('(getter) isTaken', () => {
     if (pawn) {
       expect(pawn.isTaken).toStrictEqual(false);
-      game.makeMove(pawn, new Position(0, 2), true);
+      game.move(pawn, new Position(0, 2), true);
       const enemyPawn = game.board.getPieceByA1('A7');
       if (enemyPawn) {
-        game.makeMove(enemyPawn, new Position(0, 2), true);
+        game.move(enemyPawn, new Position(0, 2), true);
       } else throw new Error('enemyPawn is null');
       expect(pawn.isTaken).toStrictEqual(true);
     } else throw new Error('pawn is null');
@@ -65,7 +65,7 @@ describe('(class) AbstractPiece', () => {
   it('(getter) moves', () => {
     if (pawn) {
       expect(pawn.moves.length).toStrictEqual(0);
-      game.makeMove(pawn, new Position(0, 2), true);
+      game.move(pawn, new Position(0, 2), true);
       expect(pawn.moves.length).toStrictEqual(1);
     } else throw new Error('pawn is null');
   });
@@ -77,7 +77,7 @@ describe('(class) AbstractPiece', () => {
       if (initPos) {
         expect(initPos.compare(new Position(0, 1))).toStrictEqual(true);
       } else throw new Error('initPos is null');
-      game.makeMove(pawn, new Position(0, 2), true);
+      game.move(pawn, new Position(0, 2), true);
       const targetPos = pawn.position;
       if (targetPos) {
         expect(targetPos.compare(new Position(0, 2))).toStrictEqual(true);

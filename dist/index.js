@@ -1103,7 +1103,7 @@ var Game = /** @class */ (function () {
     Game.fromArray = function (data, skipValidation) {
         var game = new Game();
         for (var i = 0; i < data.length; i += 4) {
-            game.makeMove(new Position(data[i], data[i + 1]), new Position(data[i + 2], data[i + 3]), skipValidation);
+            game.move(new Position(data[i], data[i + 1]), new Position(data[i + 2], data[i + 3]), skipValidation);
         }
         return game;
     };
@@ -1169,11 +1169,11 @@ var Game = /** @class */ (function () {
      * @param f - a callback function to invoke for each Piece. If it returns true, iteration ends.
      * @returns true if iteration was ended before completion.
      */
-    Game.prototype.forEachPiece = function (f) {
+    Game.prototype.forEachActivePiece = function (f) {
         var w = this.white.pieces;
         var b = this.black.pieces;
         for (var i = 0; i < 16; i++) {
-            if (f(w[i]) || f(b[i])) {
+            if ((!w[i].isTaken && f(w[i])) || (!b[i].isTaken && f(b[i]))) {
                 return true;
             }
         }
@@ -1184,10 +1184,10 @@ var Game = /** @class */ (function () {
      * @param f - a callback function to invoke for each Piece. If it returns true, iteration ends.
      * @returns true if iteration was ended before completion.
      */
-    Game.prototype.forEachWhitePiece = function (f) {
+    Game.prototype.forEachActiveWhitePiece = function (f) {
         var w = this.white.pieces;
         for (var i = 0; i < 16; i++) {
-            if (f(w[i])) {
+            if (!w[i].isTaken && f(w[i])) {
                 return true;
             }
         }
@@ -1198,10 +1198,10 @@ var Game = /** @class */ (function () {
      * @param f - a callback function to invoke for each Piece. If it returns true, iteration ends.
      * @returns true if iteration was ended before completion.
      */
-    Game.prototype.forEachBlackPiece = function (f) {
+    Game.prototype.forEachActiveBlackPiece = function (f) {
         var b = this.black.pieces;
         for (var i = 0; i < 16; i++) {
-            if (f(b[i])) {
+            if (!b[i].isTaken && f(b[i])) {
                 return true;
             }
         }
@@ -1212,10 +1212,10 @@ var Game = /** @class */ (function () {
      * @param f - a callback function to invoke for each Piece. If it returns true, iteration ends.
      * @returns true if iteration was ended before completion.
      */
-    Game.prototype.forEachActivePlayerPiece = function (f) {
+    Game.prototype.forEachCurrentPlayerActivePiece = function (f) {
         return this.isWhitesTurnToMove
-            ? this.forEachWhitePiece(f)
-            : this.forEachBlackPiece(f);
+            ? this.forEachActiveWhitePiece(f)
+            : this.forEachActiveBlackPiece(f);
     };
     /**
      * Ensures the argument is converted into a Position instance.
@@ -1234,7 +1234,7 @@ var Game = /** @class */ (function () {
      *
      * @param from - a Position instance, A1-notation string or XY-coordinate-array. If a Piece instance is passed, it is returned.
      */
-    Game.prototype.getPiece = function (from) {
+    Game.prototype.ensurePiece = function (from) {
         return !from
             ? null
             : from instanceof Piece
@@ -1250,12 +1250,12 @@ var Game = /** @class */ (function () {
      * @returns true if iteration was ended before completion.
      */
     Game.prototype.forEachValidMove = function (f, pieceOrCoordinate) {
-        var piece = this.getPiece(pieceOrCoordinate);
+        var piece = this.ensurePiece(pieceOrCoordinate);
         return piece
             ? piece.forEachValidMovePosition(function (pos) {
                 return f(pos, piece);
             })
-            : this.forEachActivePlayerPiece(function (piece) {
+            : this.forEachCurrentPlayerActivePiece(function (piece) {
                 if (piece) {
                     return piece.forEachValidMovePosition(function (pos) {
                         return f(pos, piece);
@@ -1276,10 +1276,11 @@ var Game = /** @class */ (function () {
      * internally for performance reasons when cloning a game, which repeats the moves that were previously validated.
      *
      * @throws {Error} on invalid move, unless `skipValidation` is true.
+     * @returns self - is chainable.
      */
-    Game.prototype.makeMove = function (pieceOrCoordinate, to, skipValidation) {
+    Game.prototype.move = function (pieceOrCoordinate, to, skipValidation) {
         to = this.ensurePosition(to);
-        var piece = this.getPiece(pieceOrCoordinate);
+        var piece = this.ensurePiece(pieceOrCoordinate);
         if (piece && (skipValidation || piece.isValidMove(to))) {
             var targetPiece = piece.game.board.getPieceByPosition(to);
             var move = void 0;
@@ -1315,7 +1316,7 @@ var Game = /** @class */ (function () {
         var moves = this.moves;
         for (var i = 0; i < moves.length; i++) {
             var piece = moves[i].piece;
-            game.makeMove((piece.color === 'white' ? w : b)[piece.index], moves[i].to.clone(), true);
+            game.move((piece.color === 'white' ? w : b)[piece.index], moves[i].to.clone(), true);
         }
         return game;
     };

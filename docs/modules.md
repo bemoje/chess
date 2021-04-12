@@ -66,7 +66,7 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [coordinates.ts:99](https://github.com/bemoje/chess/blob/a1ccdde/src/coordinates.ts#L99)
+Defined in: [coordinates.ts:99](https://github.com/bemoje/chess/blob/7af4530/src/coordinates.ts#L99)
 
 ___
 
@@ -91,7 +91,7 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [coordinates.ts:87](https://github.com/bemoje/chess/blob/a1ccdde/src/coordinates.ts#L87)
+Defined in: [coordinates.ts:87](https://github.com/bemoje/chess/blob/7af4530/src/coordinates.ts#L87)
 
 ___
 
@@ -116,7 +116,7 @@ Name | Type |
 
 **Returns:** *void*
 
-Defined in: [coordinates.ts:75](https://github.com/bemoje/chess/blob/a1ccdde/src/coordinates.ts#L75)
+Defined in: [coordinates.ts:75](https://github.com/bemoje/chess/blob/7af4530/src/coordinates.ts#L75)
 
 ___
 
@@ -134,7 +134,7 @@ Name | Type |
 
 **Returns:** *number*
 
-Defined in: [coordinates.ts:29](https://github.com/bemoje/chess/blob/a1ccdde/src/coordinates.ts#L29)
+Defined in: [coordinates.ts:29](https://github.com/bemoje/chess/blob/7af4530/src/coordinates.ts#L29)
 
 ___
 
@@ -152,7 +152,7 @@ Name | Type |
 
 **Returns:** *number*[]
 
-Defined in: [coordinates.ts:43](https://github.com/bemoje/chess/blob/a1ccdde/src/coordinates.ts#L43)
+Defined in: [coordinates.ts:43](https://github.com/bemoje/chess/blob/7af4530/src/coordinates.ts#L43)
 
 ___
 
@@ -170,7 +170,7 @@ Name | Type |
 
 **Returns:** *number*
 
-Defined in: [coordinates.ts:22](https://github.com/bemoje/chess/blob/a1ccdde/src/coordinates.ts#L22)
+Defined in: [coordinates.ts:22](https://github.com/bemoje/chess/blob/7af4530/src/coordinates.ts#L22)
 
 ___
 
@@ -188,7 +188,7 @@ Name | Type |
 
 **Returns:** *string*
 
-Defined in: [coordinates.ts:36](https://github.com/bemoje/chess/blob/a1ccdde/src/coordinates.ts#L36)
+Defined in: [coordinates.ts:36](https://github.com/bemoje/chess/blob/7af4530/src/coordinates.ts#L36)
 
 ___
 
@@ -206,7 +206,7 @@ Name | Type |
 
 **Returns:** *string*
 
-Defined in: [coordinates.ts:8](https://github.com/bemoje/chess/blob/a1ccdde/src/coordinates.ts#L8)
+Defined in: [coordinates.ts:8](https://github.com/bemoje/chess/blob/7af4530/src/coordinates.ts#L8)
 
 ___
 
@@ -224,7 +224,7 @@ Name | Type |
 
 **Returns:** *string*
 
-Defined in: [coordinates.ts:15](https://github.com/bemoje/chess/blob/a1ccdde/src/coordinates.ts#L15)
+Defined in: [coordinates.ts:15](https://github.com/bemoje/chess/blob/7af4530/src/coordinates.ts#L15)
 
 ___
 
@@ -242,7 +242,7 @@ Name | Type |
 
 **Returns:** *boolean*
 
-Defined in: [coordinates.ts:64](https://github.com/bemoje/chess/blob/a1ccdde/src/coordinates.ts#L64)
+Defined in: [coordinates.ts:64](https://github.com/bemoje/chess/blob/7af4530/src/coordinates.ts#L64)
 
 ___
 
@@ -260,7 +260,7 @@ Name | Type |
 
 **Returns:** *boolean*
 
-Defined in: [coordinates.ts:57](https://github.com/bemoje/chess/blob/a1ccdde/src/coordinates.ts#L57)
+Defined in: [coordinates.ts:57](https://github.com/bemoje/chess/blob/7af4530/src/coordinates.ts#L57)
 
 ___
 
@@ -278,4 +278,4 @@ Name | Type |
 
 **Returns:** *boolean*
 
-Defined in: [coordinates.ts:50](https://github.com/bemoje/chess/blob/a1ccdde/src/coordinates.ts#L50)
+Defined in: [coordinates.ts:50](https://github.com/bemoje/chess/blob/7af4530/src/coordinates.ts#L50)
