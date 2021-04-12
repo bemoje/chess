@@ -2,7 +2,7 @@ import { Board } from './Board';
 import { Player } from './Player';
 import { Move } from './Move';
 import { Position } from './Position';
-import { Piece } from './AbstractPiece';
+import { Piece } from './pieces/AbstractPiece';
 export declare class Game {
     /**
      * Recreates a Game instance from a previously stringified Game instance.
@@ -98,7 +98,7 @@ export declare class Game {
      *
      * @throws {Error} on invalid move, unless `skipValidation` is true.
      */
-    makeMove(pieceOrCoordinate: Piece | Position, to: Position | string | Array<number>, skipValidation?: boolean): void;
+    makeMove(pieceOrCoordinate: Piece | Position, to: Position | string | Array<number>, skipValidation?: boolean): Game;
     /**
      * Returns a deep clone of the game instance.
      */

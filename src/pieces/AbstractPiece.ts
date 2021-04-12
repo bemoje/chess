@@ -1,14 +1,37 @@
-import type { Player } from './Player';
-import type { Position } from './Position';
-import type { Game } from './Game';
-import type { Move } from './Move';
+import type { Player } from '../Player';
+import type { Position } from '../Position';
+import type { Game } from '../Game';
+import type { Move } from '../Move';
 
+/**
+ * Abstract piece class that each type of Piece (class) will extend.
+ */
 export abstract class Piece {
+  /**
+   * The Player who owns the Piece.
+   */
   public player: Player;
+
+  /**
+   * Manually set piece index value. Only unique per Player instance.
+   */
   public index: number;
+
+  /**
+   * The Position of the piece.
+   */
   public position: Position | null;
+
+  /**
+   * The number of times the piece has moved.
+   */
   public moveCount: number;
 
+  /**
+   * @param player - The Player who owns the Piece.
+   * @param index - Manually set piece index value. Only unique per Player instance.
+   * @param position - The Position of the piece.
+   */
   public constructor(player: Player, index: number, position: Position) {
     this.player = player;
     this.index = index;
@@ -135,25 +158,21 @@ export abstract class Piece {
 
   /**
    * Returns whether a move to a target position is a castling move.
+   * The King and Rook classes override this method.
    */
   public isCastleMove(_target: Position): boolean {
     return false;
-    _target; // bypasses typescript warning
   }
 
   /**
    * Returns whether a move to a position is a valid move.
    */
   public isValidMove(target: Position): boolean {
-    if (this.isCastleMove(target)) return true;
-    let res = false;
-    this.forEachValidMovePosition((position) => {
-      if (position.compare(target)) {
-        res = true;
-        // end iteration
-        return true;
-      } else return;
-    });
-    return res;
+    return (
+      this.isCastleMove(target) ||
+      !!this.forEachValidMovePosition((position) => {
+        return position.compare(target);
+      })
+    );
   }
 }

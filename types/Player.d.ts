@@ -1,4 +1,4 @@
-import type { Piece } from './AbstractPiece';
+import type { Piece } from './pieces/AbstractPiece';
 import type { Game } from './Game';
 import type { Move } from './Move';
 export declare class Player {

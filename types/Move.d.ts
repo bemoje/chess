@@ -1,4 +1,4 @@
-import type { Piece } from './AbstractPiece';
+import type { Piece } from './pieces/AbstractPiece';
 import type { Position } from './Position';
 export declare class Move {
     piece: Piece;

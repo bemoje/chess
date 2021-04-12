@@ -1,51 +1,113 @@
 import { Board } from './Board';
 import { Player } from './Player';
 import { Move } from './Move';
-import { isEven } from './util';
+import { isEven, uInt8ToBytes, bytesToUint8Array } from './util';
 import { Position } from './Position';
-import { Piece } from './AbstractPiece';
+import { Piece } from './pieces/AbstractPiece';
 import { from_A1_to_Position, from_XY_to_Position } from './coordinates';
 
+/**
+ * The default exported class from which the chess game is controlled.
+ */
 export class Game {
   /**
-   * Recreates a Game instance from a previously stringified Game instance.
-   * @throws {Error} on invalid JSON data
+   * Parse and optionally validate JSON data.
+   *
+   * @param data - A previously stringified Game instance.
+   * @param skipValidation - skips validation of the move's legality according to the rules of the game.
+   *
+   * @throws {TypeError} on invalid JSON data.
    */
-  public static fromJSON(data: string): Game {
+  private static parseJSON(
+    data: string,
+    skipValidation: boolean,
+  ): Array<number> {
+    let moves;
     try {
-      const game = new Game();
-      const moves = JSON.parse(data);
-      for (let i = 0; i < moves.length; i++) {
-        game.makeMove(moves[i][0], moves[i][1]);
+      moves = JSON.parse(data);
+      if (!skipValidation) {
+        if (!Number.isInteger(moves.length / 4)) {
+          throw new TypeError('Invalid length.');
+        }
+        for (let i = 0; i < moves.length; i++) {
+          if (!Number.isInteger(moves[i])) {
+            throw new TypeError('Expected an array of integers only.');
+          }
+        }
       }
-      return game;
     } catch (e) {
-      throw new Error('Invalid JSON data');
+      throw new TypeError('Invalid JSON data. ' + e.message);
     }
+    return moves;
   }
 
   /**
-   * The game board
+   * Recreates a Game instance from a previously parsed stringified or serialized Game instance converted to array.
+   * Used internally by @see Game.fromJSON() and @see Game.deserialize()
+   *
+   * @param data - A previously stringified Game instance.
+   * @param skipValidation - skips validation of the move's legality according to the rules of the game.
+   */
+  private static fromArray(data: Array<number>, skipValidation: boolean) {
+    const game = new Game();
+    for (let i = 0; i < data.length; i += 4) {
+      game.makeMove(
+        new Position(data[i], data[i + 1]),
+        new Position(data[i + 2], data[i + 3]),
+        skipValidation,
+      );
+    }
+    return game;
+  }
+
+  /**
+   * Recreates a Game instance from a previously stringified Game instance.
+   * @see Game.prototype.toJSON()
+   *
+   * @param data - A previously stringified Game instance.
+   * @param skipValidation - skips validation of the move's legality according to the rules of the game as well as the data.
+
+   * @throws {Error} on invalid JSON data.
+   */
+  public static fromJSON(data: string, skipValidation = false): Game {
+    return this.fromArray(this.parseJSON(data, skipValidation), skipValidation);
+  }
+
+  /**
+   * Recreates a Game instance from binary data.
+   * @see Game.prototype.serialize()
+   *
+   * @param data - A previously stringified Game instance.
+   * @param skipValidation - skips validation of the move's legality according to the rules of the game as well as the data.
+
+   * @throws {Error} on invalid JSON data.
+   */
+  public static deserialze(data: Uint8Array, skipValidation = false): Game {
+    return this.fromArray(uInt8ToBytes(data), skipValidation);
+  }
+
+  /**
+   * The game board.
    */
   public board: Board;
 
   /**
-   * White player
+   * White player.
    */
   public white: Player;
 
   /**
-   * Black player
+   * Black player.
    */
   public black: Player;
 
   /**
-   * An array containing all moves made in the game
+   * An array containing all moves made in the game.
    */
   public moves: Array<Move>;
 
   /**
-   * Returns an instance of Game
+   * Creates and initializes a new chess game.
    */
   public constructor() {
     this.board = new Board(this);
@@ -141,6 +203,8 @@ export class Game {
 
   /**
    * Ensures the argument is converted into a Position instance.
+   *
+   * @param from - a Position instance, A1-notation string or XY-coordinate-array.
    */
   private ensurePosition(from: Position | string | Array<number>): Position {
     return from instanceof Position
@@ -152,6 +216,8 @@ export class Game {
 
   /**
    * Get a Piece instance from the board by either Position, an A1 string or XY-coordinates
+   *
+   * @param from - a Position instance, A1-notation string or XY-coordinate-array. If a Piece instance is passed, it is returned.
    */
   private getPiece(
     from?: Position | string | Array<number> | Piece,
@@ -205,7 +271,7 @@ export class Game {
     pieceOrCoordinate: Piece | Position,
     to: Position | string | Array<number>,
     skipValidation?: boolean,
-  ): void {
+  ): Game {
     to = this.ensurePosition(to);
     const piece = this.getPiece(pieceOrCoordinate);
     if (piece && (skipValidation || piece.isValidMove(to))) {
@@ -229,6 +295,7 @@ export class Game {
     } else {
       throw new Error('Invalid move.');
     }
+    return this;
   }
 
   /**
@@ -251,9 +318,28 @@ export class Game {
   }
 
   /**
-   * Stringifies the necessary data for reconstructing the game.
+   * Stringifies the data necessary for completely reconstructing the Game instance.
+   * @see Game.fromJSON()
    */
-  public toJSON(): string {
-    return JSON.stringify(this.moves);
+  public toJSON(): Array<number> {
+    const moves = this.moves;
+    const l = moves.length;
+    const res = new Array(l * 4);
+    for (let move, i = 0; i < l; i++) {
+      move = moves[i];
+      res[i * 4 + 0] = move.from.x;
+      res[i * 4 + 1] = move.from.y;
+      res[i * 4 + 2] = move.to.x;
+      res[i * 4 + 3] = move.to.y;
+    }
+    return res;
+  }
+
+  /**
+   * Serializes the data necessary for completely reconstructing the Game instance to binary.
+   * @see Game.deserialize()
+   */
+  public serialize(): Uint8Array {
+    return bytesToUint8Array(this.toJSON());
   }
 }

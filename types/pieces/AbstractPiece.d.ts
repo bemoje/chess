@@ -1,7 +1,7 @@
-import type { Player } from './Player';
-import type { Position } from './Position';
-import type { Game } from './Game';
-import type { Move } from './Move';
+import type { Player } from '../Player';
+import type { Position } from '../Position';
+import type { Game } from '../Game';
+import type { Move } from '../Move';
 export declare abstract class Piece {
     player: Player;
     index: number;

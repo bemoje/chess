@@ -1,13 +1,13 @@
-export { Bishop } from './Bishop';
+export { Bishop } from './pieces/Bishop';
 export { Board } from './Board';
-export { King } from './King';
-export { Knight } from './Knight';
+export { King } from './pieces/King';
+export { Knight } from './pieces/Knight';
 export { Move } from './Move';
-export { Pawn } from './Pawn';
+export { Pawn } from './pieces/Pawn';
 export { Player } from './Player';
 export { Position } from './Position';
-export { Queen } from './Queen';
-export { Rook } from './Rook';
+export { Queen } from './pieces/Queen';
+export { Rook } from './pieces/Rook';
 export {
   from_X_to_A,
   from_Y_to_1,

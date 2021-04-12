@@ -1178,6 +1178,7 @@
             else {
                 throw new Error('Invalid move.');
             }
+            return this;
         };
         /**
          * Returns a deep clone of the game instance.

@@ -49,3 +49,31 @@ export function createAssertFunction<T>(
 export function isEven(n: number): boolean {
   return n % 2 == 0;
 }
+
+/**
+ * Converts an Uint8Array to an array of integers between 0 and 255.
+ *
+ * @param uInt8 - An Uint8Array instance.
+ */
+export function uInt8ToBytes(uInt8: Uint8Array): Array<number> {
+  const l = uInt8.length;
+  const res = new Array(l);
+  for (let i = 0; i < l; i++) {
+    res[i] = uInt8[i];
+  }
+  return res;
+}
+
+/**
+ * Converts an array of bytes to a Uint8Array.
+ *
+ * @param arr - An array of integers between 0 and 255.
+ */
+export function bytesToUint8Array(arr: Array<number>): Uint8Array {
+  const l = arr.length;
+  const res = new Uint8Array(l);
+  for (let i = 0; i < l; i++) {
+    res[i] = arr[i];
+  }
+  return res;
+}

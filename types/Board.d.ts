@@ -1,7 +1,7 @@
 import type { Position } from './Position';
 import type { Game } from './Game';
 import type { Move } from './Move';
-import type { Piece } from './AbstractPiece';
+import type { Piece } from './pieces/AbstractPiece';
 export declare class Board {
     game: Game;
     grid: Array<Array<Piece | null>>;

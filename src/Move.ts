@@ -1,4 +1,4 @@
-import type { Piece } from './AbstractPiece';
+import type { Piece } from './pieces/AbstractPiece';
 import type { Position } from './Position';
 
 export class Move {
@@ -19,10 +19,10 @@ export class Move {
     this.to = to.clone();
   }
 
-  public toJSON(): Array<Array<number>> {
-    return [
-      [this.from.x, this.from.y],
-      [this.to.x, this.to.y],
-    ];
+  /**
+   * Stringifies the data necessary for completely reconstructing the Move instance.
+   */
+  public toJSON(): Array<number> {
+    return [this.from.x, this.from.y, this.to.x, this.to.y];
   }
 }

@@ -1,6 +1,6 @@
-import { Game } from './Game';
-import { Position } from './Position';
-import { Player } from './Player';
+import { Game } from '../Game';
+import { Position } from '../Position';
+import { Player } from '../Player';
 import { Pawn } from './Pawn';
 import type { Piece } from './AbstractPiece';
 
