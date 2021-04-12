@@ -18,4 +18,11 @@ export class Move {
     this.from = pos.clone();
     this.to = to.clone();
   }
+
+  public toJSON(): Array<Array<number>> {
+    return [
+      [this.from.x, this.from.y],
+      [this.to.x, this.to.y],
+    ];
+  }
 }

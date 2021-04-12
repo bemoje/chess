@@ -56,8 +56,9 @@ export declare abstract class Piece {
      * Iterates all valid move Position instances for this Piece.
      *
      * @param f - a callback function to invoke for each valid move position. If it returns true, iteration ends.
+     * @returns true if iteration was ended before completion.
      */
-    forEachValidMovePosition(f: (position: Position) => boolean | void): void;
+    forEachValidMovePosition(f: (position: Position) => boolean | void): boolean | void;
     /**
      * Returns whether a move to a target position is a castling move.
      */

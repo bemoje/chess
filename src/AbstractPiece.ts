@@ -102,28 +102,31 @@ export abstract class Piece {
    * Iterates all valid move Position instances for this Piece.
    *
    * @param f - a callback function to invoke for each valid move position. If it returns true, iteration ends.
+   * @returns true if iteration was ended before completion.
    */
   public forEachValidMovePosition(
     f: (position: Position) => boolean | void,
-  ): void {
+  ): boolean | void {
     if (this.isOwnTurn) {
       const positions = this.getMovePositionsWithinBounds();
       for (let i = 0; i < positions.length; i++) {
         const item = positions[i];
         if (Array.isArray(item)) {
+          // item is an array of positions where the array represents a move-direction. Used for pieces that can move
+          // further than by one slot on the game board.
           for (let j = 0; j < item.length; j++) {
             if (item[j] && this.isMoveTargetOwnPiece(item[j])) {
               if (f(item[j])) {
-                return;
+                return true;
               }
             } else {
-              // an own piece is in the way, so all following positions will always be invalid.
+              // an own piece is in the way, so all following positions for the current direction will always be invalid.
               break;
             }
           }
         } else if (this.isMoveTargetOwnPiece(item)) {
           if (f(item)) {
-            return;
+            return true;
           }
         }
       }
@@ -134,8 +137,8 @@ export abstract class Piece {
    * Returns whether a move to a target position is a castling move.
    */
   public isCastleMove(_target: Position): boolean {
-    _target;
     return false;
+    _target; // bypasses typescript warning
   }
 
   /**

@@ -118,12 +118,29 @@ describe('(class) Board', () => {
       } else throw new Error('piece is null');
     });
 
+    it('swaps pieces when making a castling move', () => {
+      const king = game.board.getPieceByA1('E1');
+      const targetPos = Position.fromA1('A1');
+      const rook = game.board.getPieceByA1('A1');
+      if (king && rook) {
+        game.makeMove(king, targetPos);
+        expect(game.board.getPieceByA1('E1')).toBe(rook);
+        expect(game.board.getPieceByA1('A1')).toBe(king);
+      } else throw new Error('king or rook is null');
+    });
+
     it('throws on illegal/invalid moves if skipValidation is not ´true´.', () => {
       // TODO
     });
   });
 
   describe('(method) clone', () => {
+    it('returns a deep clone of the game instance.', () => {
+      // TODO
+    });
+  });
+
+  describe('(method) toJSON', () => {
     it('returns a deep clone of the game instance.', () => {
       // TODO
     });

@@ -59,7 +59,7 @@ Name | Type |
 
 Inherited from: void
 
-Defined in: [AbstractPiece.ts:10](https://github.com/bemoje/chess/blob/1c5c430/src/AbstractPiece.ts#L10)
+Defined in: [AbstractPiece.ts:10](https://github.com/bemoje/chess/blob/203a32d/src/AbstractPiece.ts#L10)
 
 ## Properties
 
@@ -69,7 +69,7 @@ Defined in: [AbstractPiece.ts:10](https://github.com/bemoje/chess/blob/1c5c430/s
 
 Inherited from: void
 
-Defined in: [AbstractPiece.ts:8](https://github.com/bemoje/chess/blob/1c5c430/src/AbstractPiece.ts#L8)
+Defined in: [AbstractPiece.ts:8](https://github.com/bemoje/chess/blob/203a32d/src/AbstractPiece.ts#L8)
 
 ___
 
@@ -79,7 +79,7 @@ ___
 
 Inherited from: void
 
-Defined in: [AbstractPiece.ts:10](https://github.com/bemoje/chess/blob/1c5c430/src/AbstractPiece.ts#L10)
+Defined in: [AbstractPiece.ts:10](https://github.com/bemoje/chess/blob/203a32d/src/AbstractPiece.ts#L10)
 
 ___
 
@@ -89,7 +89,7 @@ ___
 
 Inherited from: void
 
-Defined in: [AbstractPiece.ts:7](https://github.com/bemoje/chess/blob/1c5c430/src/AbstractPiece.ts#L7)
+Defined in: [AbstractPiece.ts:7](https://github.com/bemoje/chess/blob/203a32d/src/AbstractPiece.ts#L7)
 
 ___
 
@@ -99,7 +99,7 @@ ___
 
 Inherited from: void
 
-Defined in: [AbstractPiece.ts:9](https://github.com/bemoje/chess/blob/1c5c430/src/AbstractPiece.ts#L9)
+Defined in: [AbstractPiece.ts:9](https://github.com/bemoje/chess/blob/203a32d/src/AbstractPiece.ts#L9)
 
 ## Accessors
 
@@ -111,7 +111,7 @@ Returns the player color of the Player instance that this Piece belongs to.
 
 **Returns:** *string*
 
-Defined in: [AbstractPiece.ts:44](https://github.com/bemoje/chess/blob/1c5c430/src/AbstractPiece.ts#L44)
+Defined in: [AbstractPiece.ts:44](https://github.com/bemoje/chess/blob/203a32d/src/AbstractPiece.ts#L44)
 
 ___
 
@@ -123,7 +123,7 @@ Returns the Game instance that this Piece is associated with.
 
 **Returns:** [*Game*](game.md)
 
-Defined in: [AbstractPiece.ts:23](https://github.com/bemoje/chess/blob/1c5c430/src/AbstractPiece.ts#L23)
+Defined in: [AbstractPiece.ts:23](https://github.com/bemoje/chess/blob/203a32d/src/AbstractPiece.ts#L23)
 
 ___
 
@@ -135,7 +135,7 @@ Returns whether or not this Piece has made any moves yet.
 
 **Returns:** *boolean*
 
-Defined in: [AbstractPiece.ts:37](https://github.com/bemoje/chess/blob/1c5c430/src/AbstractPiece.ts#L37)
+Defined in: [AbstractPiece.ts:37](https://github.com/bemoje/chess/blob/203a32d/src/AbstractPiece.ts#L37)
 
 ___
 
@@ -147,7 +147,7 @@ Returns whether it is this Piece's Player's turn to move.
 
 **Returns:** *boolean*
 
-Defined in: [AbstractPiece.ts:90](https://github.com/bemoje/chess/blob/1c5c430/src/AbstractPiece.ts#L90)
+Defined in: [AbstractPiece.ts:90](https://github.com/bemoje/chess/blob/203a32d/src/AbstractPiece.ts#L90)
 
 ___
 
@@ -159,7 +159,7 @@ Returns whether this Piece is still on the board.
 
 **Returns:** *boolean*
 
-Defined in: [AbstractPiece.ts:51](https://github.com/bemoje/chess/blob/1c5c430/src/AbstractPiece.ts#L51)
+Defined in: [AbstractPiece.ts:51](https://github.com/bemoje/chess/blob/203a32d/src/AbstractPiece.ts#L51)
 
 ___
 
@@ -171,7 +171,7 @@ Returns an array of Move instances that represent moves made by this Piece.
 
 **Returns:** [*Move*](move.md)[]
 
-Defined in: [AbstractPiece.ts:58](https://github.com/bemoje/chess/blob/1c5c430/src/AbstractPiece.ts#L58)
+Defined in: [AbstractPiece.ts:58](https://github.com/bemoje/chess/blob/203a32d/src/AbstractPiece.ts#L58)
 
 ___
 
@@ -183,13 +183,13 @@ Returns the class name of the Piece.
 
 **Returns:** *string*
 
-Defined in: [AbstractPiece.ts:30](https://github.com/bemoje/chess/blob/1c5c430/src/AbstractPiece.ts#L30)
+Defined in: [AbstractPiece.ts:30](https://github.com/bemoje/chess/blob/203a32d/src/AbstractPiece.ts#L30)
 
 ## Methods
 
 ### forEachValidMovePosition
 
-▸ **forEachValidMovePosition**(`f`: (`position`: [*Position*](position.md)) => *boolean* \| *void*): *void*
+▸ **forEachValidMovePosition**(`f`: (`position`: [*Position*](position.md)) => *boolean* \| *void*): *boolean* \| *void*
 
 Iterates all valid move Position instances for this Piece.
 
@@ -197,13 +197,15 @@ Iterates all valid move Position instances for this Piece.
 
 Name | Type | Description |
 :------ | :------ | :------ |
-`f` | (`position`: [*Position*](position.md)) => *boolean* \| *void* | a callback function to invoke for each valid move position. If it returns true, iteration ends.    |
+`f` | (`position`: [*Position*](position.md)) => *boolean* \| *void* | a callback function to invoke for each valid move position. If it returns true, iteration ends.   |
 
-**Returns:** *void*
+**Returns:** *boolean* \| *void*
+
+true if iteration was ended before completion.
 
 Inherited from: void
 
-Defined in: [AbstractPiece.ts:106](https://github.com/bemoje/chess/blob/1c5c430/src/AbstractPiece.ts#L106)
+Defined in: [AbstractPiece.ts:107](https://github.com/bemoje/chess/blob/203a32d/src/AbstractPiece.ts#L107)
 
 ___
 
@@ -217,7 +219,7 @@ Returns a Position array with all piece-specific move positions within bounds of
 
 Overrides: void
 
-Defined in: [Knight.ts:8](https://github.com/bemoje/chess/blob/1c5c430/src/Knight.ts#L8)
+Defined in: [Knight.ts:8](https://github.com/bemoje/chess/blob/203a32d/src/Knight.ts#L8)
 
 ___
 
@@ -237,7 +239,7 @@ Name | Type |
 
 Inherited from: void
 
-Defined in: [AbstractPiece.ts:136](https://github.com/bemoje/chess/blob/1c5c430/src/AbstractPiece.ts#L136)
+Defined in: [AbstractPiece.ts:139](https://github.com/bemoje/chess/blob/203a32d/src/AbstractPiece.ts#L139)
 
 ___
 
@@ -257,7 +259,7 @@ Name | Type |
 
 Inherited from: void
 
-Defined in: [AbstractPiece.ts:82](https://github.com/bemoje/chess/blob/1c5c430/src/AbstractPiece.ts#L82)
+Defined in: [AbstractPiece.ts:82](https://github.com/bemoje/chess/blob/203a32d/src/AbstractPiece.ts#L82)
 
 ___
 
@@ -277,7 +279,7 @@ Name | Type |
 
 Inherited from: void
 
-Defined in: [AbstractPiece.ts:144](https://github.com/bemoje/chess/blob/1c5c430/src/AbstractPiece.ts#L144)
+Defined in: [AbstractPiece.ts:147](https://github.com/bemoje/chess/blob/203a32d/src/AbstractPiece.ts#L147)
 
 ___
 
@@ -297,7 +299,7 @@ Name | Type |
 
 Inherited from: void
 
-Defined in: [AbstractPiece.ts:67](https://github.com/bemoje/chess/blob/1c5c430/src/AbstractPiece.ts#L67)
+Defined in: [AbstractPiece.ts:67](https://github.com/bemoje/chess/blob/203a32d/src/AbstractPiece.ts#L67)
 
 ___
 
@@ -311,4 +313,4 @@ Sets the position property to null, which means that this Piece is no longer on 
 
 Inherited from: void
 
-Defined in: [AbstractPiece.ts:75](https://github.com/bemoje/chess/blob/1c5c430/src/AbstractPiece.ts#L75)
+Defined in: [AbstractPiece.ts:75](https://github.com/bemoje/chess/blob/203a32d/src/AbstractPiece.ts#L75)

@@ -146,6 +146,7 @@ var Piece = /** @class */ (function () {
      * Iterates all valid move Position instances for this Piece.
      *
      * @param f - a callback function to invoke for each valid move position. If it returns true, iteration ends.
+     * @returns true if iteration was ended before completion.
      */
     Piece.prototype.forEachValidMovePosition = function (f) {
         if (this.isOwnTurn) {
@@ -153,21 +154,23 @@ var Piece = /** @class */ (function () {
             for (var i = 0; i < positions.length; i++) {
                 var item = positions[i];
                 if (Array.isArray(item)) {
+                    // item is an array of positions where the array represents a move-direction. Used for pieces that can move
+                    // further than by one slot on the game board.
                     for (var j = 0; j < item.length; j++) {
                         if (item[j] && this.isMoveTargetOwnPiece(item[j])) {
                             if (f(item[j])) {
-                                return;
+                                return true;
                             }
                         }
                         else {
-                            // an own piece is in the way, so all following positions will always be invalid.
+                            // an own piece is in the way, so all following positions for the current direction will always be invalid.
                             break;
                         }
                     }
                 }
                 else if (this.isMoveTargetOwnPiece(item)) {
                     if (f(item)) {
-                        return;
+                        return true;
                     }
                 }
             }
@@ -459,6 +462,12 @@ var Move = /** @class */ (function () {
         this.from = pos.clone();
         this.to = to.clone();
     }
+    Move.prototype.toJSON = function () {
+        return [
+            [this.from.x, this.from.y],
+            [this.to.x, this.to.y],
+        ];
+    };
     return Move;
 }());
 
@@ -842,7 +851,7 @@ var Position = /** @class */ (function () {
     };
     /**
      * Returns an array of new Position instances that are the result of recursively moving by 1 in all diagonal
-     * directions. from the position on the board that this instance describes until the resulting Position instance
+     * directions from the position on the board that this instance describes until the resulting Position instance
      * becomes out of bounds of the board.
      */
     Position.prototype.getAllDiagonalRecursive = function () {
@@ -959,12 +968,28 @@ var Player = /** @class */ (function () {
 }());
 
 var Game = /** @class */ (function () {
+    /**
+     * Returns an instance of Game
+     */
     function Game() {
         this.board = new Board(this);
         this.white = new Player(this, 'white');
         this.black = new Player(this, 'black');
         this.moves = [];
     }
+    /**
+     * Recreates a Game instance from a previously stringified Game instance.
+     */
+    Game.fromJSON = function (data) {
+        var game = new Game();
+        var moves = JSON.parse(data);
+        for (var i = 0; i < moves.length; i++) {
+            var from = moves[i][0];
+            var to = moves[i][1];
+            game.makeMove(new Position(from[0], from[1]), new Position(to[0], to[1]), true);
+        }
+        return game;
+    };
     Object.defineProperty(Game.prototype, "isWhitesTurnToMove", {
         /**
          * Returns whether it is white player's turn to move.
@@ -999,13 +1024,14 @@ var Game = /** @class */ (function () {
      * Iterate each piece on the board.
      *
      * @param f - a callback function to invoke for each Piece. If it returns true, iteration ends.
+     * @returns true if iteration was ended before completion.
      */
     Game.prototype.forEachPiece = function (f) {
         var w = this.white.pieces;
         var b = this.black.pieces;
         for (var i = 0; i < 16; i++) {
-            if (f(w[i]) === true || f(b[i]) === true) {
-                return;
+            if (f(w[i]) || f(b[i])) {
+                return true;
             }
         }
     };
@@ -1013,12 +1039,13 @@ var Game = /** @class */ (function () {
      * Iterate each white piece on the board.
      *
      * @param f - a callback function to invoke for each Piece. If it returns true, iteration ends.
+     * @returns true if iteration was ended before completion.
      */
     Game.prototype.forEachWhitePiece = function (f) {
         var w = this.white.pieces;
         for (var i = 0; i < 16; i++) {
-            if (f(w[i]) === true) {
-                return;
+            if (f(w[i])) {
+                return true;
             }
         }
     };
@@ -1026,12 +1053,13 @@ var Game = /** @class */ (function () {
      * Iterate each black piece on the board.
      *
      * @param f - a callback function to invoke for each Piece. If it returns true, iteration ends.
+     * @returns true if iteration was ended before completion.
      */
     Game.prototype.forEachBlackPiece = function (f) {
         var b = this.black.pieces;
         for (var i = 0; i < 16; i++) {
-            if (f(b[i]) === true) {
-                return;
+            if (f(b[i])) {
+                return true;
             }
         }
     };
@@ -1039,6 +1067,7 @@ var Game = /** @class */ (function () {
      * Iterate each piece on the board belonging to the player whose turn it is to move.
      *
      * @param f - a callback function to invoke for each Piece. If it returns true, iteration ends.
+     * @returns true if iteration was ended before completion.
      */
     Game.prototype.forEachActivePlayerPiece = function (f) {
         return this.isWhitesTurnToMove
@@ -1046,18 +1075,46 @@ var Game = /** @class */ (function () {
             : this.forEachBlackPiece(f);
     };
     /**
+     * Iterate each valid move position for either all active player pieces or a given piece.
+     *
+     * @param f - a callback function to invoke for each Piece. If it returns true, iteration ends.
+     * @param pieceOrPosition - only iterate a single piece's valid move positions.
+     * @returns true if iteration was ended before completion.
+     */
+    Game.prototype.forEachValidMove = function (f, pieceOrPosition) {
+        var piece = pieceOrPosition instanceof Position
+            ? this.board.getPieceByPosition(pieceOrPosition)
+            : pieceOrPosition;
+        return piece
+            ? piece.forEachValidMovePosition(function (pos) {
+                return f(pos, piece);
+            })
+            : this.forEachActivePlayerPiece(function (piece) {
+                if (piece) {
+                    return piece.forEachValidMovePosition(function (pos) {
+                        return f(pos, piece);
+                    });
+                }
+                else
+                    return;
+            });
+    };
+    /**
      * Moves a piece on the board.
      * If the target position already has a piece belonging to the opposing player, it is removed from the board.
      *
-     * @param piece - The Piece to move.
+     * @param pieceOrPosition - The Piece to move.
      * @param position - The Position to move to.
      * @param skipValidation - skips validation of the move's legality according to the rules of the game. This is used
      * internally for performance reasons when cloning a game, repeating the moves that were previously validated.
      *
      * @throws {Error} on invalid move, unless `skipValidation` is true.
      */
-    Game.prototype.makeMove = function (piece, position, skipValidation) {
-        if (skipValidation || piece.isValidMove(position)) {
+    Game.prototype.makeMove = function (pieceOrPosition, position, skipValidation) {
+        var piece = pieceOrPosition instanceof Position
+            ? this.board.getPieceByPosition(pieceOrPosition)
+            : pieceOrPosition;
+        if (piece && (skipValidation || piece.isValidMove(position))) {
             var targetPiece = piece.game.board.getPieceByPosition(position);
             var move = void 0;
             if (piece.isCastleMove(position)) {
@@ -1089,12 +1146,17 @@ var Game = /** @class */ (function () {
         var w = game.white.pieces;
         var b = game.black.pieces;
         var moves = this.moves;
-        var l = moves.length;
-        for (var piece = void 0, i = 0; i < l; i++) {
-            piece = moves[i].piece;
+        for (var i = 0; i < moves.length; i++) {
+            var piece = moves[i].piece;
             game.makeMove((piece.color === 'white' ? w : b)[piece.index], moves[i].to.clone(), true);
         }
         return game;
+    };
+    /**
+     * Stringifies the necessary data for reconstructing the game.
+     */
+    Game.prototype.toJSON = function () {
+        return JSON.stringify(this.moves);
     };
     return Game;
 }());

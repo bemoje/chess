@@ -336,7 +336,7 @@ export class Position {
 
   /**
    * Returns an array of new Position instances that are the result of recursively moving by 1 in all diagonal
-   * directions. from the position on the board that this instance describes until the resulting Position instance
+   * directions from the position on the board that this instance describes until the resulting Position instance
    * becomes out of bounds of the board.
    */
   public getAllDiagonalRecursive(): Array<Array<Position>> {
